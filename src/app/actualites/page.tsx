@@ -1,0 +1,183 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { Calendar, MapPin, Users, Clock, ChevronRight } from "lucide-react";
+import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
+import { useLang } from "@/context/LangContext";
+import type { DBEvent } from "@/lib/db";
+
+const TYPE_LABELS: Record<string, string> = {
+  seminaire: "Séminaire",
+  conference: "Conférence",
+  atelier: "Atelier",
+  autre: "Actualité",
+};
+
+const TYPE_COLORS: Record<string, string> = {
+  seminaire: "bg-blue-500/10 text-blue-400 border-blue-900/30",
+  conference: "bg-purple-500/10 text-purple-400 border-purple-900/30",
+  atelier: "bg-green-500/10 text-green-400 border-green-900/30",
+  autre: "bg-slate-500/10 text-slate-400 border-slate-700",
+};
+
+export default function ActualitesPage() {
+  const { t } = useLang();
+  const { isAuthenticated, user, token } = useAuth();
+  const [events, setEvents] = useState<DBEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [registering, setRegistering] = useState<string | null>(null);
+  const [registered, setRegistered] = useState<Set<string>>(new Set());
+  const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    fetch("/api/events")
+      .then((r) => r.json())
+      .then(setEvents)
+      .catch(() => setEvents([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const now = Date.now();
+  const upcoming = events.filter((e) => new Date(e.dateDebut).getTime() > now);
+  const past = events.filter((e) => new Date(e.dateDebut).getTime() <= now);
+  const display = filter === "past" ? past : upcoming;
+
+  const handleRegister = async (eventId: string) => {
+    if (!isAuthenticated) return;
+    setRegistering(eventId);
+    try {
+      const res = await fetch(`/api/events/${eventId}/register`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) setRegistered((prev) => new Set([...prev, eventId]));
+    } finally {
+      setRegistering(null);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="border-b border-slate-900 pb-8 mb-10">
+          <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
+            {t("events.sectionTag")}
+          </span>
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("events.title")}</h1>
+          <p className="mt-2 text-slate-400 text-sm">Séminaires, conférences et ateliers du laboratoire UMMISCO.</p>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex gap-2 mb-8">
+          {["upcoming", "past"].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider border transition-all ${
+                filter === f
+                  ? "bg-blue-600/20 text-blue-400 border-blue-900/40"
+                  : "border-slate-800 text-slate-500 hover:text-slate-300"
+              }`}
+            >
+              {f === "upcoming" ? t("events.upcoming") : t("events.past")} ({f === "upcoming" ? upcoming.length : past.length})
+            </button>
+          ))}
+        </div>
+
+        {loading ? (
+          <div className="text-center py-20 text-slate-500 text-sm">{t("common.loading")}</div>
+        ) : (
+          <div className="space-y-6">
+            {display.map((ev) => {
+              const isRegistered = registered.has(ev.id) || ev.inscrits.includes(user?.id || "");
+              const isFull = ev.inscrits.length >= ev.capacite;
+              const dateStart = new Date(ev.dateDebut);
+              return (
+                <div key={ev.id} className="rounded-xl border border-slate-900 bg-slate-900/10 p-6 hover:border-slate-800 transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-start gap-6">
+                    {/* Date block */}
+                    <div className="flex-none text-center bg-slate-900 rounded-xl p-4 w-20">
+                      <div className="text-2xl font-extrabold text-white">{dateStart.getDate()}</div>
+                      <div className="text-[10px] text-slate-400 uppercase tracking-wider">{dateStart.toLocaleDateString("fr-FR", { month: "short" })}</div>
+                      <div className="text-[10px] text-slate-500">{dateStart.getFullYear()}</div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <span className={`inline-flex items-center rounded px-2 py-0.5 text-[9px] font-bold border uppercase tracking-wider ${TYPE_COLORS[ev.type]}`}>
+                          {TYPE_LABELS[ev.type]}
+                        </span>
+                        {filter !== "past" && (
+                          <span className="text-[9px] text-green-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+                            À venir
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-sm font-bold text-white leading-snug mb-2">{ev.titre}</h3>
+                      <p className="text-xs text-slate-400 leading-relaxed mb-4">{ev.description}</p>
+
+                      <div className="flex flex-wrap gap-4 text-[10px] text-slate-500">
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="h-3 w-3" /> {ev.lieu}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Clock className="h-3 w-3" />
+                          {dateStart.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+                        </span>
+                        {ev.speaker && (
+                          <span className="flex items-center gap-1.5">
+                            {t("events.speaker")} <strong className="text-slate-400">{ev.speaker}</strong>
+                          </span>
+                        )}
+                        <span className="flex items-center gap-1.5">
+                          <Users className="h-3 w-3" /> {ev.inscrits.length}/{ev.capacite} inscrits
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Register button */}
+                    {filter !== "past" && (
+                      <div className="flex-none">
+                        {isAuthenticated ? (
+                          isRegistered ? (
+                            <span className="inline-flex items-center gap-1.5 rounded-lg bg-green-600/10 px-4 py-2 text-[10px] font-bold text-green-400 border border-green-900/30">
+                              ✓ Inscrit(e)
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleRegister(ev.id)}
+                              disabled={isFull || registering === ev.id}
+                              className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-white hover:bg-ummisco-blue/90 disabled:opacity-50 active:scale-95 transition-all"
+                            >
+                              {registering === ev.id ? "..." : t("events.register")}
+                              <ChevronRight className="h-3 w-3" />
+                            </button>
+                          )
+                        ) : (
+                          <a href="/connexion" className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-4 py-2 text-[10px] font-semibold text-slate-400 hover:text-slate-200 transition-all">
+                            Se connecter pour s'inscrire
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {display.length === 0 && (
+              <div className="rounded-xl border border-slate-900 border-dashed p-16 text-center text-slate-500 text-xs">
+                {filter === "upcoming" ? "Aucun événement à venir pour l'instant." : "Aucun événement passé."}
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
+}

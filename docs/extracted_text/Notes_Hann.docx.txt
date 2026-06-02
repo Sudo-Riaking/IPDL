@@ -1,0 +1,56 @@
+Autre fonctionnalité : 
+Créer au niveau de la plateforme un lien avec toutes les autres entités UMMISCO une page qui pourra lier à toutes les autres applications, projets d’UMMISCO.
+
+Partie du site dédiée à la publication des données (datasets), toute ressource pouvant être retirée d’un projet. Quelqu’un publie ses datasets et ils sont accessibles à tout le monde. Certaines datasets sont privées, protégées (très sensibles) et d’autres publiques.
+Les protégées sont accessibles à tout membre d’UMMISCO. Les privées ne sont accessibles qu’à un certain groupe de membres d’UMMISCO. 
+
+Rôles :
+Au lieu de créer des rôles comme éditeur, visiteur, on utilise ACL : on a une liste de permissions. Le rôle est défini par les permissions accordées lors de la création.  Pour chaque fonctionnalité, on définit un ensemble de permissions.
+
+Mettre back office et front office
+
+Publications :
+Les publications doivent être validées (par les encadrants) pas forcément au niveau de la plateforme, ptet dans la vie réelle.
+Les publications servent à la valorisation de la recherche mais elles sont déjà publiées dans les revues internationales :
+Les articles sont validés par des entités internationales, non pas UMMISCO. Une fois validé, ils postent ça au niveau du site.
+
+Avant la validation, ce qui intéresse les valideurs, c’est la contribution scientifique, ils s’en foutent de qui tu es.
+
+Problèmes de valorisation :
+Le site n’est pas moderne.
+Il y a des contrats de doctorat disponibles et les gens intéressés peuvent se renseigner depuis le site.
+
+Partage de publications :
+Actuellement par clé USB sûrement.
+
+Le serveur existe déjà au niveau de l’ESP
+
+Accès :
+Pour le grand public, un appareil mobile est plus susceptible d’être utilisé mais pour des étudiants et doctorants comme nous, on utilisera surement un ordi.
+
+On pourrait s’inspirer de google scholar : pas d=besoin d’uploader des publications, elles sont directement référencées grâce à un lien avec les revues internationales (mais ça reste dans la plateforme, ex : les e-frames je pense :  balises utilisées par youtube ; on sort en cliquant sur le bouton de lecture mais on ne le sait pas) mais pour les rapports, on peut uploader.
+
+Dès qu’on a le rôle de chercheur, on peut faire une publication sans validation.
+C’est selon les permissions qu’on affiche tel ou tel élément au niveau de la plateforme.
+
+Permettre que depuis la plateforme, on puisse accéder aux services d’autres applications, soit par e-frame soit par liste d’applications intégrables par l’admin à l’appli. Dans le cas d’e-frame, faudrait sauvegarder le lien au niveau de la bd.
+
+Quand le prof parle de simulation, il parle de modélisation. On ne fera pas de simulations à proprement parler, ce n’est pas possible pour nous. On mettra juste des liens vers l’application elle-même (je n’ai pas trop compris).
+
+Dark mode optionnel sinon on peut avoir une mauvaise note.
+
+Lors de la création de compte, on peut définir notre « rôle » genre chercheur, étudiant, etc. différent des rôles au niveau de la hiérarchie de la plateforme. En essayant d’accéder à telle ressource, l’admin pourra valider.
+Actuellement, il n’y a pas de rôles. L’admin créera les rôles, nous-mêmes pouvons ne pas connaître les rôles. Exemple : un étudiant demande accès à une certaine fonctionnalité, l’admin accepte en créant un rôle permettant d’y accéder spécifiquement puis le lui attribue.
+
+Ceci n’est pas un site vitrine. C’est une application web. 
+
+Exemple de sites :
+Le site du labo CNRS : Il montre des publications sur le dashboard, plusieurs onglets dont un onglet montrant des données statiques : « nos innovations ». Il y a un onglet « Presse » qui permet aux journalistes d’obtenir des infos en contactant des membres. L’admin a la possibilité de mettre en avant des publications, podcasts, vidéos, des trucs liés à leur labo.
+Il y a également un onglet pour rejoindre le labo qui redirige vers le vrai site du labo.
+
+Le site de INSERM
+INRAE
+SAED
+
+
+

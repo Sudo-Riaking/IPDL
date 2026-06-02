@@ -1,0 +1,213 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { Download, Lock, Eye, Shield, Filter, Database, Loader2 } from "lucide-react";
+import Link from "next/link";
+import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
+import { useLang } from "@/context/LangContext";
+import type { DBDataset } from "@/lib/db";
+
+const ACCESS_COLORS: Record<string, string> = {
+  public:    "bg-green-500/10 text-green-400 border-green-900/30",
+  protected: "bg-blue-500/10 text-blue-400 border-blue-900/30",
+  private:   "bg-red-500/10 text-red-400 border-red-900/30",
+};
+
+const ACCESS_ICONS: Record<string, React.ElementType> = {
+  public:    Eye,
+  protected: Lock,
+  private:   Shield,
+};
+
+export default function DatasetsPage() {
+  const { isAuthenticated, token } = useAuth();
+  const { t } = useLang();
+
+  const [datasets, setDatasets] = useState<DBDataset[]>([]);
+  const [filter, setFilter] = useState<string>("all");
+  const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/datasets", {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+      .then((r) => r.json())
+      .then((d) => setDatasets(d))
+      .catch(() => setDatasets([]))
+      .finally(() => setLoading(false));
+  }, [token]);
+
+  const filtered = filter === "all" ? datasets : datasets.filter((d) => d.acces === filter);
+
+  const handleDownload = async (ds: DBDataset) => {
+    setDownloading(ds.id);
+    try {
+      const res = await fetch(`/api/datasets/${ds.id}/download`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        alert(text || "Téléchargement refusé.");
+        return;
+      }
+
+      // Extract filename from Content-Disposition header
+      const disposition = res.headers.get("Content-Disposition") ?? "";
+      const match = disposition.match(/filename="([^"]+)"/);
+      const filename = match ? match[1] : `dataset_${ds.id}.csv`;
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      // Optimistic counter update
+      setDatasets((prev) =>
+        prev.map((d) => d.id === ds.id ? { ...d, downloads: d.downloads + 1 } : d)
+      );
+    } finally {
+      setDownloading(null);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="border-b border-slate-900 pb-8 mb-10">
+          <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
+            {t("datasets.sectionTag")}
+          </span>
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("datasets.title")}</h1>
+          <p className="mt-2 text-slate-400 text-sm max-w-2xl">{t("datasets.description")}</p>
+        </div>
+
+        {/* Filter bar */}
+        <div className="flex items-center gap-3 mb-8 flex-wrap">
+          <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+            <Filter className="h-3 w-3" /> {t("datasets.filterAccess")} :
+          </div>
+          {["all", "public", "protected", "private"].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border transition-all ${
+                filter === f
+                  ? "bg-blue-600/20 text-blue-400 border-blue-900/40"
+                  : "border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
+              }`}
+            >
+              {f === "all" ? t("datasets.all") : t(`datasets.${f}`)}
+            </button>
+          ))}
+          {isAuthenticated && (
+            <Link
+              href="/dashboard"
+              className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-blue-600/10 px-3 py-1.5 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 transition-all"
+            >
+              <Database className="h-3 w-3" /> {t("datasets.submit")}
+            </Link>
+          )}
+        </div>
+
+        {loading && (
+          <div className="text-center py-20 text-slate-500 text-sm">{t("common.loading")}</div>
+        )}
+
+        {!loading && (
+          <div className="grid gap-6 md:grid-cols-2">
+            {filtered.map((ds) => {
+              const Icon = ACCESS_ICONS[ds.acces];
+              const canDownload =
+                ds.acces === "public" ||
+                (isAuthenticated && ds.acces === "protected");
+              const isDownloading = downloading === ds.id;
+
+              return (
+                <div
+                  key={ds.id}
+                  className="rounded-xl border border-slate-900 bg-slate-900/10 p-6 flex flex-col justify-between hover:border-slate-800 transition-colors"
+                >
+                  <div>
+                    <div className="flex justify-between items-start border-b border-slate-900/60 pb-3 mb-4">
+                      <div>
+                        <h3 className="text-sm font-bold text-white leading-snug">{ds.titre}</h3>
+                        <span className="text-[10px] text-slate-500 mt-0.5 block">
+                          {t("datasets.createdBy")} · {ds.dateDepot}
+                        </span>
+                      </div>
+                      <span
+                        className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[9px] font-bold border uppercase tracking-wider flex-none ml-2 ${ACCESS_COLORS[ds.acces]}`}
+                      >
+                        <Icon className="h-2.5 w-2.5" />
+                        {t(`datasets.${ds.acces}`)}
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-slate-400 leading-relaxed mb-3">{ds.description}</p>
+
+                    <div className="flex flex-wrap gap-2 text-[9px] text-slate-500">
+                      <span>
+                        Type : <strong className="text-slate-400">{ds.type.toUpperCase()}</strong>
+                      </span>
+                      <span>·</span>
+                      <span>
+                        Licence : <strong className="text-slate-400">{ds.licence}</strong>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-900 flex items-center justify-between text-xs text-slate-500">
+                    <span>
+                      {ds.size} · {ds.downloads} {t("datasets.downloads")}
+                    </span>
+
+                    {canDownload ? (
+                      <button
+                        onClick={() => handleDownload(ds)}
+                        disabled={isDownloading}
+                        className="inline-flex items-center gap-1.5 rounded bg-green-600 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white hover:bg-green-700 active:scale-95 disabled:opacity-70 transition-all"
+                      >
+                        {isDownloading ? (
+                          <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Préparation...</>
+                        ) : (
+                          <><Download className="h-3.5 w-3.5" /> {t("datasets.download")}</>
+                        )}
+                      </button>
+                    ) : ds.acces === "private" ? (
+                      <span className="text-[10px] text-red-400/70 font-semibold flex items-center gap-1">
+                        <Shield className="h-3 w-3" /> Accès restreint
+                      </span>
+                    ) : (
+                      <Link
+                        href="/connexion"
+                        className="inline-flex items-center gap-1.5 rounded bg-slate-900 border border-slate-800 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-slate-200 transition-all"
+                      >
+                        <Lock className="h-3 w-3" />
+                        {t("datasets.authRequired")}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {filtered.length === 0 && !loading && (
+              <div className="col-span-2 rounded-xl border border-slate-900 border-dashed p-12 text-center text-slate-500 text-xs">
+                {t("common.noData")}
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
+}

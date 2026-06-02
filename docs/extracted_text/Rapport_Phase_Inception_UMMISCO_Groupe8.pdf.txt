@@ -1,0 +1,131 @@
+
+--- Page 1 ---
+Université Cheikh Anta Diop de Dakar 
+École Supérieure Polytechnique 
+Département Génie Informatique 
+ 
+Module : Ingénierie des Processus de Développement Logiciel 
+ 
+RAPPORT DE LA PHASE D'INCEPTION 
+Portail Institutionnel UMMISCO 
+ 
+Réalisé par : 
+Myriam Aïcha Nafissa Fatim Niang 
+Penda Touré 
+Cheikh Saliou Mbacké Lô 
+Adja Mame Fama Diaw 
+Mame Cheikh Guèye 
+Mariama Diop 
+Abdelsalam Mahamat Nassour 
+ 
+Année académique 2025 - 2026 
+  
+--- Page 2 ---
+1. Introduction 
+Dans le cadre du module IPDL (Ingénierie des Processus de Développement Logiciel), 
+notre groupe a travaillé sur la conception d'un portail web institutionnel moderne pour 
+l'UMMISCO, l'Unité Mixte Internationale de Modélisation Mathématique et Informatique 
+des Systèmes Complexes, rattachée à l'École Supérieure Polytechnique de l'Université 
+Cheikh Anta Diop de Dakar. 
+ 
+Ce rapport présente le travail réalisé lors de la phase d'inception, première phase du 
+Processus Unifié. Cette phase avait pour but de répondre à une question centrale : ce projet 
+vaut-il la peine d'être lancé ? Pour y répondre, nous avons organisé notre t ravail en trois 
+itérations progressives, chacune produisant un résultat concret. 
+2. Contexte du projet 
+L'UMMISCO est un laboratoire de recherche international qui regroupe des chercheurs 
+spécialisés en modélisation mathématique, en intelligence artificielle et en sciences des 
+systèmes complexes. Il est présent dans plusieurs pays, dont la France, le Sénégal, le Maroc, 
+le Cameroun et le Vietnam. 
+ 
+Le portail existant, accessible à l'adresse ummisco.ucad.sn, est aujourd'hui obsolète. Il ne 
+permet pas de valoriser correctement les travaux du laboratoire, de centraliser les 
+publications et les données scientifiques, ni de faciliter les collaborations a vec des 
+partenaires extérieurs. Notre mission est donc de concevoir et de développer un nouveau 
+portail web, plus moderne, plus fonctionnel et mieux adapté aux besoins réels des 
+utilisateurs du laboratoire. 
+3. Déroulement de la phase d'inception 
+La phase d'inception a été structurée en trois itérations successives. Chaque itération a 
+produit un livrable concret qui a servi de point de départ pour l'itération suivante. 
+ 
+3.1 Première itération - Comprendre le problème 
+L'objectif de cette première itération était de définir le périmètre du projet, d'analyser le 
+problème à résoudre et de dresser un état de l'existant. À ce stade, nous ne disposions que 
+de l'énoncé du projet et du site actuel d'UMMISCO comme points de départ. 
+ 
+Nous avons commencé par analyser de manière critique le site existant afin d'identifier ses 
+limites. Nous avons ensuite réalisé un benchmark de plateformes scientifiques de référence 
+au niveau international, notamment ResearchGate, HAL, Zenodo et le portai l de l'INRIA, 
+afin de comprendre ce qui se fait de mieux dans ce domaine et d'en retenir les bonnes 
+pratiques. 
+ 
+À l'issue de cette itération, nous avons produit un document de vision du projet. Ce 
+document décrit le contexte du laboratoire, le problème identifié, les objectifs du futur 
+portail et les différents types d'utilisateurs ciblés. Le principal enseignement de cette 
+itération est que le site actuel est largement insuffisant face aux besoins réels d'UMMISCO, 
+et qu'un portail conçu sur mesure est nécessaire. 
+--- Page 3 ---
+ 
+3.2 Deuxième itération - Valider les besoins réels 
+L'objectif de la deuxième itération était de confronter notre analyse au terrain, en 
+rencontrant directement les représentants et utilisateurs d'UMMISCO. Nous sommes 
+repartis du document de vision produit en première itération, avec une liste préliminaire 
+d'acteurs et plusieurs questions encore ouvertes sur les rôles, les droits d'accès et la nature 
+des simulations attendues. 
+ 
+Nous avons préparé et conduit une réunion avec les représentants du laboratoire, dont nous 
+avons rédigé un compte rendu détaillé . Ces échanges nous ont permis de modéliser 
+l'ensemble des besoins du système. Nous avons produit les diagrammes de cas d'utilisation, 
+un diagramme par acteur, ainsi qu'un diagramme de classes simplifié regroupant neuf 
+entités essentielles. 
+ 
+Ces rencontres ont également permis d'acter plusieurs décisions importantes pour la suite 
+du projet. Premièrement, la gestion des accès se fera selon un modèle ACL, c'est-à-dire un 
+système de permissions granulaires où l'administrateur crée lui -même des rô les en 
+combinant des actions précises, plutôt qu'un système de rôles fixes. Deuxièmement, les 
+données du portail seront classifiées en trois niveaux : public, protégé et privé. 
+Troisièmement, le flux de publication sera différencié selon le profil de l'aut eur : les 
+chercheurs pourront publier directement, tandis que les étudiants et les doctorants devront 
+passer par une validation humaine obligatoire. Enfin, les simulations ne seront pas des 
+calculs effectués en temps réel par le portail, mais des intégrations d'outils existants via des 
+iframes, ce qui est à la fois plus réaliste et techniquement plus adapté. 
+ 
+3.3 Troisième itération - Évaluer la faisabilité 
+La troisième itération avait pour objectif de répondre formellement à la question du jalon 
+1 du Processus Unifié : ce projet est -il techniquement et organisationnellement faisable 
+avec les ressources et le temps dont dispose l'équipe ? Nous sommes repartis  des besoins 
+validés en deuxième itération, avec les cas d'utilisation stabilisés et les premières 
+orientations techniques. 
+ 
+Durant cette itération, nous avons défini l'architecture technique du système en quatre 
+couches : le front -office en React.js, une API REST en Node.js, une base de données 
+PostgreSQL, et des services externes intégrés tels que l'API Google Scholar, un chat bot 
+basé sur un modèle de langage et des outils doctoraux via iframes. Nous avons également 
+réalisé une maquette de la page d'accueil du portail, et établi un tableau de priorisation des 
+fonctionnalités selon leur niveau d'importance. 
+4. Résultat du jalon 1 
+À l'issue des trois itérations, nous avons répondu formellement à la question du jalon 1. 
+Notre réponse est la suivante : le projet est faisable, sous réserve de lever quelques points 
+encore en suspens. 
+ 
+--- Page 4 ---
+Sur le plan technique, la stack choisie, React en frontend et Node.js en backend, est 
+maîtrisée par l'équipe et adaptée aux besoins du projet. L'architecture en quatre couches 
+avec séparation stricte du front-office et du back-office garantit la sécurité du système. Les 
+besoins ont été clarifiés directement avec les acteurs, ce qui nous donne une base solide 
+pour la suite. Le périmètre du projet est réaliste, avec des fonctionnalités bien priorisées et 
+atteignables dans les délais impartis. Enfin, le projet répond à un besoin réel et urgent pour 
+le laboratoire. 
+ 
+Quatre points restent cependant à trancher avant de démarrer pleinement la phase 
+d'élaboration. Il s'agit du choix définitif du backend entre Laravel et Spring Boot, de la 
+réception du fichier source du nouveau logo d'UMMISCO fourni par le professeur, de 
+l'inventaire des outils doctoraux à intégrer via iframes, et du choix de la solution pour le 
+chatbot IA entre OpenAI et Ollama. 
+5. Conclusion 
+La phase d'inception s'est déroulée conformément aux exigences du Processus Unifié. En 
+trois itérations progressives, nous avons construit une compréhension solide du projet, 
+validé les besoins avec les acteurs réels du terrain, défini une architecture de référence et 
+répondu formellement au jalon 1. Ces bases nous permettent d'aborder la phase 
+d'élaboration avec une vision claire et des décisions déjà actées, ce qui réduira les risques 
+pour la suite du développement. 

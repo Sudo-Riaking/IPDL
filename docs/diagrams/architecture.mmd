@@ -1,0 +1,54 @@
+graph TD
+    %% Architecture Technique UMMISCO (Groupe 8)
+
+    subgraph ClientLayer ["1. Couche Présentation (Front-Office & Back-Office)"]
+        UI["Interface React.js / Next.js (PWA)"]
+        IframeSim["Simulations Intégrées (Iframe Sandbox)"]
+    end
+
+    subgraph AuthLayer ["Gestion des Accès"]
+        Keycloak["Authentification Keycloak (Déléguée)"]
+        ACL["Moteur d'Autorisations ACL (Permissions granulaires dans le Portail)"]
+    end
+
+    subgraph APILayer ["2. Couche API / Métiers (Laravel / Spring Boot candidate)"]
+        Gateway["API Gateway / REST Controllers"]
+        PubService["Gestionnaire de Publications (Validation humaine)"]
+        DatasetService["Gestionnaire de Datasets (3 Niveaux d'accès)"]
+    end
+
+    subgraph DBLayer ["3. Couche Données"]
+        Postgres[("Base de données PostgreSQL")]
+    end
+
+    subgraph ExternalLayer ["4. Services Externes & Outils"]
+        Scholar["API Google Scholar (Affiliation)"]
+        LLM["Chatbot IA (OpenAI Cloud / Ollama Local)"]
+        DocTools["Outils & Modèles des Doctorants (Scripts de simulation)"]
+    end
+
+    %% Interactions
+    UI <--> Keycloak
+    UI <--> ACL
+    UI <--> Gateway
+    IframeSim <--> DocTools
+    
+    Gateway <--> Postgres
+    Gateway <--> Scholar
+    Gateway <--> LLM
+    Gateway -.-> DocTools
+    
+    ACL <--> Postgres
+
+    classDef default fill:#0f172a,stroke:#334155,stroke-width:1px,color:#f8fafc;
+    classDef client fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#f8fafc;
+    classDef api fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#f8fafc;
+    classDef db fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc;
+    classDef ext fill:#334155,stroke:#64748b,stroke-width:1px,color:#f8fafc;
+    classDef auth fill:#581c87,stroke:#a855f7,stroke-width:1px,color:#f8fafc;
+
+    class UI,IframeSim client;
+    class Gateway,PubService,DatasetService api;
+    class Postgres db;
+    class Scholar,LLM,DocTools ext;
+    class Keycloak,ACL auth;

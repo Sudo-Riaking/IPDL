@@ -1,0 +1,50 @@
+Phase 1 du Projet IPDL — La phase d'Inception (Création)
+D'après le cours UP, la Phase 1 correspond à la phase de Création, dont le jalon est : "Jalon des objectifs du cycle de vie". L'objectif est de répondre à une question fondamentale : le projet vaut-il la peine d'être lancé ?
+
+🎯 Ce qu'on doit produire à la fin de cette phase
+Un document de vision du projet qui répond à ces grandes questions :
+
+📌 Les questions auxquelles chercher des réponses
+1. Comprendre le contexte
+Quel est le problème exact qu'UMMISCO veut résoudre avec ce portail ?
+Pourquoi le site actuel (ummisco.ucad.sn) est-il insuffisant ?
+Quelles sont les contraintes existantes (techniques, organisationnelles) ?
+2. Identifier les parties prenantes
+Qui sont les utilisateurs cibles et qu'attendent-ils précisément ?
+Les chercheurs → publier des travaux, accéder aux datasets
+Les étudiants → quoi exactement ?
+Les partenaires/bailleurs → visibilité, rapports ?
+Le grand public → quelles informations ?
+Qui sont les administrateurs du système ?
+3. Définir les cas d'utilisation de haut niveau
+Quelles sont les grandes fonctions du système ? (sans entrer dans le détail)
+S'inscrire à un événement
+Soumettre une publication
+Gérer le contenu (admin)
+Télécharger un dataset, etc.
+On doit esquisser un diagramme de cas d'utilisation global
+4. Délimiter le périmètre (scope)
+Qu'est-ce qui est dans le projet vs hors périmètre ?
+Parmi les 7 points listés (site multilingue, gestion agenda, portails thématiques...), lesquels font partie de la livraison finale vs d'une version future ?
+5. Identifier les risques majeurs
+Risques techniques : stack à choisir, multilingue, sécurité de l'admin
+Risques organisationnels : disponibilité des informations, validation client
+Risques de délais
+6. Proposer une vision d'architecture initiale
+Quelle architecture ? (monolithique, micro-services, MVC ?)
+Technologies envisagées ? (React + Node ? PHP/Laravel ? CMS type WordPress ?)
+Base de données : relationnelle ou autre ?
+7. Évaluer la faisabilité
+Le projet est-il réalisable avec les ressources disponibles (équipe, compétences, temps) ?
+Quelles compétences manquent dans l'équipe ?
+
+📝 Livrables typiques de la Phase 1
+
+En résumé, la Phase 1 c'est comprendre avant de construire — tu ne codes rien encore, tu dois juste avoir une vision claire et partagée du quoi et du pourquoi du portail UMMISCO. Tu as déjà une bonne base avec le slide du projet !
+
+Livrable | Contenu
+Document de vision | Contexte, objectifs, utilisateurs cibles, périmètre
+Glossaire | Vocabulaire métier d'UMMISCO
+Diagramme UC global | Les grands cas d'utilisation
+Analyse de risques | Liste des risques + niveau de criticité
+Plan de projet initial | Découpage en itérations, estimation

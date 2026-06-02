@@ -1,0 +1,37 @@
+
+--- Page 1 ---
+Compte rendu — Notes de séance IPDL
+1. Gestion des utilisateurs & contrôle d'accès
+Le système adopte un modèle ACL (Access Control List) — chaque fonctionnalité est
+associée à des permissions précises selon le rôle de l'utilisateur. L'accès aux datasets (lecture
+ou écriture) dépend du titre de la personne : chercheur, étudiant ou administrateur.
+Il peut y avoir plusieurs administrateurs, chacun ayant son propre périmètre de responsabilité
+(ex. : un admin par axe thématique).
+2. Back-office / Front-office
+Séparation envisagée entre :
+3. Publications
+Deux comportements distincts selon le rôle :
+4. Contenu et annuaire
+5. Intégrations & redirection
+Front-office — portail public accessible aux visiteurs, étudiants, partenaires
+Back-office — espace d'administration réservé aux chercheurs et admins
+Chercheur → peut publier directement sans validation préalable
+Autres contributeurs → les publications doivent être validées par un administrateur
+avant mise en ligne
+Intégrer les ressources produites par les chercheurs UMMISCO
+Créer un annuaire des membres de l'équipe avec leurs informations
+Chaque personne a sa propre vitrine personnelle (page profil dédiée)
+--- Page 2 ---
+6. Architecture & déploiement
+7. Points encore ouverts
+Le prof ne veut pas de redirections externes — mais en pratique on ne peut pas l'éviter
+complètement
+Solution retenue : utiliser des iframes (balise HTML) pour intégrer des ressources externes
+sans quitter le portail
+Intégrer un chatbot IA basé sur un LLM : OpenAI (cloud) ou Ollama (local, open-source)
+Possibilité de séparer l'application en deux (front-office et back-office comme deux apps
+distinctes)
+Déploiement envisagé sur Vercel
+Choix final entre OpenAI vs Ollama pour le chatbot
+Niveau exact de validation requis selon les types de contenu
+Définition précise du contenu de chaque vitrine personnelle

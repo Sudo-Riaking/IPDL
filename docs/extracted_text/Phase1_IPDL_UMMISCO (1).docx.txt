@@ -1,0 +1,170 @@
+
+PROJET IPDL — DIC1
+Portail Web Institutionnel UMMISCO
+ummisco.ucad.sn
+
+Phase 1 — Inception (Création)
+Guide d'enquête & Cadre méthodologique UP
+
+Département Génie Informatique — ESP UCAD
+Groupe de 7 étudiants | Semaine 1
+
+1. Cadre Méthodologique — Phase d'Inception (UP)
+D'après le cours UP, la Phase 1 correspond à la phase de 
+Création, dont le jalon est : « Jalon des objectifs du cycle de vie ».
+
+L'objectif fondamental de cette phase est de répondre à une question centrale :
+
+
+La Phase 1 ne comporte qu'une seule itération car son objectif est limité : valider la faisabilité et les objectifs du projet, pas encore construire quoi que ce soit.
+Chaque itération produit des artéfacts de modèle et ajoute un incrément au modèle de cas d'utilisation, d'analyse, de conception, d'implémentation et de tests.
+
+⚙️ Les Activités (Enchainements principaux)
+D'après les slides 14 et 15, le UP organise ses activités en 5 enchainements principaux notés G B C I D :
+
+📋 Ce que chaque activité implique concrètement pour votre projet
+G — Gestion (planification initiale)
+Définir l'équipe et les rôles
+Estimer grossièrement le budget/temps
+Identifier les risques majeurs
+Produire un plan de projet initial
+B — Besoins (activité centrale de la phase)
+Comprendre le contexte d'UMMISCO
+Identifier tous les acteurs (chercheurs, étudiants, admin...)
+Lister les cas d'utilisation de haut niveau
+Rédiger le document de vision
+Construire le glossaire métier
+C — Conception (esquisse seulement)
+Proposer une architecture candidate très globale
+Identifier les composants principaux du système
+Pas de conception détaillée à ce stade
+I & D — Implémentation / Déploiement (absents ou marginaux)
+Aucun code produit en Phase 1
+Aucun déploiement
+
+
+À l'issue de cette phase, le groupe doit produire un document de vision complet qui couvre les 7 axes suivants.
+
+1.1 Comprendre le contexte
+Quel est le problème exact qu'UMMISCO veut résoudre avec ce portail ?
+Pourquoi le site actuel (ummisco.ucad.sn) est-il insuffisant ?
+Quelles sont les contraintes existantes (techniques, organisationnelles) ?
+
+1.2 Identifier les parties prenantes
+Qui sont les utilisateurs cibles et qu'attendent-ils précisément ?
+Les chercheurs → publier des travaux, accéder aux datasets
+Les étudiants → quoi exactement ?
+Les partenaires / bailleurs → visibilité, rapports ?
+Le grand public → quelles informations ?
+Qui sont les administrateurs du système ?
+
+1.3 Définir les cas d'utilisation de haut niveau
+Quelles sont les grandes fonctions du système (sans entrer dans le détail) ?
+S'inscrire à un événement
+Soumettre une publication
+Gérer le contenu (admin)
+Télécharger un dataset
+Rechercher un personnel ou un projet
+
+
+1.4 Délimiter le périmètre (scope)
+Parmi les 7 points du périmètre listés dans le slide, lesquels font partie de la livraison finale vs d'une version future ?
+
+1.5 Identifier les risques majeurs
+Risques techniques : choix de la stack, multilingue, sécurité de l'interface admin
+Risques organisationnels : disponibilité des informations, validation client
+Risques de délais : répartition du travail, jalons non respectés
+
+1.6 Proposer une vision d'architecture initiale
+Quelle architecture ? (monolithique, micro-services, MVC ?)
+Technologies envisagées ? (React + Node, PHP/Laravel, CMS WordPress…)
+Base de données : relationnelle ou autre ?
+
+1.7 Évaluer la faisabilité
+Le projet est-il réalisable avec les ressources disponibles (équipe, compétences, temps) ?
+Quelles compétences manquent dans l'équipe ?
+
+
+2. Stratégie d'Enquête — Semaine 1
+Pour répondre aux questions de la Phase 1, le groupe de 7 doit mener des enquêtes auprès de toutes les catégories d'utilisateurs cibles. Voici la répartition recommandée.
+
+2.1 Répartition des rôles dans le groupe
+
+
+2.2 Questions à poser au professeur (membre UMMISCO)
+C'est votre source primaire et la plus stratégique. Les questions sont regroupées par thème.
+
+Contexte et besoins
+Quel est le principal problème avec le portail actuel (ummisco.ucad.sn) ?
+Quelles informations sont les plus souvent demandées par des visiteurs externes ?
+Y a-t-il des fonctionnalités souhaitées qui sont complètement absentes aujourd'hui ?
+
+Contenu et données
+Combien de publications, projets et personnels sont à référencer environ ?
+Les datasets existent-ils déjà quelque part ? Sous quel format ?
+Qui sera responsable de mettre à jour le contenu après la livraison ?
+
+Administration du système
+Combien de personnes auront accès à l'interface d'administration ?
+Faut-il des niveaux de permissions différents (admin, éditeur, lecteur) ?
+Les formulaires de contact ou de soumission doivent-ils notifier quelqu'un par email ?
+
+Contraintes techniques
+Y a-t-il une contrainte sur la technologie à utiliser (PHP/Laravel, Django, WordPress…) ?
+Le site doit-il être hébergé sur les serveurs de l'UCAD ?
+Faut-il respecter une charte graphique ou une identité visuelle existante ?
+
+2.3 Questions à poser aux étudiants
+Quand tu visites un site de laboratoire, qu'est-ce que tu cherches en premier ?
+As-tu déjà essayé de trouver une thèse ou un rapport sur ummisco.ucad.sn ? Avec quel résultat ?
+Quelle langue utilises-tu par défaut sur ce type de site ?
+Un espace personnel (compte étudiant) serait-il utile pour toi ?
+
+2.4 Questions à poser aux chercheurs / partenaires
+Comment partagez-vous actuellement vos publications avec des collaborateurs externes ?
+Avez-vous besoin de déposer vous-mêmes vos travaux ou préférez-vous une validation préalable ?
+Quelle importance accordez-vous à la recherche par mots-clés et filtres thématiques ?
+
+2.5 Questions transversales (à poser à tous les profils)
+Sur 10, quelle note donnez-vous au site actuel d'UMMISCO ?
+Quel appareil utilisez-vous le plus pour accéder à ce type de site ? (mobile / ordinateur)
+Citez 3 mots qui devraient caractériser le nouveau portail.
+Y a-t-il un site similaire que vous trouvez bien fait, comme référence ?
+
+
+
+3. Livrables de la Phase 1
+À l'issue de la semaine 1, le groupe doit produire les documents suivants. Ils forment ensemble le dossier d'inception.
+
+
+Le projet vaut-il la peine d'être lancé ?
+Sigle | Enchainement | Intensité en Phase 1
+G | Ensemble de Gestion | ▓▓░░░ Modéré
+B | Ensemble des Besoins | ▓▓▓▓▓ Dominant
+C | Ensemble de Conception | ▓░░░░ Faible
+I | Ensemble d'Implémentation | ░░░░░ Quasi nul
+D | Ensemble de Déploiement | ░░░░░ Quasi nul
+À produire : un diagramme de cas d'utilisation global esquissé à la fin de la semaine.
+Fonctionnalité | Statut
+Site public multilingue (FR par défaut) | À confirmer avec le client
+Gestion actualités, événements et agenda | À confirmer
+Base de données publications / projets / personnels | À confirmer
+Portails thématiques (épidémiologie, climat, FabLab) | Version future ?
+Catalogue de datasets (métadonnées, accès, licences) | À confirmer
+Espace documentaire (rapports, thèses, présentations) | À confirmer
+Formulaires (contact, collaboration, newsletter) | À confirmer
+Membres | Cible à interviewer
+Membres 1 — 2 | Chercheurs / Membres UMMISCO (dont le professeur référent)
+Membres 3 — 4 | Étudiants (plus d'interviews = données plus riches)
+Membre 5 | Partenaires / Bailleurs (si accessibles)
+Membre 6 | Grand public / Enquête en ligne
+Membre 7 | Coordination, synthèse et rédaction du livrable final
+Le membre coordinateur centralise les résultats au fur et à mesure — cela évite le rush en fin de semaine.
+Technique clé : utilisez la relance « Pourquoi ? » après chaque réponse. Si votre interlocuteur dit « on veut valoriser les publications », demandez « à qui exactement ? dans quel but précis ? ». C'est ainsi qu'on découvre les vrais besoins cachés derrière les besoins exprimés.
+Livrable | Contenu | Priorité
+Document de vision | Contexte, objectifs, utilisateurs cibles, périmètre délimité | Essentiel
+Glossaire métier | Vocabulaire spécifique à UMMISCO (dataset, chercheur associé, FabLab…) | Essentiel
+Diagramme UC global | Les grands cas d'utilisation par acteur (esquisse) | Essentiel
+Personas utilisateurs | Profils-types avec leurs besoins et comportements | Recommandé
+Analyse de risques | Liste des risques + niveau de criticité (faible/moyen/élevé) | Recommandé
+Plan de projet initial | Découpage en itérations, estimation des tâches | Recommandé

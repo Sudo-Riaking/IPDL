@@ -1,0 +1,67 @@
+graph TD
+    %% Diagramme des Cas d'Utilisation - Portail UMMISCO (Groupe 8)
+
+    %% Acteurs
+    Visiteur["Visiteur (Grand Public, Médias)"]
+    Etudiant["Étudiant / Doctorant"]
+    Chercheur["Chercheur"]
+    RespAxe["Responsable d'Axe"]
+    Partenaire["Partenaire"]
+    Directeur["Directeur"]
+
+    %% Héritages entre acteurs
+    Etudiant --> Visiteur
+    Chercheur --> Etudiant
+    RespAxe --> Chercheur
+
+    %% Cas d'utilisation
+    subgraph PublicUC ["Cas d'utilisation publics"]
+        UC_Consult["Consulter les Publications & Projets"]
+        UC_Search["Recherche globale instantanée"]
+        UC_Contact["Formulaire de Contact / Offres Doctorat"]
+    end
+
+    subgraph PortalUC ["Cas d'utilisation sécurisés"]
+        UC_Submit_Student["Soumettre Publication (Validation Obligatoire)"]
+        UC_Submit_Researcher["Publier directement (Sans validation)"]
+        UC_Dataset_Read["Accéder aux datasets (Public / Protégé)"]
+        UC_Dataset_Write["Déposer datasets (Privé / Protégé / Public)"]
+        UC_Sim["Lancer des Simulations (Via iframes)"]
+        UC_Axe_Update["Mettre à jour les actualités de l'axe thématique"]
+    end
+
+    subgraph AdminUC ["Cas d'utilisation administration"]
+        UC_ACL_Manage["Gérer les permissions & composer les Rôles ACL"]
+        UC_Analytics["Consulter le Tableau de bord analytique"]
+        UC_Validate["Valider les publications des étudiants"]
+    end
+
+    %% Connexions Acteurs -> Cas d'utilisation
+    Visiteur --> UC_Consult
+    Visiteur --> UC_Search
+    Visiteur --> UC_Contact
+
+    Etudiant --> UC_Submit_Student
+    Etudiant --> UC_Dataset_Read
+
+    Chercheur --> UC_Submit_Researcher
+    Chercheur --> UC_Dataset_Write
+    
+    RespAxe --> UC_Axe_Update
+
+    Partenaire --> UC_Consult
+    Partenaire --> UC_Sim
+
+    Directeur --> UC_ACL_Manage
+    Directeur --> UC_Analytics
+    Directeur --> UC_Validate
+
+    %% Liaisons de validation
+    UC_Submit_Student -.-> |requires| UC_Validate
+
+    classDef default fill:#0f172a,stroke:#334155,stroke-width:1px,color:#f8fafc;
+    classDef actor fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#f8fafc;
+    classDef uc fill:#0f172a,stroke:#475569,stroke-width:1px,color:#ededed;
+
+    class Visiteur,Etudiant,Chercheur,RespAxe,Partenaire,Directeur actor;
+    class UC_Consult,UC_Search,UC_Contact,UC_Submit_Student,UC_Submit_Researcher,UC_Dataset_Read,UC_Dataset_Write,UC_Sim,UC_Axe_Update,UC_ACL_Manage,UC_Analytics,UC_Validate uc;

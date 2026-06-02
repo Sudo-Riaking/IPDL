@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portail Scientifique Institutionnel UMMISCO (Démonstration Interactive)
 
-## Getting Started
+Ce projet est la proposition de portail web interactif et fonctionnel du **Groupe 8** pour l'**UMMISCO** (Unité Mixte Internationale de Modélisation Mathématique et Informatique des Systèmes Complexes), développée dans le cadre du module **IPDL** (Ingénierie des Processus de Développement Logiciel) à l'**École Supérieure Polytechnique (ESP / UCAD)**.
 
-First, run the development server:
+Contrairement aux présentations PowerPoint statiques, cette proposition offre au corps professoral et aux chercheurs d'UMMISCO une **démonstration en conditions réelles** de ce à quoi ressemblera le portail final une fois livré.
 
+---
+
+## 🚀 Démarrage Rapide
+
+### Prérequis
+- [Node.js](https://nodejs.org/) (version 18 ou supérieure)
+- npm (fourni avec Node.js)
+
+### Installation des dépendances
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Lancement du serveur de développement
+```bash
+npm run dev
+```
+Ouvrez ensuite [http://localhost:3000](http://localhost:3000) dans votre navigateur pour naviguer sur le portail interactif.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Compilation pour la production (Build)
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Stack Technique
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework** : [Next.js 15 (App Router)](https://nextjs.org/) & React 19.
+- **Styling** : [Tailwind CSS v4](https://tailwindcss.com/) (Charte UMMISCO : Bleu `#1e40af` et Vert `#16803d` sur fond sombre premium).
+- **Animations** : [Framer Motion](https://www.framer.com/motion/) pour les modales de citation et les transitions fluides.
+- **Modélisation** : Code [Mermaid.js](https://mermaid.js.org/) pour les diagrammes d'architecture et de cas d'utilisation (éditables sous `docs/diagrams/`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📐 Architecture et Routes de la Démonstration
 
-## Deploy on Vercel
+L'application Next.js propose de vraies pages dynamiques :
+1. **Accueil (`/`)** :
+   - **Moteur de recherche unifiée** filtrant instantanément publications, chercheurs et datasets.
+   - **Axes de recherche** cliquables filtrant dynamiquement les publications liées.
+   - **Dernières publications** scientifiques avec citation automatique (APA & BibTeX).
+   - **Datasets** classés par visibilité (Public, Protégé, Privé) avec simulation de téléchargement sécurisé.
+   - **Actualités et séminaires** scientifiques.
+2. **Publications (`/publications`)** :
+   - Interface de recherche multicritère (filtre par chercheur, par année de parution, par axe thématique, et recherche textuelle).
+   - Générateur de citation au format APA/BibTeX avec copie dans le presse-papier en un clic.
+3. **Simulations (`/simulations`)** :
+   - Intégration de simulateurs NetLogo réels dans des iframes sandboxés pour modéliser la transmission des maladies (SIRS, paludisme).
+4. **Chercheurs (`/chercheurs/[id]`)** :
+   - Fiche d'identité d'un chercheur (biographie, e-mail de contact).
+   - Badge ORCID synchronisé de manière visuelle réaliste.
+   - Liste des publications et datasets associés à ce chercheur.
+5. **Connexion (`/connexion`)** :
+   - Formulaire sobre de connexion Keycloak (SSO sécurisé).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 💎 Nos Différenciateurs Techniques
+
+* **Recherche globale instantanée** : Unification de l'accès aux données dès la page d'accueil.
+* **Génération automatique de citations** : Export en un clic vers BibTeX et APA.
+* **Niveaux de visibilité des données** : Restriction d'accès avec authentification pour les datasets protégés/privés.
+* **Simulations embarquées fonctionnelles** : Utilisation de NetLogo Web pour exécuter des modèles scientifiques réels dans le navigateur.
+* **PWA & Conception hors-ligne** : Résilience réseau dans un contexte de connectivité fluctuante.
+
+---
+*Conçu avec rigueur par le Groupe 8 (DIC1 GI, ESP UCAD).*

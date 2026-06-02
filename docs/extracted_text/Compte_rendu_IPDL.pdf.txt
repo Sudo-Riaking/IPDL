@@ -1,0 +1,83 @@
+
+--- Page 1 ---
+Compte rendu — Échange avec le professeur
+ Cours IPDL
+1. Contexte et nature du projet
+Le projet consiste à concevoir un portail web institutionnel et moderne dédié à la valorisation de
+la recherche scientifique. Il s'agit d'une plateforme thématique intégrant des fonctionnalités
+avancées (intelligence artificielle, IoT, science citoyenne, environnement).
+Le portail doit offrir la possibilité de se rattacher à UMMISCO global et de s'interfacer avec Google
+Scholar pour la consultation des publications.
+2. Acteurs et rôles
+2.1 Chercheurs
+ Poster des informations, publications et mises à jour de projets.
+ Être affiliés à un ou plusieurs axes thématiques.
+ Après validation, effectuer des mises à jour des thématiques.
+ Un chercheur peut être responsable des thématiques (rôle de responsable d'axe).
+ Les doctorants sont inclus ; leur responsabilité (sous quelle supervision ?) reste à préciser.
+2.2 Étudiants
+ Une page dédiée aux étudiants est prévue sur la plateforme (liste à vérifier).
+2.3 Médias / Grand public
+ Les médias ont le même rôle que le grand public (visiteurs).
+ Le processus de publication n'est pas géré par les médias ni le grand public.
+2.4 Partenaires (ex. ISRA, IRD, cardiologues…)
+ Doivent apparaître sur le portail.
+ Ont des rôles spécifiques et peuvent travailler sur des projets.
+ Doivent pouvoir réaliser des simulations sans contrainte particulière.
+ La conception des équipes se fait en fonction des objectifs.
+2.5 Directeur / Super-utilisateur
+ Contrôle les chercheurs et leurs rôles.
+ Les publications sont réalisées par les chercheurs, mais validées (non gérées) par un
+super-utilisateur.
+3. Fonctionnalités clés attendues
+3.1 Portail thématique
+
+--- Page 2 ---
+ Axes thématiques (ex. épidémiologie, IoT, science citoyenne, environnement).
+ Portail thématique structuré et spécifique par axe.
+ Chaque chercheur est affilié à un ou plusieurs axes.
+ Mise à jour des thématiques possible par les chercheurs après validation.
+3.2 Gestion des publications
+ Renseigner et consulter les publications.
+ Voir les publications dans Google Scholar (intégration recommandée).
+ Le processus de publication est géré par les chercheurs, pas par un super-utilisateur.
+3.3 Datasets et intelligence active
+ Mettre des datasets à disposition au niveau de la plateforme.
+ Intelligence artificielle active intégrée.
+ Capteurs connectés (IoT) — axe Science Citoyenne.
+ Possibilité de chatbot.
+ Utiliser l'IA pour la conception de la plateforme.
+3.4 Simulations
+ Les utilisateurs doivent avoir la possibilité de faire des simulations au niveau de la plateforme.
+ Pour les partenaires : simulation sans contrainte (sans rentrer de données sensibles).
+3.5 Délivrables / Bailleurs
+ Prévoir une fenêtre dédiée aux délivrables et bailleurs au niveau du portail.
+3.6 Intégration des applications
+ Intégration complète des applications dans le portail (pas de redirection externe).
+4. Organisation du projet — Cours IPDL
+4.1 Démarrage
+ Début : semaine prochaine.
+ Livrables initiaux : maquette, architecture, propositions de fonctionnalités et rôles, recherches
+bibliographiques.
+ Utiliser des outils de gestion de projet.
+ L'architecte sera chargé des présentations.
+4.2 Déroulement des cours / TD
+ 1 PDL — Cours / TD.
+ Objectif : vision compréhensible — Est-ce faisable avec les moyens disponibles ?
+ Les diagrammes s'enrichissent au fur et à mesure des itérations.
+ Diagramme de paquetage : base de l'architecture.
+ Modèle d'analyse = diagramme de classes.
+ Évaluation des phases à chaque cours/TD.
+
+--- Page 3 ---
+ Les itérations se font en dehors des heures de cours.
+4.3 Fin de projet
+ Livrable final : rapport + présentation.
+5. Points en suspens / Questions ouvertes
+ Quel rôle précis pour les doctorants ? Sous la responsabilité de qui ?
+ Les étudiants incluent-ils les doctorants ?
+ Faire des propositions détaillées par rapport aux fonctionnalités et rôles (à préparer).
+ Voir les publications existantes dans Google Scholar pour s'inspirer.
+ Portail thématique épidémiologique : spécificités à clarifier.
+ Modalités de simulation pour les partenaires à préciser.
+Document synthétisé à partir des notes du groupe · IPDL · ESP/UCAD

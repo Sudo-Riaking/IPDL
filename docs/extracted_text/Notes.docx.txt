@@ -1,0 +1,3 @@
+UP s’inspire de RUP (verison simplifiée à l’attention du public = Rational Unified Process)
+On doit documenter l’utilisation de l’IA dans tout le processus : Donner des renseignements sur comment cela a été fait à chaque niveau d’utilisation, mettre quelle IA on a utilisé également, mettre un annexe.
+Les docs envoyés doivent etre des sortes de fonctionnalités.
