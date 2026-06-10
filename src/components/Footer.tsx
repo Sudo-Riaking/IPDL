@@ -14,17 +14,17 @@ export default function Footer() {
               <LogoUmmisco width={48} height={40} />
               <span className="text-base font-extrabold tracking-wider uppercase">UMMISCO</span>
             </div>
-            <p className="text-xs leading-relaxed text-slate-500">
+            <p className="text-sm leading-relaxed text-slate-500">
               Unité Mixte Internationale UMI 209 — spécialisée dans la modélisation des systèmes complexes au service de la science de la durabilité. 5 centres internationaux, 94 membres, 1972 publications.
             </p>
           </div>
 
           {/* Research axes links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
               Axes de Recherche
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/axes" className="hover:text-slate-200 transition-colors">Agents & Modélisation</Link>
               </li>
@@ -42,10 +42,10 @@ export default function Footer() {
 
           {/* Resources links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
               Ressources
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/publications" className="hover:text-slate-200 transition-colors">Publications Scientifiques</Link>
               </li>
@@ -65,8 +65,8 @@ export default function Footer() {
           </div>
 
           {/* Contacts & Locations */}
-          <div className="space-y-3 text-xs text-slate-500">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
+          <div className="space-y-3 text-sm text-slate-500">
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-l-2 border-ummisco-blue pl-2">
               Contacts & Sites
             </h4>
             <div className="flex items-start gap-2">
@@ -85,7 +85,7 @@ export default function Footer() {
         </div>
 
         {/* Footer bottom */}
-        <div className="mt-12 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-600 gap-4">
+        <div className="mt-12 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center text-[13px] text-slate-600 gap-4">
           <div className="flex items-center gap-3">
             <span>© {new Date().getFullYear()} UMMISCO UMI 209 — Tous droits réservés.</span>
             <span>·</span>

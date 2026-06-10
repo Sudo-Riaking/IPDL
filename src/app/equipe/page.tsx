@@ -22,11 +22,11 @@ export default function EquipePage() {
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="border-b border-slate-900 pb-8 mb-10">
-          <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
+          <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
             {t("researchers.sectionTag")}
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("researchers.title")}</h1>
-          <p className="mt-2 text-slate-400 text-sm">
+          <p className="mt-2 text-slate-400 text-base">
             {filtered.length} chercheur(s) associé(s) au laboratoire UMMISCO Dakar.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function EquipePage() {
             <button
               key={a.id}
               onClick={() => setAxeFilter(a.id)}
-              className={`px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border transition-all ${
+              className={`px-3 py-1.5 rounded-full text-[13px] font-semibold uppercase tracking-wider border transition-all ${
                 axeFilter === a.id
                   ? "bg-blue-600/20 text-blue-400 border-blue-900/40"
                   : "border-slate-800 text-slate-500 hover:text-slate-300"
@@ -56,31 +56,41 @@ export default function EquipePage() {
               <div key={r.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col hover:border-slate-800 transition-colors group">
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="flex-none h-14 w-14 rounded-full bg-blue-600/10 text-blue-400 text-lg font-extrabold border border-blue-900/30 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    {r.avatarSeed}
+                  <div className="flex-none h-14 w-14 rounded-full bg-blue-600/10 text-blue-400 text-lg font-extrabold border border-blue-900/30 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <img
+                      src={r.photoUrl}
+                      alt={r.name}
+                      className="h-full w-full object-cover"
+                      onError={(e) => {
+                        const t = e.currentTarget;
+                        t.style.display = "none";
+                        t.nextElementSibling?.removeAttribute("hidden");
+                      }}
+                    />
+                    <span hidden>{r.avatarSeed}</span>
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors leading-snug">{r.name}</h3>
-                    <p className="text-[10px] text-slate-500 mt-0.5 leading-snug">{r.title}</p>
+                    <h3 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors leading-snug">{r.name}</h3>
+                    <p className="text-[13px] text-slate-500 mt-0.5 leading-snug">{r.title}</p>
                   </div>
                 </div>
 
                 {/* Bio */}
-                <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-3 font-serif mb-4 flex-1">
+                <p className="text-[14px] text-slate-400 leading-relaxed line-clamp-3 font-serif mb-4 flex-1">
                   {r.bio}
                 </p>
 
                 {/* Axes tags */}
                 <div className="flex flex-wrap gap-1 mb-4">
                   {r.axes.map((a) => (
-                    <span key={a} className="text-[8px] bg-slate-900 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded uppercase">
+                    <span key={a} className="text-[11px] bg-slate-900 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded uppercase">
                       {AXES.find((ax) => ax.id === a)?.name.split(" ")[0]}
                     </span>
                   ))}
                 </div>
 
                 {/* Stats */}
-                <div className="flex gap-4 text-[10px] text-slate-500 border-t border-slate-900 pt-3 mb-4">
+                <div className="flex gap-4 text-[13px] text-slate-500 border-t border-slate-900 pt-3 mb-4">
                   <span className="flex items-center gap-1">
                     <BookOpen className="h-3 w-3" /> {pubCount} publications
                   </span>
@@ -91,10 +101,10 @@ export default function EquipePage() {
 
                 {/* Actions */}
                 <div className="flex items-center justify-between">
-                  <a href={`mailto:${r.email}`} className="inline-flex items-center gap-1 text-[10px] text-slate-500 hover:text-slate-200 transition-colors">
+                  <a href={`mailto:${r.email}`} className="inline-flex items-center gap-1 text-[13px] text-slate-500 hover:text-slate-200 transition-colors">
                     <Mail className="h-3 w-3" /> Contact
                   </a>
-                  <Link href={`/chercheurs/${r.id}`} className="inline-flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-300 font-semibold">
+                  <Link href={`/chercheurs/${r.id}`} className="inline-flex items-center gap-1 text-[13px] text-blue-400 hover:text-blue-300 font-semibold">
                     {t("researchers.viewProfile")}
                     <ExternalLink className="h-3 w-3" />
                   </Link>
@@ -105,7 +115,7 @@ export default function EquipePage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-20 text-slate-500 text-sm">{t("common.noData")}</div>
+          <div className="text-center py-20 text-slate-500 text-base">{t("common.noData")}</div>
         )}
       </main>
       <Footer />

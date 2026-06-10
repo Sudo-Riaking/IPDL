@@ -41,8 +41,8 @@ export default function Navigation() {
         <Link href="/" className="flex items-center gap-2 text-slate-100 hover:text-white flex-none">
           <LogoUmmisco width={48} height={40} animated={true} />
           <div className="flex flex-col border-l border-slate-800 pl-2">
-            <span className="text-sm font-bold tracking-wider text-slate-100 uppercase">UMMISCO</span>
-            <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none">
+            <span className="text-base font-bold tracking-wider text-slate-100 uppercase">UMMISCO</span>
+            <span className="text-[12px] font-medium text-slate-400 uppercase tracking-widest leading-none">
               Lab. Modélisation complexe (UCAD)
             </span>
           </div>
@@ -56,7 +56,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3 py-2 text-[11px] font-semibold uppercase tracking-wider rounded-md whitespace-nowrap transition-all duration-200 ${
+                className={`relative px-3 py-2 text-[14px] font-semibold uppercase tracking-wider rounded-md whitespace-nowrap transition-all duration-200 ${
                   isActive
                     ? "text-white bg-slate-900/80"
                     : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/30"
@@ -76,7 +76,7 @@ export default function Navigation() {
           {/* Language toggle */}
           <button
             onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-            className="px-2.5 py-1.5 rounded-md border border-slate-800 bg-slate-950 text-[10px] font-bold text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 tracking-widest uppercase transition-all"
+            className="px-2.5 py-1.5 rounded-md border border-slate-800 bg-slate-950 text-[13px] font-bold text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 tracking-widest uppercase transition-all"
             aria-label="Changer la langue"
           >
             {lang === "fr" ? "EN" : "FR"}
@@ -101,7 +101,7 @@ export default function Navigation() {
               {(user.role === "directeur") && (
                 <Link
                   href="/admin"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 transition-all"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-3 py-2 text-[13px] font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 transition-all"
                 >
                   <Shield className="h-3 w-3" />
                   <span>Admin</span>
@@ -109,7 +109,7 @@ export default function Navigation() {
               )}
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white shadow-md hover:bg-ummisco-blue/90 transition-all"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-3 py-2 text-[13px] font-semibold uppercase tracking-wider text-white shadow-md hover:bg-ummisco-blue/90 transition-all"
               >
                 <LayoutDashboard className="h-3 w-3" />
                 <span>{user.nom.split(" ")[0]}</span>
@@ -125,7 +125,7 @@ export default function Navigation() {
           ) : (
             <Link
               href="/connexion"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:bg-ummisco-blue/90 transition-all border border-transparent active:scale-95"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-4 py-2 text-sm font-semibold uppercase tracking-wider text-white shadow-md hover:bg-ummisco-blue/90 transition-all border border-transparent active:scale-95"
             >
               <Lock className="h-3 w-3" />
               <span>{t("nav.login")}</span>
@@ -137,7 +137,7 @@ export default function Navigation() {
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-            className="px-2 py-1 rounded border border-slate-800 text-[10px] font-bold text-slate-400 uppercase"
+            className="px-2 py-1 rounded border border-slate-800 text-[13px] font-bold text-slate-400 uppercase"
           >
             {lang === "fr" ? "EN" : "FR"}
           </button>
@@ -168,7 +168,7 @@ export default function Navigation() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-md transition-colors ${
+              className={`block px-3 py-2 text-base font-medium uppercase tracking-wider rounded-md transition-colors ${
                 pathname === link.href
                   ? "text-white bg-slate-900 border-l-4 border-ummisco-blue"
                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/30"
@@ -183,14 +183,14 @@ export default function Navigation() {
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-ummisco-blue py-2.5 text-sm font-semibold uppercase tracking-wider text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-ummisco-blue py-2.5 text-base font-semibold uppercase tracking-wider text-white"
                 >
                   <LayoutDashboard className="h-4 w-4" />
                   <span>{t("dashboard.title")}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-800 py-2.5 text-sm font-semibold uppercase tracking-wider text-slate-400"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-800 py-2.5 text-base font-semibold uppercase tracking-wider text-slate-400"
                 >
                   <LogOut className="h-4 w-4" />
                   <span>{t("nav.logout")}</span>
@@ -200,7 +200,7 @@ export default function Navigation() {
               <Link
                 href="/connexion"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-ummisco-blue py-2.5 text-sm font-semibold uppercase tracking-wider text-white"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-ummisco-blue py-2.5 text-base font-semibold uppercase tracking-wider text-white"
               >
                 <Lock className="h-4 w-4" />
                 <span>{t("nav.login")}</span>
