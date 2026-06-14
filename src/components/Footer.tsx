@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import LogoUmmisco from "./LogoUmmisco";
-import { Mail, Phone, MapPin, Globe } from "lucide-react";
+import BrandLogo from "./BrandLogo";
+import { Mail, MapPin, Globe } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -11,11 +11,10 @@ export default function Footer() {
           {/* Brand block */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-white">
-              <LogoUmmisco width={48} height={40} />
-              <span className="text-base font-extrabold tracking-wider uppercase">UMMISCO</span>
+              <BrandLogo height={36} />
             </div>
             <p className="text-sm leading-relaxed text-slate-500">
-              Unité Mixte Internationale UMI 209 — spécialisée dans la modélisation des systèmes complexes au service de la science de la durabilité. 5 centres internationaux, 94 membres, 1972 publications.
+              Unité Mixte Internationale UMI 209 (IRD &amp; Sorbonne Université) — modélisation mathématique et informatique des systèmes complexes au service de la science de la durabilité. 5 centres internationaux · 94 membres · 4 axes de recherche.
             </p>
           </div>
 

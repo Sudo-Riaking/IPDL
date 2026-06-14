@@ -4,15 +4,14 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  BookOpen,
   Filter,
   Clipboard,
   Check,
   Lock,
   Eye,
   Shield,
-  X,
-  ChevronDown
+  Quote,
+  ExternalLink,
 } from "lucide-react";
 import {
   AXES,
@@ -21,6 +20,7 @@ import {
   Publication
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
+import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
 
 export default function PublicationsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,16 +64,26 @@ export default function PublicationsPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         
         {/* Page Header */}
-        <div className="border-b border-slate-900 pb-8 mb-10">
-          <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
-            Archive scientifique ouverte
-          </span>
-          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
-            Publications d'UMMISCO
-          </h1>
-          <p className="mt-2 text-slate-400 text-xs sm:text-sm">
-            Explorez les publications et mémoires scientifiques des chercheurs et doctorants d'UMMISCO-Dakar.
-          </p>
+        <div className="border-b border-slate-900 pb-8 mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
+              Archive scientifique ouverte
+            </span>
+            <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
+              Publications d&apos;UMMISCO
+            </h1>
+            <p className="mt-2 text-slate-400 text-xs sm:text-sm max-w-2xl">
+              Les publications sont validées par des revues internationales puis référencées ici — chaque entrée renvoie vers Google Scholar et le DOI de l&apos;éditeur, sans hébergement de PDF.
+            </p>
+          </div>
+          <a
+            href={UMMISCO_SCHOLAR_SEARCH}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/40 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all"
+          >
+            <Quote className="h-3.5 w-3.5" /> Profil Google Scholar <ExternalLink className="h-3 w-3" />
+          </a>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-12 items-start">
@@ -217,18 +227,40 @@ export default function PublicationsPage() {
                       </p>
                     </div>
 
-                    {/* Authors & citation action */}
-                    <div className="mt-6 pt-4 border-t border-slate-900 flex items-center justify-between">
+                    {/* Authors & actions */}
+                    <div className="mt-6 pt-4 border-t border-slate-900 flex flex-wrap items-center justify-between gap-3">
                       <span className="text-[10px] text-slate-500 italic">
                         Auteurs : {pub.authors.join(", ")}
                       </span>
-                      <button
-                        onClick={() => setCitationModalPub(pub)}
-                        className="inline-flex items-center gap-1.5 rounded bg-blue-600/10 px-2.5 py-1.5 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 active:scale-95 transition-all"
-                      >
-                        <Clipboard className="h-3 w-3" />
-                        <span>Citer cette publication</span>
-                      </button>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <a
+                          href={scholarUrl(pub)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded bg-slate-900 px-2.5 py-1.5 text-[10px] font-bold text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white transition-all"
+                          title="Voir sur Google Scholar"
+                        >
+                          <Quote className="h-3 w-3" /> Scholar
+                        </a>
+                        {doiUrl(pub.doi) && (
+                          <a
+                            href={doiUrl(pub.doi)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 rounded bg-slate-900 px-2.5 py-1.5 text-[10px] font-bold text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white transition-all"
+                            title="Résoudre le DOI"
+                          >
+                            <ExternalLink className="h-3 w-3" /> DOI
+                          </a>
+                        )}
+                        <button
+                          onClick={() => setCitationModalPub(pub)}
+                          className="inline-flex items-center gap-1.5 rounded bg-blue-600/10 px-2.5 py-1.5 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 active:scale-95 transition-all"
+                        >
+                          <Clipboard className="h-3 w-3" />
+                          <span>Citer</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

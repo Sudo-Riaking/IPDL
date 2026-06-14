@@ -14,7 +14,70 @@ export interface DBUser {
   estDoctorant?: boolean;
   organisation?: string;
   domaine?: string;
+  /** Extra granular permissions granted individually (on top of the role). */
+  permissions?: string[];
+  active?: boolean;
   createdAt: string;
+}
+
+// ─── ACL model (granular permissions + dynamically composed roles) ───────────
+
+export interface Permission {
+  id: string;
+  group: string;
+  label: string;
+  description: string;
+}
+
+/** Catalogue des permissions atomiques du portail (modèle ACL). */
+export const PERMISSIONS: Permission[] = [
+  // Publications
+  { id: "pub.read", group: "Publications", label: "Consulter les publications", description: "Lire les publications publiées sur le portail." },
+  { id: "pub.submit", group: "Publications", label: "Soumettre une publication", description: "Déposer une publication soumise à validation d'un administrateur." },
+  { id: "pub.publish_direct", group: "Publications", label: "Publier sans validation", description: "Mettre en ligne directement (réservé aux chercheurs)." },
+  { id: "pub.validate", group: "Publications", label: "Valider / rejeter les publications", description: "Approuver ou rejeter les soumissions en attente." },
+  // Datasets
+  { id: "data.read_public", group: "Datasets", label: "Télécharger les datasets publics", description: "Accès aux jeux de données ouverts à tous." },
+  { id: "data.read_protected", group: "Datasets", label: "Accéder aux datasets protégés", description: "Réservé aux membres d'UMMISCO." },
+  { id: "data.read_private", group: "Datasets", label: "Accéder aux datasets privés", description: "Réservé à un groupe restreint et explicitement autorisé." },
+  { id: "data.deposit", group: "Datasets", label: "Déposer des datasets", description: "Publier de nouveaux jeux de données avec leurs métadonnées." },
+  // Simulations
+  { id: "sim.run", group: "Simulations", label: "Lancer des simulations", description: "Exécuter les modèles intégrés (GAMA, NetLogo)." },
+  // Axes thématiques
+  { id: "axe.manage", group: "Axes thématiques", label: "Animer un axe thématique", description: "Mettre à jour actualités, publications et membres d'un axe." },
+  // Administration
+  { id: "user.manage", group: "Administration", label: "Gérer les utilisateurs", description: "Modifier les rôles et l'état des comptes." },
+  { id: "role.manage", group: "Administration", label: "Composer les rôles ACL", description: "Créer et modifier des rôles en combinant des permissions." },
+  { id: "acl.approve", group: "Administration", label: "Traiter les demandes d'accès", description: "Approuver ou refuser les demandes d'accès aux ressources." },
+  { id: "analytics.view", group: "Administration", label: "Consulter le tableau de bord", description: "Voir les statistiques globales du portail." },
+];
+
+export interface DBRole {
+  id: string;
+  name: string;
+  description: string;
+  permissions: string[];
+  /** Rôle de base non supprimable (livré avec le système). */
+  system?: boolean;
+  createdAt: string;
+}
+
+export type AccessRequestStatus = "en_attente" | "approuvee" | "refusee";
+
+export interface DBAccessRequest {
+  id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  /** Permission demandée (id du catalogue PERMISSIONS). */
+  permission: string;
+  /** Ressource visée (libellé lisible) — dataset, fonctionnalité, axe… */
+  resourceLabel: string;
+  reason: string;
+  status: AccessRequestStatus;
+  createdAt: string;
+  decidedAt?: string;
+  decidedBy?: string;
 }
 
 export type PubStatus = "en_attente" | "validee" | "rejetee";
@@ -112,6 +175,8 @@ const db = {
   events: new Map<string, DBEvent>(),
   newsletter: new Map<string, DBNewsletter>(),
   partners: new Map<string, DBPartner>(),
+  roles: new Map<string, DBRole>(),
+  accessRequests: new Map<string, DBAccessRequest>(),
 };
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
@@ -520,6 +585,67 @@ function seed() {
   ];
 
   partners.forEach((p) => db.partners.set(p.id, p));
+
+  // ── Rôles ACL par défaut (composés de permissions) ──────────────────────────
+  const roles: DBRole[] = [
+    {
+      id: "role-visiteur", name: "Visiteur", system: true, createdAt: now,
+      description: "Grand public et médias — consultation uniquement.",
+      permissions: ["pub.read", "data.read_public"],
+    },
+    {
+      id: "role-etudiant", name: "Étudiant / Doctorant", system: true, createdAt: now,
+      description: "Soumet des publications (validation requise) et consulte les ressources protégées.",
+      permissions: ["pub.read", "pub.submit", "data.read_public", "data.read_protected", "sim.run"],
+    },
+    {
+      id: "role-chercheur", name: "Chercheur", system: true, createdAt: now,
+      description: "Publie directement, dépose des datasets, lance des simulations.",
+      permissions: ["pub.read", "pub.publish_direct", "data.read_public", "data.read_protected", "data.deposit", "sim.run"],
+    },
+    {
+      id: "role-responsable_axe", name: "Responsable d'axe", system: true, createdAt: now,
+      description: "Chercheur qui anime un axe thématique et accède aux données privées de son axe.",
+      permissions: ["pub.read", "pub.publish_direct", "data.read_public", "data.read_protected", "data.read_private", "data.deposit", "sim.run", "axe.manage"],
+    },
+    {
+      id: "role-partenaire", name: "Partenaire / Bailleur", system: true, createdAt: now,
+      description: "Accède aux livrables et lance des simulations sans contrainte.",
+      permissions: ["pub.read", "data.read_public", "sim.run"],
+    },
+    {
+      id: "role-directeur", name: "Directeur (super-utilisateur)", system: true, createdAt: now,
+      description: "Contrôle total : permissions, rôles, validation et statistiques.",
+      permissions: PERMISSIONS.map((p) => p.id),
+    },
+  ];
+  roles.forEach((r) => db.roles.set(r.id, r));
+
+  // ── Demandes d'accès en attente (pour la démo du Directeur) ─────────────────
+  const requests: DBAccessRequest[] = [
+    {
+      id: "req-01", userId: "u-etudiant", userName: "Mamadou Sarr", userEmail: "etudiant@ummisco.sn",
+      permission: "data.read_private",
+      resourceLabel: "Dataset privé — Registres de morbidité clinique (Hôpital de Fann, 2023)",
+      reason: "Travaux de mémoire de Master sur les infections respiratoires aiguës à Dakar : besoin d'accéder aux dossiers anonymisés pour calibrer mon modèle SEIR.",
+      status: "en_attente", createdAt: "2026-06-09T09:30:00Z",
+    },
+    {
+      id: "req-02", userId: "u-partenaire", userName: "IRD France", userEmail: "partenaire@ird.fr",
+      permission: "data.read_protected",
+      resourceLabel: "Dataset protégé — Données épidémiologiques paludisme (Dakar, 2019-2024)",
+      reason: "Co-analyse dans le cadre du projet ANR pour croiser nos relevés entomologiques avec les séries de cas hebdomadaires.",
+      status: "en_attente", createdAt: "2026-06-11T14:05:00Z",
+    },
+    {
+      id: "req-03", userId: "u-etudiant", userName: "Mamadou Sarr", userEmail: "etudiant@ummisco.sn",
+      permission: "pub.publish_direct",
+      resourceLabel: "Fonctionnalité — Publication directe sans validation",
+      reason: "Mes deux derniers articles ayant été validés, je sollicite le droit de publication directe en tant que doctorant avancé.",
+      status: "en_attente", createdAt: "2026-06-12T08:15:00Z",
+    },
+  ];
+  requests.forEach((r) => db.accessRequests.set(r.id, r));
 }
 
 // Seed only once

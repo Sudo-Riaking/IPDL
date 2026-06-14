@@ -22,10 +22,24 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "UMMISCO | Portail Scientifique Institutionnel",
+  title: {
+    default: "UMMISCO | Portail Scientifique Institutionnel",
+    template: "%s | UMMISCO UMI 209",
+  },
   description:
-    "Portail officiel d'UMMISCO (Dakar). Découvrez nos publications scientifiques, notre catalogue de datasets ouverts et nos simulateurs épidémiologiques et environnementaux.",
-  keywords: ["UMMISCO", "UCAD", "ESP", "Modélisation complexes", "Paludisme", "IoT", "Sénégal"],
+    "Portail institutionnel d'UMMISCO (UMI 209, IRD & Sorbonne Université) — Unité Mixte Internationale de Modélisation Mathématique et Informatique des Systèmes Complexes. Publications référencées, datasets ouverts, simulations intégrées et 5 centres internationaux.",
+  keywords: [
+    "UMMISCO", "UMI 209", "IRD", "Sorbonne Université", "systèmes complexes",
+    "modélisation multi-agents", "intelligence artificielle", "science citoyenne",
+    "GAMA", "datasets", "Google Scholar",
+  ],
+  authors: [{ name: "UMMISCO UMI 209" }],
+  openGraph: {
+    title: "UMMISCO — Modéliser les systèmes complexes",
+    description:
+      "Unité Mixte Internationale (IRD & Sorbonne Université) en modélisation mathématique et informatique des systèmes complexes au service de la science de la durabilité.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

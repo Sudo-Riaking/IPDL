@@ -117,3 +117,12 @@ html:not(.dark) [class~="rounded-2xl"][class~="border"] {
 .mono-text {
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
+
+/* ── Partners scrolling banner ──────────────────────────────────────────────── */
+@keyframes partners-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-partners-scroll {
+  animation: partners-scroll 35s linear infinite;
+}

@@ -17,7 +17,22 @@ Chaque étape du projet a fait l'objet d'une collaboration structurée entre l'�
 
 ---
 
-## 2. Déclaration de conformité éthique
+## 1bis. Itération de finalisation (Construction — juin 2026)
+
+Suite à la revue client (séance de démonstration), une itération de construction a
+été menée pour lever les remarques et renforcer la dimension « application web ».
+L'IA a servi d'accélérateur sous supervision et validation des membres du groupe.
+
+| Tâche / Module | Rôle délégué à l'IA | Supervision humaine | Valeur ajoutée |
+| :--- | :--- | :--- | :--- |
+| **Identité visuelle** | Intégration du logo officiel UMMISCO (composant `BrandLogo`), favicon, mise en avant dans la navigation et le hero. | **Totale** : choix de la charte et de l'emplacement. | Lisibilité immédiate de la marque (remarque client levée). |
+| **Comptes de démonstration** | Connexion en 1 clic par rôle (Directeur, Chercheur, Responsable d'axe, Étudiant, Partenaire). | **Totale** : définition des rôles et de leurs droits. | Le client teste chaque profil sans saisir d'identifiants ni lire de code. |
+| **Architecture de l'information** | Allègement de la page d'accueil ; répartition du contenu vers les pages dédiées. | **Haute** : arbitrage des sections à conserver. | Page d'accueil épurée, parcours plus clair. |
+| **Modèle ACL** | Permissions atomiques, composition dynamique de rôles, file de demandes d'accès (API + interface directeur). | **Haute** : modèle de permissions défini par le groupe d'après les entretiens. | Concrétise le besoin ACL exprimé par le client. |
+| **Référencement Scholar/DOI** | Génération des liens Google Scholar et DOI sur chaque publication. | **Totale** : règle « référencer, ne pas héberger ». | Conforme à la demande d'intégration Google Scholar. |
+| **Suivi méthodologique** | Rédaction du document de suivi du Processus Unifié (`SUIVI_PROCESSUS_UNIFIE.md`). | **Haute** : relecture et validation du contenu UP. | Traçabilité phases ↔ application. |
+
+
 
 Le Groupe 8 certifie que :
 1. **La pensée architecturale** et la conception du portail (modèle de données factuelles avec 4 chercheurs clés d'UMMISCO, division des publications en axes thématiques d'Hann, modèle d'accès granulaire aux datasets public/protégé/privé, isolation par iframe sandbox des simulations, intégration de Keycloak) **est entièrement issue de nos réflexions collectives** et des entretiens avec les chercheurs d'UMMISCO.

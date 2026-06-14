@@ -3,13 +3,95 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import LogoUmmisco from "@/components/LogoUmmisco";
-import { Lock, Mail, ShieldCheck, ArrowLeft, KeyRound, UserPlus } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
+import { Lock, Mail, ShieldCheck, ArrowLeft, KeyRound, UserPlus, Shield, FlaskConical, GraduationCap, Network, Handshake, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useLang } from "@/context/LangContext";
 
 type Tab = "login" | "register";
+
+interface DemoAccount {
+  role: string;
+  label: string;
+  name: string;
+  email: string;
+  password: string;
+  capability: string;
+  redirect: string;
+  Icon: React.ComponentType<{ className?: string }>;
+  accent: string; // tailwind text color
+  ring: string; // tailwind border color
+  bg: string; // tailwind bg tint
+}
+
+const DEMO_ACCOUNTS: DemoAccount[] = [
+  {
+    role: "directeur",
+    label: "Directeur",
+    name: "Pr. Cheikh Diallo",
+    email: "admin@ummisco.sn",
+    password: "admin123",
+    capability: "Back-office complet : valide les publications, compose les rôles ACL, gère accès & statistiques.",
+    redirect: "/admin",
+    Icon: Shield,
+    accent: "text-amber-400",
+    ring: "border-amber-500/30 hover:border-amber-500/60",
+    bg: "bg-amber-500/10",
+  },
+  {
+    role: "chercheur",
+    label: "Chercheur",
+    name: "Dr. Fatou Diop",
+    email: "chercheur@ummisco.sn",
+    password: "chercheur123",
+    capability: "Publie sans validation, dépose des datasets, gère ses publications et son profil.",
+    redirect: "/dashboard",
+    Icon: FlaskConical,
+    accent: "text-blue-400",
+    ring: "border-blue-500/30 hover:border-blue-500/60",
+    bg: "bg-blue-500/10",
+  },
+  {
+    role: "responsable_axe",
+    label: "Responsable d'axe",
+    name: "Dr. Moussa Ndiaye",
+    email: "respaxe@ummisco.sn",
+    password: "respaxe123",
+    capability: "Anime un axe thématique : actualités, publications et membres de l'axe.",
+    redirect: "/dashboard",
+    Icon: Network,
+    accent: "text-emerald-400",
+    ring: "border-emerald-500/30 hover:border-emerald-500/60",
+    bg: "bg-emerald-500/10",
+  },
+  {
+    role: "etudiant",
+    label: "Étudiant / Doctorant",
+    name: "Mamadou Sarr",
+    email: "etudiant@ummisco.sn",
+    password: "etudiant123",
+    capability: "Soumet des publications (validation requise), consulte datasets publics & protégés.",
+    redirect: "/dashboard",
+    Icon: GraduationCap,
+    accent: "text-violet-400",
+    ring: "border-violet-500/30 hover:border-violet-500/60",
+    bg: "bg-violet-500/10",
+  },
+  {
+    role: "partenaire",
+    label: "Partenaire",
+    name: "IRD France",
+    email: "partenaire@ird.fr",
+    password: "partenaire123",
+    capability: "Accède aux livrables, lance des simulations sans contrainte, suit les projets financés.",
+    redirect: "/dashboard",
+    Icon: Handshake,
+    accent: "text-cyan-400",
+    ring: "border-cyan-500/30 hover:border-cyan-500/60",
+    bg: "bg-cyan-500/10",
+  },
+];
 
 export default function ConnexionPage() {
   const router = useRouter();
@@ -19,6 +101,7 @@ export default function ConnexionPage() {
   const [tab, setTab] = useState<Tab>("login");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [demoLoading, setDemoLoading] = useState<string | null>(null);
 
   // Login state
   const [email, setEmail] = useState("");
@@ -51,6 +134,29 @@ export default function ConnexionPage() {
       setError(t("common.error"));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const quickLogin = async (acc: DemoAccount) => {
+    setError("");
+    setDemoLoading(acc.email);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: acc.email, password: acc.password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || t("login.error"));
+      } else {
+        login(data.token, data.user);
+        router.push(acc.redirect);
+      }
+    } catch {
+      setError(t("common.error"));
+    } finally {
+      setDemoLoading(null);
     }
   };
 
@@ -88,12 +194,61 @@ export default function ConnexionPage() {
           <span>{t("common.back")}</span>
         </Link>
 
-        <div className="w-full max-w-md space-y-6 rounded-2xl border border-slate-900 bg-slate-900/10 p-8 backdrop-blur-sm">
+        <div className="w-full max-w-lg space-y-6 rounded-2xl border border-slate-900 bg-slate-900/10 p-7 sm:p-8 backdrop-blur-sm">
           {/* Header */}
           <div className="flex flex-col items-center text-center">
-            <LogoUmmisco width={64} height={52} />
+            <BrandLogo height={44} />
             <h2 className="mt-4 text-xl font-extrabold text-white">{t("login.title")}</h2>
             <p className="mt-1.5 text-[11px] text-slate-500">{t("login.subtitle")}</p>
+          </div>
+
+          {/* ── DÉMO : connexion en 1 clic ──────────────────────────────── */}
+          <div className="rounded-xl border border-blue-500/30 bg-blue-500/[0.04] p-4">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                Accès démonstration — connexion en 1 clic
+              </h3>
+            </div>
+            <p className="text-[11px] text-slate-500 mb-3 leading-relaxed">
+              Choisissez un profil pour explorer la plateforme avec ses droits réels. Aucun identifiant à saisir.
+            </p>
+            <div className="space-y-2">
+              {DEMO_ACCOUNTS.map((acc) => {
+                const Icon = acc.Icon;
+                return (
+                  <button
+                    key={acc.email}
+                    onClick={() => quickLogin(acc)}
+                    disabled={demoLoading !== null}
+                    className={`group w-full flex items-center gap-3 rounded-lg border ${acc.ring} bg-slate-950/40 px-3 py-2.5 text-left transition-all active:scale-[0.99] disabled:opacity-50`}
+                  >
+                    <span className={`flex h-8 w-8 flex-none items-center justify-center rounded-lg ${acc.bg} ${acc.accent}`}>
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-1.5">
+                        <span className={`text-[13px] font-bold ${acc.accent}`}>{acc.label}</span>
+                        <span className="text-[11px] text-slate-500 truncate">· {acc.name}</span>
+                      </span>
+                      <span className="block text-[11px] text-slate-500 leading-snug line-clamp-2">{acc.capability}</span>
+                    </span>
+                    {demoLoading === acc.email ? (
+                      <span className="h-4 w-4 flex-none rounded-full border-2 border-slate-600 border-t-transparent animate-spin" />
+                    ) : (
+                      <ArrowRight className="h-4 w-4 flex-none text-slate-600 group-hover:text-slate-300 transition-colors" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Séparateur */}
+          <div className="flex items-center gap-3">
+            <span className="h-px flex-1 bg-slate-800" />
+            <span className="text-[10px] uppercase tracking-widest text-slate-600 font-bold whitespace-nowrap">ou connexion manuelle</span>
+            <span className="h-px flex-1 bg-slate-800" />
           </div>
 
           {/* Tabs */}
@@ -158,14 +313,6 @@ export default function ConnexionPage() {
                 <Lock className="h-3.5 w-3.5" />
                 <span>{loading ? t("login.loading") : t("login.submit")}</span>
               </button>
-
-              {/* Demo hint */}
-              <div className="rounded-lg bg-slate-900/60 border border-slate-800 p-3 text-[10px] text-slate-500 space-y-1">
-                <p className="font-bold text-slate-400 uppercase tracking-wider">Comptes démo :</p>
-                <p>admin@ummisco.sn / admin123 (directeur)</p>
-                <p>chercheur@ummisco.sn / chercheur123</p>
-                <p>etudiant@ummisco.sn / etudiant123</p>
-              </div>
             </form>
           )}
 

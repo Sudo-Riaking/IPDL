@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import LogoUmmisco from "./LogoUmmisco";
+import BrandLogo from "./BrandLogo";
 import { Menu, X, Lock, Sun, Moon, LogOut, LayoutDashboard, Shield } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLang } from "@/context/LangContext";
@@ -38,12 +38,14 @@ export default function Navigation() {
     <header className="sticky top-0 z-50 w-full border-b border-slate-900 bg-slate-950/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2 text-slate-100 hover:text-white flex-none">
-          <LogoUmmisco width={48} height={40} animated={true} />
-          <div className="flex flex-col border-l border-slate-800 pl-2">
-            <span className="text-base font-bold tracking-wider text-slate-100 uppercase">UMMISCO</span>
-            <span className="text-[12px] font-medium text-slate-400 uppercase tracking-widest leading-none">
-              Lab. Modélisation complexe (UCAD)
+        <Link href="/" className="flex items-center gap-2.5 text-slate-100 hover:text-white flex-none" aria-label="UMMISCO — Accueil">
+          <BrandLogo height={34} animated />
+          <div className="hidden lg:flex flex-col border-l border-slate-800 pl-2.5">
+            <span className="text-[13px] font-bold tracking-wide text-slate-100 leading-tight">
+              Systèmes Complexes
+            </span>
+            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest leading-none">
+              UMI 209 · IRD–Sorbonne
             </span>
           </div>
         </Link>
