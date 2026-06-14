@@ -38,6 +38,7 @@ import Footer from "@/components/Footer";
 import PartnersBanner from "@/components/PartnersBanner";
 import StatsCounter from "@/components/StatsCounter";
 import BrandLogo from "@/components/BrandLogo";
+import CentreGlobe, { CENTRE_VISUALS } from "@/components/CentreGlobe";
 import { useLang } from "@/context/LangContext";
 import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
 
@@ -258,7 +259,12 @@ export default function Home() {
               return (
                 <Link key={center.id} href={`/centres/${center.id}`} className={`group rounded-2xl border bg-gradient-to-br ${meta.gradient} ${meta.ring} p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
                   <div className="flex items-start justify-between mb-3">
-                    <span className="text-3xl leading-none">{meta.flag}</span>
+                    <CentreGlobe
+                      color={CENTRE_VISUALS[center.id]?.color ?? "#60a5fa"}
+                      node={CENTRE_VISUALS[center.id]?.node ?? [50, 40]}
+                      size={68}
+                      className="-ml-1 -mt-1"
+                    />
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-950/60 border border-slate-800 px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       <MapPin className="h-3 w-3" /> {center.country}
                     </span>

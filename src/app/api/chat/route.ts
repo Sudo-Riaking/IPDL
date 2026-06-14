@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
         stream: true,
         max_tokens: 1024,
         temperature: 0.4,

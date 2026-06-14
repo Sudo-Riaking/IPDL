@@ -11,6 +11,7 @@ import {
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
 import Avatar from "@/components/Avatar";
+import CentreGlobe, { CENTRE_VISUALS } from "@/components/CentreGlobe";
 
 const CENTER_META: Record<string, { flag: string; gradient: string; ring: string; dot: string }> = {
   france: { flag: "🇫🇷", gradient: "from-blue-600/25 to-indigo-700/5", ring: "border-blue-800/40", dot: "bg-blue-400" },
@@ -45,7 +46,12 @@ export default function CentrePage({ params }: PageProps) {
         <div className={`rounded-2xl border bg-gradient-to-br ${meta.gradient} ${meta.ring} p-8 mb-10`}>
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-4">
-              <span className="text-5xl leading-none">{meta.flag}</span>
+              <CentreGlobe
+                color={CENTRE_VISUALS[center.id]?.color ?? "#60a5fa"}
+                node={CENTRE_VISUALS[center.id]?.node ?? [50, 40]}
+                size={96}
+                className="flex-none"
+              />
               <div>
                 <h1 className="text-3xl font-extrabold text-white">{center.name}</h1>
                 <p className="text-sm text-slate-300 font-semibold mt-1 flex items-center gap-1.5">
