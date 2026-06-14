@@ -20,9 +20,7 @@ import {
   Quote,
   Sparkles,
   Globe2,
-  MapPin,
   Boxes,
-  Building2,
   Mic,
 } from "lucide-react";
 import {
@@ -37,19 +35,10 @@ import {
 import Footer from "@/components/Footer";
 import PartnersBanner from "@/components/PartnersBanner";
 import StatsCounter from "@/components/StatsCounter";
-import BrandLogo from "@/components/BrandLogo";
-import CentreGlobe, { CENTRE_VISUALS } from "@/components/CentreGlobe";
+import { CENTRE_VISUALS } from "@/components/CentreGlobe";
+import GlobeCentres from "@/components/GlobeCentres";
 import { useLang } from "@/context/LangContext";
 import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
-
-// Visual identity per regional centre (flag + accent gradient + ring).
-const CENTER_META: Record<string, { flag: string; gradient: string; ring: string; dot: string }> = {
-  france: { flag: "🇫🇷", gradient: "from-blue-600/20 to-indigo-700/5", ring: "border-blue-800/40", dot: "bg-blue-400" },
-  asie: { flag: "🇻🇳", gradient: "from-rose-600/20 to-red-700/5", ring: "border-rose-800/40", dot: "bg-rose-400" },
-  "afrique-ouest": { flag: "🇸🇳", gradient: "from-green-600/20 to-emerald-700/5", ring: "border-green-800/40", dot: "bg-green-400" },
-  "afrique-centrale": { flag: "🇨🇲", gradient: "from-amber-600/20 to-orange-700/5", ring: "border-amber-800/40", dot: "bg-amber-400" },
-  mediterranee: { flag: "🇲🇦", gradient: "from-violet-600/20 to-purple-700/5", ring: "border-violet-800/40", dot: "bg-violet-400" },
-};
 
 const SOFTWARE_ACCENT: Record<string, string> = {
   gama: "text-blue-400 bg-blue-500/10",
@@ -97,11 +86,7 @@ export default function Home() {
         <div className="absolute top-1/3 right-1/3 -z-10 h-56 w-56 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
 
         <div className="mx-auto max-w-4xl text-center relative z-10 flex flex-col items-center">
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-            <BrandLogo height={66} animated />
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/60 px-3.5 py-1 text-sm text-slate-400 mt-6">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/60 px-3.5 py-1 text-sm text-slate-400">
             <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
             UMMISCO UMI 209 · Au cœur des sciences de la complexité
           </motion.div>
@@ -201,6 +186,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── GLOBE INTERACTIF DES CENTRES ──────────────────────────────────── */}
+      <section id="centres" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10 relative overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[28rem] w-[28rem] rounded-full bg-blue-600/5 blur-[120px]" />
+        <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-2 items-center">
+          <div>
+            <span className="text-[13px] mono-text uppercase tracking-widest text-green-400 font-bold mb-3 flex items-center gap-2"><Globe2 className="h-4 w-4" /> Réseau international</span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white">Nos 5 centres dans le monde</h2>
+            <p className="mt-4 max-w-xl text-slate-400 text-base leading-relaxed">
+              UMMISCO est implantée sur trois continents. Faites tourner le globe : chaque point lumineux est un centre — cliquez-le pour découvrir ses recherches, ses tutelles et son équipe.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {CENTERS.map((c) => (
+                <Link key={c.id} href={`/centres/${c.id}`} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/40 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all">
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: CENTRE_VISUALS[c.id]?.color ?? "#60a5fa" }} />
+                  {c.name.replace("Centre ", "")}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <GlobeCentres />
+          </div>
+        </div>
+      </section>
+
       {/* ── AXES / THÈMES ─────────────────────────────────────────────────── */}
       <section id="axes" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10">
         <div className="mx-auto max-w-7xl">
@@ -239,58 +249,6 @@ export default function Home() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-      </section>
-
-      {/* ── CENTRES INTERNATIONAUX ────────────────────────────────────────── */}
-      <section id="centres" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2 flex items-center gap-2"><Globe2 className="h-4 w-4 text-green-400" /> Réseau international</span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-white">Nos 5 centres dans le monde</h2>
-              <p className="mt-4 max-w-2xl text-slate-400 text-base leading-relaxed">UMMISCO est implantée sur trois continents, au plus près des terrains d&apos;étude et des partenaires académiques.</p>
-            </div>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {CENTERS.map((center) => {
-              const meta = CENTER_META[center.id] ?? CENTER_META.france;
-              return (
-                <Link key={center.id} href={`/centres/${center.id}`} className={`group rounded-2xl border bg-gradient-to-br ${meta.gradient} ${meta.ring} p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
-                  <div className="flex items-start justify-between mb-3">
-                    <CentreGlobe
-                      color={CENTRE_VISUALS[center.id]?.color ?? "#60a5fa"}
-                      node={CENTRE_VISUALS[center.id]?.node ?? [50, 40]}
-                      size={68}
-                      className="-ml-1 -mt-1"
-                    />
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-950/60 border border-slate-800 px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      <MapPin className="h-3 w-3" /> {center.country}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-extrabold text-white leading-snug">{center.name}</h3>
-                  <p className="text-[12px] text-slate-400 font-semibold mt-0.5">{center.city}</p>
-                  <p className="mt-3 text-[13px] text-slate-400 leading-relaxed line-clamp-4 flex-1">{center.description}</p>
-                  <div className="mt-4 pt-4 border-t border-slate-800/60 space-y-2">
-                    <div className="flex items-center gap-2 text-[12px]">
-                      <Building2 className="h-3.5 w-3.5 text-slate-500 flex-none" />
-                      <span className="text-slate-500">{center.tutelle}</span>
-                    </div>
-                    {center.director && center.director !== "—" && (
-                      <div className="flex items-center gap-2 text-[12px]">
-                        <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
-                        <span className="text-slate-400">Direction : <strong className="text-slate-300 font-semibold">{center.director}</strong></span>
-                      </div>
-                    )}
-                  </div>
-                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-slate-400 group-hover:text-slate-200">
-                    Voir le centre <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
         </div>
       </section>
 
