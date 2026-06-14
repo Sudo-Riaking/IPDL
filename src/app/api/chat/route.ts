@@ -1,10 +1,5 @@
 import { NextRequest } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 import db from "@/lib/db";
-
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
 
 function buildContext(): string {
   const pubs = Array.from(db.publications.values())
@@ -38,14 +33,7 @@ ${events || "Aucun événement programmé."}
   `.trim();
 }
 
-export async function POST(req: NextRequest) {
-  const { messages } = await req.json();
-
-  if (!messages || !Array.isArray(messages)) {
-    return Response.json({ error: "Messages requis." }, { status: 400 });
-  }
-
-  const systemPrompt = `Tu es l'assistant scientifique officiel du portail UMMISCO UMI 209 (Unité Mixte Internationale en Modélisation et Simulation). Tu es précis, factuel et bienveillant.
+const SYSTEM_PROMPT = `Tu es l'assistant scientifique officiel du portail UMMISCO UMI 209 (Unité Mixte Internationale en Modélisation et Simulation). Tu es précis, factuel et bienveillant.
 
 ## Qui est UMMISCO ?
 UMMISCO (UMI 209) est une unité de recherche internationale créée en 2009, spécialisée dans la modélisation mathématique et informatique des systèmes complexes au service de la science de la durabilité. Elle réunit des chercheurs issus de disciplines variées pour développer des approches innovantes de simulation, d'analyse et d'aide à la décision.
@@ -60,11 +48,11 @@ UMMISCO (UMI 209) est une unité de recherche internationale créée en 2009, sp
 - **Centre France** (IRD + Sorbonne Université, Bondy) — Directeur : Nicolas Marilleau. Cluster HPC +1700 cœurs, FabLab cofab-in-Bondy.
 - **Centre Asie du Sud-Est** (VinUniversity, Hanoï, Vietnam) — Directeur : Alexis Drogoul. Berceau de la plateforme GAMA (2007).
 - **Centre Afrique de l'Ouest** (UCAD, Dakar, Sénégal) — Directeur : Alassane BAH. Socio-écosystèmes sahéliens, pêche, Grande Muraille Verte.
-- **Centre Afrique centrale et de l'est** (Université de Yaoundé 1, Cameroun) — Directrice : Diane TC Tchako. Épidémies, maladies tropicales, One Health.
+- **Centre Afrique centrale et de l'est** (Université de Yaoundé 1, Cameroun) — Épidémies, maladies tropicales, One Health.
 - **Centre Méditerranée** (Université Cadi Ayyad, Marrakech, Maroc) — Directeur : Khalil Ezzinbi. Modélisation mathématique, théorie des essaims, dynamique des populations.
 
 ## Chiffres clés
-94 membres · 1972 publications · 29 projets actifs · 5 centres internationaux
+94 membres · 5 centres internationaux · 29 projets actifs · 4 axes de recherche.
 
 ## Projets majeurs
 DiDEM, HABITABLE, DigEpi, Waqatali, COMOKIT, ANR MaGnuM, RDT Smart Reader, U2worm, AIRQALY-4-ASMAFRI, AIME, DOM, ANR ESCAPE, ANR GENSTAR.
@@ -87,49 +75,108 @@ DiDEM, HABITABLE, DigEpi, Waqatali, COMOKIT, ANR MaGnuM, RDT Smart Reader, U2wor
 - Tu ne fournis pas d'avis médicaux ou juridiques.
 - Tu es neutre sur les sujets politiques.
 
-Tu réponds dans la langue de l'utilisateur (français par défaut, anglais si l'utilisateur écrit en anglais). Sois concis et scientifiquement rigoureux.
+Tu réponds dans la langue de l'utilisateur (français par défaut, anglais si l'utilisateur écrit en anglais). Sois concis et scientifiquement rigoureux.`;
 
-${buildContext()}`;
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
 
+export async function POST(req: NextRequest) {
+  const { messages } = await req.json();
+
+  if (!messages || !Array.isArray(messages)) {
+    return Response.json({ error: "Messages requis." }, { status: 400 });
+  }
+
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    return new Response(
+      "L'assistant IA n'est pas encore configuré (clé GROQ_API_KEY manquante). Ajoutez-la dans les variables d'environnement Vercel pour l'activer.",
+      { headers: { "Content-Type": "text/plain; charset=utf-8" } }
+    );
+  }
+
+  const history = (messages as ChatMessage[])
+    .slice(-10)
+    .map((m) => ({ role: m.role, content: m.content }));
+
+  let groqRes: Response;
   try {
-    const stream = new ReadableStream({
-      async start(controller) {
-        try {
-          const anthropicStream = client.messages.stream({
-            model: "claude-haiku-4-5-20251001",
-            max_tokens: 1024,
-            system: systemPrompt,
-            messages: messages.slice(-10), // Keep last 10 messages for context
-          });
-
-          for await (const chunk of anthropicStream) {
-            if (
-              chunk.type === "content_block_delta" &&
-              chunk.delta.type === "text_delta"
-            ) {
-              controller.enqueue(new TextEncoder().encode(chunk.delta.text));
-            }
-          }
-        } catch (err) {
-          controller.enqueue(
-            new TextEncoder().encode(
-              "\n[Erreur : impossible de contacter l'assistant. Vérifiez la clé API.]"
-            )
-          );
-        } finally {
-          controller.close();
-        }
-      },
-    });
-
-    return new Response(stream, {
+    groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
       headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Transfer-Encoding": "chunked",
-        "Cache-Control": "no-cache",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
       },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        stream: true,
+        max_tokens: 1024,
+        temperature: 0.4,
+        messages: [
+          { role: "system", content: `${SYSTEM_PROMPT}\n\n${buildContext()}` },
+          ...history,
+        ],
+      }),
     });
   } catch {
-    return Response.json({ error: "Erreur du service IA." }, { status: 500 });
+    return new Response("Désolé, impossible de contacter l'assistant pour le moment.", {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
   }
+
+  if (!groqRes.ok || !groqRes.body) {
+    return new Response("Désolé, l'assistant est momentanément indisponible.", {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
+  }
+
+  // Convert GROQ's OpenAI-style SSE stream into a plain-text stream — exactly
+  // what the ChatWidget reads chunk by chunk.
+  const reader = groqRes.body.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let buffer = "";
+
+  const stream = new ReadableStream({
+    async start(controller) {
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed.startsWith("data:")) continue;
+            const data = trimmed.slice(5).trim();
+            if (data === "[DONE]") {
+              controller.close();
+              return;
+            }
+            try {
+              const json = JSON.parse(data);
+              const delta = json.choices?.[0]?.delta?.content;
+              if (delta) controller.enqueue(encoder.encode(delta));
+            } catch {
+              // Ignore partial / non-JSON keep-alive lines.
+            }
+          }
+        }
+      } catch {
+        controller.enqueue(encoder.encode("\n[Erreur de connexion à l'assistant.]"));
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-cache",
+    },
+  });
 }

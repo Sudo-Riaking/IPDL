@@ -25,7 +25,7 @@ function hashIndex(str: string, mod: number): number {
 
 interface AvatarProps {
   name: string;
-  /** Optional photo URL; falls back to coloured initials if it fails to load. */
+  /** Optional photo URL; the coloured initials show through if it can't load. */
   src?: string;
   /** Initials shown when no photo is available. */
   seed: string;
@@ -34,29 +34,36 @@ interface AvatarProps {
   className?: string;
 }
 
+/**
+ * Robust avatar: the coloured initials are ALWAYS rendered underneath, and the
+ * photo (when available) is overlaid and fades in on load. This avoids any
+ * conditional img↔initials swap, so a slow or failed image can never leave a
+ * blank/flickering avatar — the photo simply appears over the initials.
+ */
 export default function Avatar({ name, src, seed, size = 56, className = "" }: AvatarProps) {
+  const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   const gradient = GRADIENTS[hashIndex(name, GRADIENTS.length)];
-  const showImg = src && !failed;
 
   return (
     <span
       style={{ height: size, width: size }}
       className={`relative flex-none rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br ${gradient} text-white font-extrabold ring-2 ring-white/10 ${className}`}
     >
-      {showImg ? (
+      <span style={{ fontSize: Math.round(size * 0.36) }} className="tracking-tight drop-shadow-sm select-none">
+        {seed}
+      </span>
+      {src && !failed && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
           alt={name}
-          className="h-full w-full object-cover"
+          decoding="async"
           draggable={false}
+          onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
-      ) : (
-        <span style={{ fontSize: Math.round(size * 0.36) }} className="tracking-tight drop-shadow-sm">
-          {seed}
-        </span>
       )}
     </span>
   );

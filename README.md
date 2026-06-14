@@ -72,3 +72,19 @@ L'application Next.js propose de vraies pages dynamiques :
 
 ---
 *Conçu avec rigueur par le Groupe 8 (DIC1 GI, ESP UCAD).*
+
+---
+
+## 🔐 Configuration des variables d'environnement
+
+L'application utilise un endpoint GROQ pour le service d'assistant. Créez un fichier `.env` à partir de `.env.example` et définissez au minimum :
+
+```
+GROQ_API_URL=https://api.example.com/groq
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+- `GROQ_API_URL` : URL complète de l'endpoint vers lequel l'API enverra les messages.
+- `GROQ_API_KEY` : clé secrète pour authentifier les requêtes (passée dans l'entête `Authorization: Bearer ...`).
+
+Si votre fournisseur nécessite un format de requête différent (autres paramètres JSON), adaptez `src/app/api/chat/route.ts` en conséquence.

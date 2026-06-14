@@ -111,7 +111,7 @@ export default function ChatWidget() {
               <div className="text-xs font-bold text-white">{t("chatbot.title")}</div>
               <div className="text-[9px] text-green-400 flex items-center gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-                En ligne — Propulsé par Claude
+                En ligne — Propulsé par GROQ
               </div>
             </div>
           </div>

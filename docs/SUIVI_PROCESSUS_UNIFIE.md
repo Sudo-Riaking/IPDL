@@ -65,7 +65,7 @@ Conforme à la cible 4 couches décidée en inception, adaptée à la stack rete
 │           Simulation, Event, Partner, AccessRequest           │
 ├─────────────────────────────────────────────────────────────┤
 │  Services externes intégrés (sans redirection) :              │
-│  Google Scholar / DOI · Assistant IA (Anthropic) · iframes    │
+│  Google Scholar / DOI · Assistant IA (GROQ) · iframes          │
 └─────────────────────────────────────────────────────────────┘
 ```
 

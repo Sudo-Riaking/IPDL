@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.100.1",
     "framer-motion": "^12.39.0",
     "jose": "^6.2.3",
     "lucide-react": "^1.16.0",

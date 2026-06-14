@@ -43,7 +43,7 @@ Toutes les routes sont présentes et fonctionnelles :
 
 ### Composants
 `Navigation` (sticky, dark mode toggle, fr/en, auth state, mobile menu),
-`Footer`, `LogoUmmisco` (SVG animé), `ChatWidget` (streaming Anthropic SDK),
+`Footer`, `LogoUmmisco` (SVG animé), `ChatWidget` (streaming GROQ endpoint),
 `StatsCounter` (animation count-up), `PublicationCard`, `Providers`
 
 ### Contextes

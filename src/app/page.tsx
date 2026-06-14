@@ -254,7 +254,7 @@ export default function Home() {
             {CENTERS.map((center) => {
               const meta = CENTER_META[center.id] ?? CENTER_META.france;
               return (
-                <div key={center.id} className={`rounded-2xl border bg-gradient-to-br ${meta.gradient} ${meta.ring} p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
+                <Link key={center.id} href={`/centres/${center.id}`} className={`group rounded-2xl border bg-gradient-to-br ${meta.gradient} ${meta.ring} p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
                   <div className="flex items-start justify-between mb-3">
                     <span className="text-3xl leading-none">{meta.flag}</span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-950/60 border border-slate-800 px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -276,7 +276,10 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                </div>
+                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-slate-400 group-hover:text-slate-200">
+                    Voir le centre <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </Link>
               );
             })}
           </div>
