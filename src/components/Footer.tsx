@@ -51,13 +51,16 @@ export default function Footer() {
                 <Link href="/publications" className="hover:text-slate-200 transition-colors">Publications Scientifiques</Link>
               </li>
               <li>
-                <Link href="/simulations" className="hover:text-slate-200 transition-colors">Simulateurs Doctoraux</Link>
+                <Link href="/datasets" className="hover:text-slate-200 transition-colors">Catalogues de Datasets</Link>
               </li>
               <li>
-                <Link href="/#datasets" className="hover:text-slate-200 transition-colors">Catalogues de Datasets</Link>
+                <Link href="/equipe" className="hover:text-slate-200 transition-colors">Annuaire des Chercheurs</Link>
               </li>
               <li>
-                <Link href="/#chercheurs" className="hover:text-slate-200 transition-colors">Annuaire des Chercheurs</Link>
+                <Link href="/#centres" className="hover:text-slate-200 transition-colors">Nos Centres</Link>
+              </li>
+              <li>
+                <Link href="/presse" className="hover:text-slate-200 transition-colors">Espace Presse &amp; Médias</Link>
               </li>
               <li>
                 <Link href="/connexion" className="hover:text-slate-200 transition-colors">Espace Connecté</Link>

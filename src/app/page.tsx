@@ -23,6 +23,7 @@ import {
   MapPin,
   Boxes,
   Building2,
+  Mic,
 } from "lucide-react";
 import {
   AXES,
@@ -64,6 +65,7 @@ const EXPLORE_LINKS = [
   { href: "/simulations", title: "Simulations", desc: "Modèles intégrés (GAMA, NetLogo) exécutables sans quitter le portail.", Icon: FlaskConical, accent: "text-amber-400", bg: "bg-amber-500/10" },
   { href: "/actualites", title: "Actualités & séminaires", desc: "Agenda scientifique, inscriptions en ligne, contrats de doctorat.", Icon: Newspaper, accent: "text-rose-400", bg: "bg-rose-500/10" },
   { href: "/partenaires", title: "Partenaires & bailleurs", desc: "Tutelles, partenaires académiques, financeurs et délivrables.", Icon: Handshake, accent: "text-cyan-400", bg: "bg-cyan-500/10" },
+  { href: "/presse", title: "Presse & médias", desc: "Espace journalistes : contacts, expert·e·s à interviewer, temps forts.", Icon: Mic, accent: "text-rose-400", bg: "bg-rose-500/10" },
 ];
 
 export default function Home() {
