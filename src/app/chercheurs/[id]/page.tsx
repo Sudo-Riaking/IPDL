@@ -24,6 +24,7 @@ import {
   CENTERS,
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
+import { scholarUrl } from "@/lib/scholar";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -53,11 +54,11 @@ export default function ResearcherProfilePage({ params }: PageProps) {
         
         {/* Back Link */}
         <Link
-          href="/"
+          href="/equipe"
           className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 mb-8 font-semibold"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span>Retour à l'accueil</span>
+          <span>Retour à l&apos;équipe</span>
         </Link>
 
         {/* Profile Card */}
@@ -113,6 +114,29 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                 </a>
               </div>
             )}
+
+            {/* Axes, publications count & Google Scholar */}
+            <div className="flex flex-wrap items-center gap-2">
+              {researcher.axes.map((a) => {
+                const ax = AXES.find((x) => x.id === a);
+                return ax ? (
+                  <span key={a} className="text-[11px] bg-slate-900 border border-slate-800 text-slate-400 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    {ax.shortName}
+                  </span>
+                ) : null;
+              })}
+              <span className="inline-flex items-center gap-1 rounded-full bg-blue-500/10 border border-blue-900/30 px-2.5 py-0.5 text-[11px] font-bold text-blue-400">
+                {researcher.publicationsCount} publications
+              </span>
+              <a
+                href={scholarUrl({ title: researcher.name })}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 border border-slate-800 px-2.5 py-0.5 text-[11px] font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all"
+              >
+                <ExternalLink className="h-3 w-3" /> Google Scholar
+              </a>
+            </div>
 
             <p className="text-sm text-slate-400 leading-relaxed font-serif max-w-3xl">
               {researcher.bio}

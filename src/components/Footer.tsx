@@ -70,11 +70,11 @@ export default function Footer() {
             </h4>
             <div className="flex items-start gap-2">
               <MapPin className="h-4 w-4 text-slate-600 flex-none mt-0.5" />
-              <span>**ESP UCAD** : Route de Ouakam, BP 5085, Dakar-Fann, Sénégal.</span>
+              <span><strong className="text-slate-300 font-semibold">ESP UCAD</strong> : Route de Ouakam, BP 5085, Dakar-Fann, Sénégal.</span>
             </div>
             <div className="flex items-start gap-2">
               <MapPin className="h-4 w-4 text-slate-600 flex-none mt-0.5" />
-              <span>**Site de Hann** : Campus IRD de Hann, Route des Pères Maristes, Dakar.</span>
+              <span><strong className="text-slate-300 font-semibold">Site de Hann</strong> : Campus IRD de Hann, Route des Pères Maristes, Dakar.</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-slate-600 flex-none" />
