@@ -426,7 +426,7 @@ export default function AdminPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="flex items-center gap-3 border-b border-slate-900 pb-8 mb-8">
+        <div className="flex flex-wrap items-center gap-3 border-b border-slate-900 pb-8 mb-8">
           <div className="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 flex items-center justify-center flex-none">
             <Shield className="h-5 w-5" />
           </div>
@@ -458,7 +458,7 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => setTab("publications")}
             className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider border transition-all flex items-center gap-1.5 ${
