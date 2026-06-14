@@ -1,10 +1,37 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Globe, ExternalLink, Filter } from "lucide-react";
+import { Globe, ExternalLink, Filter, FileText, Package, Database, Lock, Eye, Coins } from "lucide-react";
 import Footer from "@/components/Footer";
 import { useLang } from "@/context/LangContext";
 import type { DBPartner } from "@/lib/db";
+
+// ── Délivrables & bailleurs (fenêtre dédiée demandée au cahier des charges) ──
+interface Deliverable {
+  id: string;
+  titre: string;
+  projet: string;
+  bailleur: string;
+  type: "Rapport" | "Logiciel" | "Note de synthèse" | "Dataset";
+  annee: number;
+  acces: "public" | "protected";
+}
+
+const DELIVERABLES: Deliverable[] = [
+  { id: "dl-01", titre: "Rapport d'avancement scientifique DiDEM", projet: "DiDEM", bailleur: "ANR", type: "Rapport", annee: 2024, acces: "protected" },
+  { id: "dl-02", titre: "Plateforme de simulation HABITABLE (livrable D3.2)", projet: "HABITABLE", bailleur: "ANR", type: "Logiciel", annee: 2024, acces: "public" },
+  { id: "dl-03", titre: "Note de synthèse — politiques d'intervention COMOKIT", projet: "COMOKIT", bailleur: "IRD", type: "Note de synthèse", annee: 2023, acces: "public" },
+  { id: "dl-04", titre: "Jeu de données ouvert qualité de l'air AIRQALY", projet: "AIRQALY-4-ASMAFRI", bailleur: "Programme IRN", type: "Dataset", annee: 2025, acces: "public" },
+  { id: "dl-05", titre: "Rapport final — surveillance de la tuberculose EPICAM", projet: "EPICAM", bailleur: "ANR", type: "Rapport", annee: 2023, acces: "protected" },
+  { id: "dl-06", titre: "Livrable participatif — jeu sérieux Waqatali", projet: "Waqatali", bailleur: "IRD", type: "Logiciel", annee: 2024, acces: "public" },
+];
+
+const DELIVERABLE_ICONS: Record<Deliverable["type"], React.ElementType> = {
+  Rapport: FileText,
+  Logiciel: Package,
+  "Note de synthèse": FileText,
+  Dataset: Database,
+};
 
 const TYPE_COLORS: Record<string, string> = {
   academique: "bg-blue-500/10 text-blue-400 border-blue-900/30",
@@ -45,6 +72,55 @@ export default function PartenairesPage() {
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("partners.title")}</h1>
           <p className="mt-2 text-slate-400 text-sm max-w-2xl">{t("partners.description")}</p>
+        </div>
+
+        {/* ── Délivrables & Bailleurs (fenêtre dédiée) ───────────────── */}
+        <section className="mb-14">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 flex-none">
+              <Coins className="h-5 w-5" />
+            </span>
+            <div>
+              <h2 className="text-lg font-extrabold text-white">Délivrables &amp; Bailleurs</h2>
+              <p className="text-[11px] text-slate-500 max-w-2xl">
+                Productions livrées dans le cadre des projets financés (rapports, logiciels, jeux de données) — accès selon le niveau de confidentialité.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {DELIVERABLES.map((d) => {
+              const Icon = DELIVERABLE_ICONS[d.type];
+              const isPublic = d.acces === "public";
+              return (
+                <div key={d.id} className="rounded-xl border border-slate-900 bg-slate-900/10 p-5 flex flex-col hover:border-slate-800 transition-colors">
+                  <div className="flex items-start justify-between mb-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 flex-none">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[9px] font-bold border uppercase tracking-wider ${isPublic ? "bg-green-500/10 text-green-400 border-green-900/30" : "bg-blue-500/10 text-blue-400 border-blue-900/30"}`}>
+                      {isPublic ? <><Eye className="h-2.5 w-2.5" /> Public</> : <><Lock className="h-2.5 w-2.5" /> Protégé</>}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white leading-snug">{d.titre}</h3>
+                  <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500">
+                    <span>Projet : <strong className="text-slate-400">{d.projet}</strong></span>
+                    <span>Type : <strong className="text-slate-400">{d.type}</strong></span>
+                    <span>{d.annee}</span>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-900/60">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-400">
+                      <Coins className="h-3 w-3" /> Financé par {d.bailleur}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        <div className="border-b border-slate-900 pb-4 mb-8">
+          <h2 className="text-lg font-extrabold text-white">Partenaires &amp; tutelles</h2>
         </div>
 
         {/* Filter */}
