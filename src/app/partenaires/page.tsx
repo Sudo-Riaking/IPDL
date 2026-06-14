@@ -72,6 +72,7 @@ export default function PartenairesPage() {
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("partners.title")}</h1>
           <p className="mt-2 text-slate-400 text-sm max-w-2xl">{t("partners.description")}</p>
+          <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
 
         {/* ── Délivrables & Bailleurs (fenêtre dédiée) ───────────────── */}

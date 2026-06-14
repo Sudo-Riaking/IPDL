@@ -30,6 +30,7 @@ export default function EquipePage() {
           <p className="mt-2 text-slate-400 text-base">
             {filtered.length} membre(s) répartis dans les 5 centres internationaux d&apos;UMMISCO (UMI 209).
           </p>
+          <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
 
         {/* Axis filter */}

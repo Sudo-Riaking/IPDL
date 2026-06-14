@@ -5,7 +5,9 @@ import { Mail, MapPin, Globe } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-900 bg-slate-950 text-slate-400 py-16 px-4 sm:px-6 lg:px-8">
+    <footer className="relative border-t border-slate-900 bg-slate-950 text-slate-400 py-16 px-4 sm:px-6 lg:px-8">
+      {/* Decorative blue→green brand accent line */}
+      <div aria-hidden className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-blue-500/60 via-blue-400/30 to-green-500/60" />
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand block */}

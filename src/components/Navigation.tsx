@@ -36,6 +36,8 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-900 bg-slate-950/80 backdrop-blur-md">
+      {/* Decorative blue→green brand accent line */}
+      <div aria-hidden className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-green-500/50" />
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 text-slate-100 hover:text-white flex-none" aria-label="UMMISCO — Accueil">
