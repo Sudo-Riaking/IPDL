@@ -14,7 +14,36 @@ interface PageProps {
 export default function PublicationPage({ params }: PageProps) {
   const { id } = use(params);
 
-  const publication = PUBLICATION.find((p) => p.id === id);
+  // First try to find in global PUBLICATION array
+  let publication = PUBLICATION.find((p) => p.id === id);
+
+  // If not found, search in researcher's individual publications
+  if (!publication) {
+    for (const researcher of RESEARCHERS) {
+      if (researcher.publications) {
+        const foundPub = researcher.publications.find(
+          (pub) => `${researcher.id}-${pub.title.substring(0, 20).replace(/\s+/g, '-')}` === id
+        );
+        if (foundPub) {
+          publication = {
+            id,
+            title: foundPub.title,
+            authors: [],
+            researcherIds: [researcher.id],
+            year: foundPub.year || new Date().getFullYear(),
+            axis: researcher.axes[0] || "agents",
+            abstract: "",
+            citationApa: "",
+            citationBibtex: "",
+            accessLevel: "public" as const,
+            doi: undefined,
+            journal: undefined,
+          };
+          break;
+        }
+      }
+    }
+  }
 
   if (!publication) {
     notFound();
