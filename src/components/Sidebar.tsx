@@ -76,7 +76,9 @@ export default function Sidebar() {
         {/* Logo */}
         <div className="flex items-center justify-center px-3 py-4 border-b border-slate-900">
           <Link href="/" aria-label="UMMISCO — Accueil">
-            <BrandLogo height={collapsed ? 52 : 140} withChip={false} animated />
+            <span className="logo-glow inline-flex">
+              <BrandLogo height={collapsed ? 52 : 140} withChip={false} animated />
+            </span>
           </Link>
         </div>
 
