@@ -118,8 +118,8 @@ export default function PartenairesPage() {
               { src: "/logos/logo_ugb.webp",          alt: "UGB" },
               { src: "/logos/logo_uadb.jpg",          alt: "UADB" },
             ].map(({ src, alt }) => (
-              <div key={alt} className="h-10 w-[4.5rem] bg-white rounded-lg p-1.5 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
-                <img src={src} alt={alt} className="h-full w-full object-contain" title={alt} />
+              <div key={alt} className="h-12 w-24 bg-white rounded-lg p-2 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
+                <img src={src} alt={alt} className="max-h-full max-w-full object-contain" title={alt} />
               </div>
             ))}
           </div>
@@ -201,11 +201,11 @@ export default function PartenairesPage() {
             {filtered.map((p) => (
               <div key={p.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col hover:border-slate-800 transition-colors">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="h-14 w-14 rounded-xl bg-white flex items-center justify-center flex-none p-1.5 shadow">
+                  <div className="h-14 w-20 rounded-xl bg-white flex items-center justify-center flex-none p-2 shadow">
                     {(() => {
                       const logo = getPartnerLogo(p.nom);
                       return logo
-                        ? <img src={logo} alt={p.nom} className="h-full w-full object-contain" />
+                        ? <img src={logo} alt={p.nom} className="max-h-full max-w-full object-contain" />
                         : <Globe className="h-6 w-6 text-slate-400" />;
                     })()}
                   </div>

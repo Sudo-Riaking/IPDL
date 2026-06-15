@@ -126,12 +126,14 @@ function PartnerCard({ partner }: { partner: PartnerEntry }) {
   const inner = (
     <div className="flex-none flex items-center gap-3 px-6 py-3 rounded-lg border border-slate-800 bg-slate-950 hover:border-slate-700 hover:bg-slate-900/60 transition-colors select-none mx-2 group">
       {partner.logoUrl ? (
-        <img
-          src={partner.logoUrl}
-          alt={partner.name}
-          className="h-8 w-auto max-w-[80px] object-contain opacity-75 group-hover:opacity-100 transition-opacity dark:brightness-[1.15] brightness-90"
-          draggable={false}
-        />
+        <div className="h-8 w-20 flex-none flex items-center justify-center">
+          <img
+            src={partner.logoUrl}
+            alt={partner.name}
+            className="max-h-full max-w-full object-contain opacity-75 group-hover:opacity-100 transition-opacity dark:brightness-[1.15] brightness-90"
+            draggable={false}
+          />
+        </div>
       ) : (
         <span className="h-2 w-2 rounded-full flex-none opacity-80 group-hover:opacity-100 transition-opacity" style={{ background: "currentColor" }}>
           <span className={`block h-full w-full rounded-full ${CATEGORY_DOT[partner.category]}`} />
