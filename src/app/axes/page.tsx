@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { PUBLICATIONS, RESEARCHERS } from "@/data/ummiscoData";
+import { PUBLICATION, RESEARCHERS } from "@/data/ummiscoData";
 
 const AXES_DATA = [
   {
