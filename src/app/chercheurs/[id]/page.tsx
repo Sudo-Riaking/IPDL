@@ -54,6 +54,8 @@ export default function ResearcherProfilePage({ params }: PageProps) {
       citationApa: "",
       citationBibtex: "",
       accessLevel: "public" as const,
+      doi: undefined,
+      journal: undefined,
     })) :
     PUBLICATIONS.filter((p) =>
       p.researcherIds.includes(researcher.id)
