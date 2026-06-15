@@ -63,6 +63,9 @@ const PARTNER_LOGOS: Array<{ keywords: string[]; logo: string }> = [
   { keywords: ["cadi ayyad", "uca"],                      logo: "/logos/logo_uca.png" },
   { keywords: ["alioune diop", "uadb"],                   logo: "/logos/logo_uadb.jpg" },
   { keywords: ["ugb", "gaston berger"],                   logo: "/logos/logo_ugb.webp" },
+  {keywords: ["institut pasteur", "pasteur"],             logo: "/logos/logo_institutpasteur.png"},
+  {keywords: ["saed"],                                    logo: "/logos/logo_saed.jpg"},
+  {keywords: ["inrae"],                                    logo: "/logos/logo_inrae.png"},
 ];
 
 function getPartnerLogo(nom: string): string | null {
@@ -117,6 +120,9 @@ export default function PartenairesPage() {
               { src: "/logos/logo_esp.jpg",           alt: "ESP" },
               { src: "/logos/logo_ugb.webp",          alt: "UGB" },
               { src: "/logos/logo_uadb.jpg",          alt: "UADB" },
+              { src: "/logos/logo_institutpasteur.png", alt: "Institut Pasteur" },
+              { src: "/logos/logo_saed.jpg",            alt: "SAED" },
+              { src: "/logos/logo_inrae.png",            alt: "INRAE" },
             ].map(({ src, alt }) => (
               <div key={alt} className="h-12 w-24 bg-white rounded-lg p-2 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
                 <img src={src} alt={alt} className="max-h-full max-w-full object-contain" title={alt} />
