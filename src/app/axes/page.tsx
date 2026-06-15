@@ -42,7 +42,7 @@ const AXES_DATA = [
     color: "amber",
     description: "Modélisation hydro-sédimentaire, érosion côtière, dynamique des écosystèmes. Simulations sous scénarios de changement climatique pour la gestion des risques naturels au Sénégal.",
     keywords: ["Érosion côtière", "Inondations", "Changement climatique", "Langue de Barbarie"],
-    lead: "Prof. Cheikh Diallo",
+    lead: "Professeur Cheikh Diallo",
   },
 ];
 
