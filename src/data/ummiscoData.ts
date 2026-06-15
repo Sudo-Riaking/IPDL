@@ -76,6 +76,11 @@ export interface Project {
   domain: string;
   description: string;
   url?: string;
+  image?: string;
+  chefProjet?: string;
+  duree?: string;
+  dateDebut?: string;
+  budget?: string;
 }
 
 export interface SoftwareTool {
@@ -1258,6 +1263,11 @@ export const PROJECTS: Project[] = [
     description:
       "Dialogue Science-Décideurs pour une gestion intégrée des environnements littoraux et marins. Approche participative multi-acteurs.",
     url: "https://ummisco.fr/fr/projet-ummisco/didem/",
+    image: "/projets/didem.png",
+    chefProjet: "Nicolas Marilleau — UMMISCO",
+    duree: "36 mois",
+    dateDebut: "Juillet 2020",
+    budget: "952 K€",
   },
   {
     id: "habitable",
@@ -1268,6 +1278,11 @@ export const PROJECTS: Project[] = [
     description:
       "Modélisation de la mobilité des pêcheurs artisanaux au Sénégal. Simulateur Lolli implémenté sous GAMA pour explorer des scénarios climatiques et socio-économiques.",
     url: "https://ummisco.fr/fr/projet-ummisco/habitable/",
+    image: "/projets/habitable.png",
+    chefProjet: "François Gemenne — Université de Liège / Hugo Observatory",
+    duree: "36 mois",
+    dateDebut: "Décembre 2020",
+    budget: "126 K€",
   },
   {
     id: "digepi",
@@ -1278,6 +1293,11 @@ export const PROJECTS: Project[] = [
     description:
       "Digital Epidemiology : nouvelle approche pour la surveillance en temps réel du COVID-19 via l'intégration de capteurs environnementaux et de modèles prédictifs.",
     url: "https://ummisco.fr/fr/projet-ummisco/digepi/",
+    image: "/projets/digepi.png",
+    chefProjet: "Benjamin Roche — MIVEGEC, IRD",
+    duree: "18 mois",
+    dateDebut: "Avril 2020",
+    budget: "100 K€",
   },
   {
     id: "waqatali",
@@ -1288,6 +1308,10 @@ export const PROJECTS: Project[] = [
     description:
       "Application de l'IA pour l'optimisation de l'irrigation dans les zones semi-arides. Combine apprentissage profond et données capteurs terrain.",
     url: "https://ummisco.fr/fr/projet-ummisco/waqatali/",
+    image: "/projets/waqatali.png",
+    chefProjet: "Nicolas Marilleau (UMMISCO) & Thomas Bur (URBASENSE)",
+    duree: "54 mois",
+    budget: "360 K€",
   },
   {
     id: "comokit",
@@ -1298,6 +1322,8 @@ export const PROJECTS: Project[] = [
     description:
       "Modèle informatique permettant d'explorer in silico les stratégies d'intervention épidémique (COVID-19) avant leur mise en application.",
     url: "https://comokit.org/",
+    image: "/projets/comokit.png",
+    chefProjet: "Alexis Drogoul, Patrick Taillandier, Benoit Gaudou — IRD / UMMISCO",
   },
   {
     id: "anr-magnum",
@@ -1308,6 +1334,8 @@ export const PROJECTS: Project[] = [
     description:
       "The Maasai, the Gnu and the Metropolis. Réseaux de capteurs pour le suivi des grandes migrations animales en Afrique de l'Est.",
     url: "https://ummisco.fr/fr/projet-ummisco/anr-magnum/",
+    image: "/projets/anr-magnum.png",
+    chefProjet: "François Mialhe — CNRS / Université de Lyon",
   },
   {
     id: "dom",
@@ -1318,6 +1346,11 @@ export const PROJECTS: Project[] = [
     description:
       "Distribution Model : séparation des préoccupations pour faciliter la distribution des modèles à base d'agents sur clusters HPC.",
     url: "https://ummisco.fr/fr/projet-ummisco/dom/",
+    image: "/projets/dom.png",
+    chefProjet: "Ayesha Almazooqi — Khalifa University, Abu Dhabi",
+    duree: "36 mois",
+    dateDebut: "Décembre 2020",
+    budget: "750 K USD",
   },
   {
     id: "airqaly-4-asmafri",
@@ -1328,6 +1361,10 @@ export const PROJECTS: Project[] = [
     description:
       "Réseau de capteurs citoyens pour la surveillance de la qualité de l'air et son impact sur l'asthme en Afrique. Science participative et acquisition de données.",
     url: "https://ummisco.fr/fr/projet-ummisco/airqaly-4-asmafri/",
+    image: "/projets/airqaly-4-asmafri.png",
+    chefProjet: "Nicolas Marilleau — UMMISCO",
+    duree: "48 mois",
+    budget: "890 K€",
   },
   {
     id: "aime",
@@ -1338,6 +1375,11 @@ export const PROJECTS: Project[] = [
     description:
       "Artificial Intelligence for Marine Ecosystems. Application de l'IA pour la modélisation et le suivi des écosystèmes marins méditerranéens.",
     url: "https://ummisco.fr/fr/projet-ummisco/aime/",
+    image: "/projets/aime.png",
+    chefProjet: "Jihad Zahir — CAU / UMMISCO, Maroc",
+    duree: "48 mois",
+    dateDebut: "Janvier 2021",
+    budget: "649 K€",
   },
   {
     id: "rdt-smart-reader",
@@ -1348,6 +1390,10 @@ export const PROJECTS: Project[] = [
     description:
       "Lecteur intelligent de tests de diagnostic rapide (TDR). Application de vision par ordinateur pour automatiser la lecture des TDR en contexte de ressources limitées.",
     url: "https://ummisco.fr/fr/projet-ummisco/rdt-smart-reader/",
+    image: "/projets/rdt-smart-reader.png",
+    chefProjet: "Jules Brice Tchatchueng Mbougua — Centre Pasteur du Cameroun / UMMISCO",
+    duree: "24 mois",
+    dateDebut: "Février 2021",
   },
 ];
 
