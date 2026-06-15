@@ -2000,7 +2000,7 @@ export const PROJECTS: Project[] = [
   // ── Projets sans page ummisco.fr trouvée — à compléter ───────────────────
   {
     id: "escape",
-    name: "ESCAPE",
+    name: "ANR ESCAPE",
     centers: ["asie"],
     themes: ["agents"],
     domain: "Environnement",
@@ -2110,17 +2110,6 @@ export const PROJECTS: Project[] = [
     image: "/projets/SIEMENS.webp",
   },
   {
-    id: "histoire-danr",
-    name: "HISTOIRE D'ANR",
-    centers: ["france"],
-    themes: ["agents"],
-    domain: "Santé publique",
-    description: "Étude de l'histoire naturelle et de l'émergence des maladies infectieuses tropicales par approches computationnelles.",
-    url: "https://ummisco.fr/fr/projet-ummisco/histoire-danr/",
-    chefProjet: "Benjamin Roche, UMMISCO, IRD, 32 avenue Henri Varagnat, 93140 Bondy, France",
-    partenaires: "IRD, Bondy, France ; IRD, Montpellier, France ; CIRMF, Franceville, Gabon ; UPMC, Paris, France",
-  },
-  {
     id: "nocime",
     name: "NOCIME",
     centers: ["asie"],
@@ -2133,17 +2122,6 @@ export const PROJECTS: Project[] = [
     dateDebut: "Janvier 2024",
     budget: "350 K€",
     partenaires: "INRIA, INRAE, IRD (ANR 2023)",
-  },
-  {
-    id: "obligations",
-    name: "OBLIGATIONS",
-    centers: ["france"],
-    themes: ["participatif"],
-    domain: "Biodiversité",
-    description: "Obligations de résultats pour la biodiversité : quantification et suivi à l'interface science-politiques.",
-    url: "https://ummisco.fr/fr/projet-ummisco/obligations/",
-    chefProjet: "Marie-Paule Bonnet, UMR Espace-Dev, IRD",
-    partenaires: "IRD Montpellier & Bondy ; Universidad Nacional de Colombia ; CIRAD ; MNHN/GBIF-France ; Université Friedrich-Schiller, Iéna ; Instituto Nacional de Pesquisas Spatiales, Brésil ; Université norvégienne des sciences de la vie ; Université de Californie Santa Barbara ; Université de Lausanne ; Virginia Polytechnic Institute ; Université de Brasilia ; Université d'East Anglia, Norwich",
   },
 ];
 
