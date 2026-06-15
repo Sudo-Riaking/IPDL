@@ -189,7 +189,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                   )}
                   <div className="flex items-center gap-3 mt-3">
                     <Link
-                      href="/publications"
+                      href={`/publications/${pub.id}`}
                       className="inline-flex items-center gap-1 text-[13px] text-blue-400 hover:text-blue-300 font-semibold"
                     >
                       <span>Consulter</span>
