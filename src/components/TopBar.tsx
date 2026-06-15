@@ -7,6 +7,7 @@ import { Sun, Moon, Lock, LogOut, LayoutDashboard, Shield } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLang } from "@/context/LangContext";
 import { useAuth } from "@/context/AuthContext";
+import NotificationBell from "@/components/NotificationBell";
 
 export default function TopBar() {
   const router = useRouter();
@@ -25,6 +26,8 @@ export default function TopBar() {
       >
         {lang === "fr" ? "EN" : "FR"}
       </button>
+
+      <NotificationBell />
 
       <button
         onClick={toggleTheme}
