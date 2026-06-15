@@ -1,0 +1,23 @@
+(function($){'use strict';var cfg=window.ummiscoProjets||{};var perPage=parseInt(cfg.perPage,10)||9;var currentPage=1;var hasMore=!0;var loading=!1;var loadRequest=null;var searchTimer=null;var io=null;function $container(){return $('#ummisco-ajax-container')}
+function cleanSelect2FromFilters(){$('#ummisco-filter-form select.ummisco-no-select2').each(function(){var $select=$(this);if($select.data('select2')){try{$select.select2('destroy')}catch(e){}}
+$select.removeClass('select2-hidden-accessible').removeAttr('data-select2-id aria-hidden tabindex');$select.next('.select2-container').remove()})}
+function showMainLoader(show){var $loader=$container().find('.ummisco-projets-loader');$loader.toggleClass('wds-is-hidden',!show);if(show){$loader.removeAttr('hidden')}else{$loader.attr('hidden','hidden')}}
+function showInfiniteLoader(show){var $loader=$container().find('.ummisco-infinite-loader');$loader.toggleClass('wds-is-hidden',!show);if(show){$loader.removeAttr('hidden')}else{$loader.attr('hidden','hidden')}}
+function updateCount(found){$container().find('.ummisco-projets-count').text((parseInt(found,10)||0)+' projet(s)')}
+function updateFooter(){$container().find('.ummisco-infinite-footer').toggle(hasMore);if(!hasMore){showInfiniteLoader(!1)}}
+function bindInfiniteScroll(){var $wrap=$container();var sentinel=$wrap.find('.ummisco-infinite-sentinel')[0];if(!sentinel){return}
+if(io&&io.disconnect){io.disconnect()}
+if(typeof window.IntersectionObserver==='function'){io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){loadPage(currentPage+1,!0)}})},{root:null,rootMargin:'240px 0px',threshold:0});io.observe(sentinel);return}
+$(window).off('scroll.ummiscoProjets').on('scroll.ummiscoProjets',function(){var rect=sentinel.getBoundingClientRect();if(rect.top<=window.innerHeight+240){loadPage(currentPage+1,!0)}})}
+function loadPage(page,append){if(loading||(append&&!hasMore)){return}
+page=Math.max(1,parseInt(page,10)||1);append=!!append;if(loadRequest&&loadRequest.abort){loadRequest.abort()}
+loading=!0;$('#ummisco-paged').val(page);if(!append){showMainLoader(!0)}else{showInfiniteLoader(!0)}
+var data=$('#ummisco-filter-form').serializeArray();data.push({name:'action',value:'ummisco_filter'});data.push({name:'nonce',value:cfg.nonce||''});loadRequest=$.ajax({url:cfg.ajaxUrl,type:'POST',data:$.param(data),dataType:'json'});loadRequest.done(function(res){loading=!1;showMainLoader(!1);showInfiniteLoader(!1);if(!res||!res.success||!res.data){if(!append){$container().find('.ummisco-grid').html('<p class="ummisco-projets-error">Impossible de charger les projets.</p>')}
+hasMore=!1;updateFooter();return}
+var payload=res.data;currentPage=payload.paged||page;hasMore=!!payload.hasMore;updateCount(payload.foundPosts);var $grid=$container().find('.ummisco-grid');if(payload.foundPosts===0&&!append){$grid.html('<p class="ummisco-projets-empty">Aucun projet trouvé.</p>')}else if(append&&payload.gridHtml){if($grid.find('.ummisco-projets-empty').length){$grid.empty()}
+$grid.append(payload.gridHtml)}else if(!append){$grid.html(payload.gridHtml||'')}
+updateFooter();bindInfiniteScroll();cleanSelect2FromFilters()}).fail(function(_xhr,status){loading=!1;showMainLoader(!1);showInfiniteLoader(!1);if(status==='abort'){return}
+if(!append){$container().find('.ummisco-grid').html('<p class="ummisco-projets-error">Erreur réseau lors du chargement.</p>')}})}
+function scheduleFilterReload(){if(searchTimer){clearTimeout(searchTimer)}
+searchTimer=setTimeout(function(){hasMore=!0;currentPage=1;loadPage(1,!1)},350)}
+$(function(){cleanSelect2FromFilters();setTimeout(cleanSelect2FromFilters,300);setTimeout(cleanSelect2FromFilters,1000);$('#ummisco-filter-form').on('change','select',function(){hasMore=!0;currentPage=1;loadPage(1,!1)});$('#ummisco-filter-form').on('input','input[name="s_text"]',scheduleFilterReload);hasMore=!0;loadPage(1,!1)})})(jQuery)
