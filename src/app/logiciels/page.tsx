@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowRight, Github } from "lucide-react";
+import { ExternalLink, ArrowRight, GitBranch } from "lucide-react";
 import { SOFTWARE_TOOLS } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
 import { useLang } from "@/context/LangContext";
@@ -108,7 +108,7 @@ export default function LogicielsPage() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-700 transition-colors"
                         >
-                          <Github className="h-4 w-4" /> GitHub
+                          <GitBranch className="h-4 w-4" /> GitHub
                         </a>
                       )}
                     </div>
