@@ -2079,7 +2079,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "bonds",
-    name: "BONDS",
+    name: "OBLIGATIONS",
     centers: ["france"],
     themes: ["agents"],
     domain: "Environnement",
