@@ -86,10 +86,10 @@ export default function Home() {
         <div className="absolute bottom-0 right-1/4 -z-10 h-72 w-72 rounded-full bg-green-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute top-1/3 right-1/3 -z-10 h-56 w-56 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
 
-        <div className="mx-auto max-w-4xl text-center relative z-10 flex flex-col items-center">
-          {/* Logo UMMISCO */}
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.02 }} className="mb-6">
-            <img src="/logos/logo_ummisco.png" alt="UMMISCO" className="h-16 w-auto mx-auto drop-shadow-lg" />
+        <div className="mx-auto max-w-5xl text-center relative z-10 flex flex-col items-center">
+          {/* Photo de groupe — bannière de bienvenue */}
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.02 }} className="mb-6 w-full max-w-lg rounded-lg overflow-hidden border border-slate-800 shadow-md">
+            <img src="/photo_de_groupe/membres.png" alt="Équipe UMMISCO" className="w-full h-auto object-cover max-h-48" />
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/60 px-3.5 py-1 text-sm text-slate-400">
@@ -311,81 +311,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── PROJETS PHARES ────────────────────────────────────────────────── */}
-      <section id="projets" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-wrap gap-4 justify-between items-end">
-            <div>
-              <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2 flex items-center gap-2">
-                <Boxes className="h-4 w-4 text-indigo-400" /> Projets de recherche
-              </span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-white">
-                {PROJECTS.length} projets actifs dans le monde
-              </h2>
-              <p className="mt-3 max-w-2xl text-slate-400 text-base leading-relaxed">
-                Modélisation, IA, capteurs et science citoyenne — des projets ancrés sur le terrain dans 5 pays.
-              </p>
-            </div>
-            <Link href="/projets" className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 flex-none">
-              Voir tous les projets <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {PROJECTS.slice(0, 4).map((project, i) => {
-              const themeColors: Record<string, string> = {
-                agents: "from-blue-600/20 to-indigo-600/10 border-blue-500/20",
-                ia: "from-violet-600/20 to-purple-600/10 border-violet-500/20",
-                capteurs: "from-green-600/20 to-emerald-600/10 border-green-500/20",
-                participatif: "from-amber-600/20 to-orange-600/10 border-amber-500/20",
-              };
-              const primaryTheme = project.themes[0] ?? "agents";
-              const gradClass = themeColors[primaryTheme] ?? themeColors.agents;
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  className={`rounded-xl border bg-gradient-to-br p-5 flex flex-col ${gradClass} hover:brightness-110 transition-all group`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{project.domain.split(", ")[0]}</span>
-                    {project.url && (
-                      <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-300 transition-colors">
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    )}
-                  </div>
-                  <h3 className="text-sm font-extrabold text-white mb-2 group-hover:text-blue-200 transition-colors">{project.name}</h3>
-                  <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-3 flex-1">{project.description}</p>
-                  <div className="mt-3 flex flex-wrap gap-1">
-                    {project.centers.slice(0, 2).map((centerId) => {
-                      const center = CENTERS.find((c) => c.id === centerId);
-                      return (
-                        <span key={centerId} className="text-[9px] bg-slate-900/50 border border-slate-700/50 text-slate-400 px-1.5 py-0.5 rounded">
-                          {center?.country ?? centerId}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/projets"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/30 px-6 py-2.5 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all"
-            >
-              Explorer les {PROJECTS.length} projets <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURED PUBLICATIONS ─────────────────────────────────────────── */}
+{/* ── FEATURED PUBLICATIONS ─────────────────────────────────────────── */}
       <section id="publications" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap gap-4 justify-between items-end">
