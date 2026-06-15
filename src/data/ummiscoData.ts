@@ -624,8 +624,11 @@ export const RESEARCHERS: Researcher[] = [
     id: "moussa-balde", name: "Moussa BALDE",
     title: "Chercheur — Centre Afrique de l'Ouest", role: "chercheur", center: "afrique-ouest",
     axes: ["agents"],
-    bio: "Chercheur au Centre Afrique de l'Ouest. Travaux sur la modélisation multi-agents des dynamiques pastorales et de la mobilité des éleveurs.",
-    avatarSeed: "MB", photoUrl: "/photos/moussa-balde.png", publicationsCount: 7,
+    bio: "Chercheur à UCAD. Travaux sur la modélisation multi-agents des dynamiques pastorales et mobilité des éleveurs sahéliens.",
+    email: "moussa.balde.math@ucad.edu.sn",
+    avatarSeed: "MB", photoUrl: "/photos/moussa-balde.png", publicationsCount: 0,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    publications: [{ title: "A Scalable Engineering Combination Therapies for Evolutionary Dynamic of Macrophages" }, { title: "A Location Problem of Obstacles in Population Dynamics" }, { title: "Visualization and machine learning for forecasting of COVID-19 in Senegal" }, { title: "Theoretical assessment of the impact of environmental contamination on the dynamical transmission of polio" }, { title: "Coupling the shallow water equation with a long term dynamics of sand dunes" }]
   },
   {
     id: "moussa-lo", name: "Moussa LO",
@@ -661,7 +664,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Expert en simulation distribuée à grande échelle et modélisation participative pour la gestion côtière (LittoSIM-GEN). Directeur du Centre IRD/Sorbonne.",
     email: "nicolas.marilleau@ird.fr", orcid: "0000-0002-4019-2831",
-    avatarSeed: "NM", photoUrl: "/photos/nicolas-marilleau.png", publicationsCount: 55,
+    avatarSeed: "NM", photoUrl: "/photos/nicolas-marilleau.png", publicationsCount: 0,
   },
   {
     id: "nicolas-turenne", name: "Nicolas TURENNE",
@@ -716,23 +719,28 @@ export const RESEARCHERS: Researcher[] = [
   {
     id: "papa-ibrahima-ndiaye", name: "Papa Ibrahima NDIAYE",
     title: "Directeur d'Unité Adjoint — Centre Afrique de l'Ouest", role: "directeur_unite", center: "afrique-ouest",
-    axes: ["agents", "ia"],
-    bio: "Directeur d'Unité Adjoint. Spécialisé en modélisation informatique des systèmes complexes et en intelligence artificielle appliquée aux défis de l'Afrique.",
-    avatarSeed: "PN", photoUrl: "/photos/papa-ibrahima-ndiaye.png", publicationsCount: 20,
+    axes: ["agents"],
+    bio: "Directeur d'Unité Adjoint à l'Université Alioune Diop. Spécialisé en modélisation informatique et IA appliquée aux défis africains.",
+    email: "papaibra.ndiaye@uadb.edu.sn",
+    avatarSeed: "PN", photoUrl: "/photos/papa-ibrahima-ndiaye.png", publicationsCount: 0,
   },
   {
     id: "paulin-melatagia-yonta", name: "Paulin MELATAGIA YONTA",
     title: "Directeur de centre adjoint — Centre Afrique centrale et de l'est", role: "directeur_unite", center: "afrique-centrale",
-    axes: ["agents", "ia"],
-    bio: "Directeur de centre adjoint. Expert en apprentissage automatique et en traitement automatique du langage pour les langues africaines.",
-    avatarSeed: "PM", photoUrl: "/photos/paulin-melatagia-yonta.png", publicationsCount: 19,
+    axes: ["ia"],
+    bio: "Directeur de centre adjoint à l'Université de Yaoundé I. Expert en apprentissage automatique et TAL pour les langues africaines.",
+    email: "paulinyonta@gmail.com",
+    avatarSeed: "PM", photoUrl: "/photos/paulin-melatagia-yonta.png", publicationsCount: 0,
   },
   {
     id: "pierre-auger", name: "Pierre AUGER",
     title: "Chercheur Émérite — Centre France", role: "emerite", center: "france",
     axes: ["agents"],
-    bio: "Chercheur émérite spécialiste des systèmes dynamiques et de la modélisation mathématique des populations biologiques.",
-    avatarSeed: "PA", photoUrl: "/photos/pierre-auger.png", publicationsCount: 68,
+    bio: "Chercheur émérite IRD. Spécialiste des systèmes dynamiques et de la modélisation mathématique des populations biologiques.",
+    email: "pierre.auger@ird.fr",
+    avatarSeed: "PA", photoUrl: "/photos/pierre-auger.png", publicationsCount: 0,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    publications: [{ title: "Effects of refuges and density dependent dispersal on dispersal on interspecific competition dynamics" }]
   },
   {
     id: "pierre-iloga-biyik", name: "Pierre Sylvain ILOGA BIYIK",
@@ -773,8 +781,11 @@ export const RESEARCHERS: Researcher[] = [
     id: "said-boulite", name: "Said BOULITE",
     title: "Chercheur — Centre Méditerranée", role: "chercheur", center: "mediterranee",
     axes: ["agents"],
-    bio: "Chercheur au Centre Méditerranée. Expert en semi-groupes d'opérateurs et en théorie qualitative des équations différentielles abstraites.",
-    avatarSeed: "SB", photoUrl: "/photos/said-boulite.png", publicationsCount: 14,
+    bio: "Chercheur à l'Université Cadi Ayyad. Expert en semi-groupes d'opérateurs et théorie qualitative des équations différentielles.",
+    email: "s.boulite@uca.ma",
+    avatarSeed: "SB", photoUrl: "/photos/said-boulite.png", publicationsCount: 0,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    publications: [{ title: "Existence and stability in the α-norm for nonlinear neutral partial differential equations with finite delay" }, { title: "Well-posedness and stability of nonautonomous past systems with unbounded operators in the delay term" }, { title: "Feedback theory to the well-posedness of evolution equations" }, { title: "A population dynamics model with nonautonomous past" }, { title: "Partial differential equations with nonautonomous past in Favard spaces" }, { title: "Approximate positive controllability of positive boundary control systems" }, { title: "Sufficient and necessary conditions for the solvability of the state feedback regulation problem" }, { title: "Impulse controllability for the heat equation with inverse square potential and dynamic boundary conditions" }, { title: "Null Controllability for Stochastic Parabolic Equations with Dynamic Boundary Conditions" }, { title: "Multi-objective control for stochastic parabolic equations with dynamic boundary conditions" }, { title: "Well-posedness and asynchronous exponential growth of an age-weighted structured fish population model with diffusion in L^1" }]
   },
   {
     id: "samuel-bowong", name: "Samuel BOWONG",
