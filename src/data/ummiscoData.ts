@@ -215,7 +215,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Doctorant en modélisation hydrogéologique au Centre Méditerranée. Recherches sur la simulation multi-agents des systèmes aquifères et modélisation des ressources en eau.",
     email: "achraf.chakri@ced.uca.ma",
-    avatarSeed: "AC", photoUrl: "/photos/achraf-chakri.png", publicationsCount: 2,
+    avatarSeed: "AC", photoUrl: "/photos/achraf-chakri.png", publicationsCount: 0,
   },
   {
     id: "ahmad-fall", name: "Ahmad FALL",
@@ -223,7 +223,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur au Centre France / IRD. Travaux en apprentissage profond appliqué aux données environnementales et à la dynamique des écosystèmes.",
     email: "ahmad.fall@ird.fr",
-    avatarSeed: "AF", photoUrl: "/photos/ahmad-fall.png", publicationsCount: 14,
+    avatarSeed: "AF", photoUrl: "/photos/ahmad-fall.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Enseignements"]
   },
@@ -233,7 +233,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheuse à l'Université Cadi Ayyad. Experte en intelligence artificielle pour la santé et en analyse de biosignaux (projet AIME).",
     email: "aichabalhag@gmail.com",
-    avatarSeed: "AB", photoUrl: "/photos/aicha-balhag.png", publicationsCount: 9,
+    avatarSeed: "AB", photoUrl: "/photos/aicha-balhag.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -242,7 +242,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Doctorante à l'Université Cadi Ayyad. Recherches sur la modélisation des systèmes hydrologiques et la gestion des ressources en eau au Maroc.",
     email: "aichasabiq1@gmail.com",
-    avatarSeed: "AS", photoUrl: "/photos/aicha-sabiq.png", publicationsCount: 2,
+    avatarSeed: "AS", photoUrl: "/photos/aicha-sabiq.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -251,7 +251,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Directeur du Centre Afrique de l'Ouest (UCAD). Spécialiste de la modélisation des socio-écosystèmes sahéliens et de la Grande Muraille Verte.",
     email: "alassane.bah@esp.sn", orcid: "0000-0002-7341-1023",
-    avatarSeed: "AB", photoUrl: "/photos/alassane-bah.png", publicationsCount: 42,
+    avatarSeed: "AB", photoUrl: "/photos/alassane-bah.png", publicationsCount: 0,
   },
   {
     id: "alexis-drogoul", name: "Alexis DROGOUL",
@@ -259,7 +259,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Directeur du LMI ACROSS. Créateur de la plateforme GAMA (2007), pionnier mondial de la simulation multi-agents pour le développement durable.",
     email: "alexis.drogoul@ird.fr", orcid: "0000-0001-7283-4920",
-    avatarSeed: "AD", photoUrl: "/photos/alexis-drogoul.png", publicationsCount: 127,
+    avatarSeed: "AD", photoUrl: "/photos/alexis-drogoul.png", publicationsCount: 0,
   },
   {
     id: "aman-berhe", name: "Aman BERHE",
@@ -267,7 +267,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à Sorbonne Université. Recherches en apprentissage profond et modélisation des systèmes agro-environnementaux.",
     email: "amanzaid.berhe@ird.fr",
-    avatarSeed: "AB", photoUrl: "/photos/aman-berhe.png", publicationsCount: 11,
+    avatarSeed: "AB", photoUrl: "/photos/aman-berhe.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Recherche et supervision"]
   },
@@ -277,7 +277,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à l'Université de Yaoundé I. Spécialisé en modélisation épidémiologique et en apprentissage profond pour le traitement automatique du langage.",
     email: "armel.nzekon@facsciences-uy1.cm",
-    avatarSeed: "AN", photoUrl: "/photos/armel-jacques-nzekon-nzekoo.png", publicationsCount: 13,
+    avatarSeed: "AN", photoUrl: "/photos/armel-jacques-nzekon-nzekoo.png", publicationsCount: 0,
   },
   {
     id: "arnaud-grignard", name: "Arnaud GRIGNARD",
@@ -285,7 +285,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur affilié MIT Media Lab et IRD. Expert en simulation urbaine, jumeaux numériques et systèmes complexes (Hamburg Energy Twin).",
     email: "arnaud.grignard@ird.fr",
-    avatarSeed: "AG", photoUrl: "/photos/arnaud-grignard.png", publicationsCount: 28,
+    avatarSeed: "AG", photoUrl: "/photos/arnaud-grignard.png", publicationsCount: 0,
   },
   {
     id: "arthur-brugiere", name: "Arthur BRUGIERE",
@@ -293,7 +293,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Doctorant au LMI ACROSS. Spécialisé dans la distribution et la parallélisation des modèles à base d'agents sur clusters HPC (Distribution Model, PAAMS 2025).",
     email: "arthur.brugiere@ird.fr",
-    avatarSeed: "AR", photoUrl: "/photos/arthur-brugiere.png", publicationsCount: 3,
+    avatarSeed: "AR", photoUrl: "/photos/arthur-brugiere.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -302,7 +302,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "participatif"],
     bio: "Responsable de thème à l'Université Gaston Berger. Spécialiste de la modélisation participative des systèmes socio-environnementaux et de la science citoyenne.",
     email: "awa.diattara@ugb.edu.sn", orcid: "0000-0003-1295-4820",
-    avatarSeed: "AW", photoUrl: "/photos/awa-diattara.png", publicationsCount: 17,
+    avatarSeed: "AW", photoUrl: "/photos/awa-diattara.png", publicationsCount: 0,
   },
   {
     id: "berge-tsanou", name: "Berge TSANOU",
@@ -310,7 +310,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université de Dschang. Coordinateur antenne UMMISCO Afrique centrale. Spécialiste de la modélisation mathématique des épidémies.",
     email: "bergetsanou@gmail.com", orcid: "0000-0003-2019-4812",
-    avatarSeed: "BT", photoUrl: "/photos/berge-tsanou.png", publicationsCount: 21,
+    avatarSeed: "BT", photoUrl: "/photos/berge-tsanou.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Coordination de l'antenne UMMISCO Afrique centrale - Université de Dschang"]
   },
@@ -319,7 +319,7 @@ export const RESEARCHERS: Researcher[] = [
     title: "Chercheur — Centre Asie du Sud-Est", role: "chercheur", center: "asie",
     axes: ["agents", "participatif"],
     bio: "Chercheur à Thammasat University. Modélisation des dynamiques sociales et environnementales en Asie du Sud-Est avec GAMA.",
-    avatarSeed: "CK", photoUrl: "/photos/chainarong-kesamoon.png", publicationsCount: 8,
+    avatarSeed: "CK", photoUrl: "/photos/chainarong-kesamoon.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -328,7 +328,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "capteurs"],
     bio: "Chercheur à Thuyloi University. Spécialisé en modélisation des systèmes hydrologiques, organisation de la Summer School UMMISCO.",
     email: "Pchientvct_tv@tlu.edu.vn",
-    avatarSeed: "CP", photoUrl: "/photos/chien-pham-van.png", publicationsCount: 12,
+    avatarSeed: "CP", photoUrl: "/photos/chien-pham-van.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection",
     projects: ["Organisation de la Summer School"]
   },
@@ -338,7 +338,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "capteurs"],
     bio: "Chercheur émérite à Sorbonne Université. Encadrement de stages et de doctorants. Expert en modélisation des systèmes complexes.",
     email: "Christophe.Cambier@ird.fr",
-    avatarSeed: "CC", photoUrl: "/photos/christophe-cambier.png", publicationsCount: 47,
+    avatarSeed: "CC", photoUrl: "/photos/christophe-cambier.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection",
     projects: ["Encadrement de stages et de doctorants"]
   },
@@ -348,7 +348,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Ingénieur-chercheur IA chez EDF R&D et Sorbonne Université. Modélisation computationnelle des processus biologiques.",
     email: "christophe.denis@sorbonne-universite.fr",
-    avatarSeed: "CD", photoUrl: "/photos/christophe-denis.png", publicationsCount: 18,
+    avatarSeed: "CD", photoUrl: "/photos/christophe-denis.png", publicationsCount: 0,
     themesDescription: "Intelligence artificielle et apprentissage profond / Approches participatives et science citoyenne",
     projects: ["Ingénieur-chercheur IA EDF R&D / expert évaluation éthique Commission européenne / chercheur associé institut d’histoire / membre Think Tank Espérances et Algorithmes"]
   },
@@ -358,7 +358,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Responsable de thème à l'Université d'Ebolowa. Spécialiste de la modélisation mathématique et de l'IA appliquée à la santé.",
     email: "diane.tchuani@gmail.com",
-    avatarSeed: "DT", photoUrl: "/photos/diane-tchuani-tchakonte.png", publicationsCount: 16,
+    avatarSeed: "DT", photoUrl: "/photos/diane-tchuani-tchakonte.png", publicationsCount: 0,
   },
   {
     id: "diaraf-seck", name: "Diaraf SECK",
@@ -366,7 +366,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à UCAD. Expert en modélisation mathématique et en applications de l'IA aux problèmes de développement en Afrique.",
     email: "diaraf.seck@ucad.edu.sn",
-    avatarSeed: "DS", photoUrl: "/photos/diaraf-seck.png", publicationsCount: 15,
+    avatarSeed: "DS", photoUrl: "/photos/diaraf-seck.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -375,7 +375,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Personnel administratif et de coordination au LMI ACROSS (VinUniversity). Participation au projet SIMPLE.",
     email: "diepanh.phung@ird.fr",
-    avatarSeed: "DP", photoUrl: "/photos/diep-anh-phung.png", publicationsCount: 2,
+    avatarSeed: "DP", photoUrl: "/photos/diep-anh-phung.png", publicationsCount: 0,
   },
   {
     id: "doanh-nguyen-ngoc", name: "Doanh NGUYEN-NGOC",
@@ -383,7 +383,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Directeur du Centre Asie du Sud-Est (VinUniversity). Participation aux activités du LMI ACROSS. Expert en modélisation multi-agents.",
     email: "doanhbondy@gmail.com",
-    avatarSeed: "DN", photoUrl: "/photos/doanh-nguyen-ngoc.png", publicationsCount: 35,
+    avatarSeed: "DN", photoUrl: "/photos/doanh-nguyen-ngoc.png", publicationsCount: 0,
   },
   {
     id: "dramane-kante", name: "Dramane Sam Idris KANTE",
@@ -391,7 +391,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Modélisation mathématique et systèmes complexes.",
     email: "dramanesamidrisk@gmail.com",
-    avatarSeed: "DK", photoUrl: "/photos/dramane-kante.png", publicationsCount: 7,
+    avatarSeed: "DK", photoUrl: "/photos/dramane-kante.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -400,7 +400,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheur à VinUniversity. Expert en modélisation épidémiologique (tuberculose, COVID-19) et développement d'outils de visualisation géospatiale.",
     email: "dung.ld@vinuni.edu.vn", orcid: "0000-0002-8120-4938",
-    avatarSeed: "DL", photoUrl: "/photos/duy-dung-le.png", publicationsCount: 15,
+    avatarSeed: "DL", photoUrl: "/photos/duy-dung-le.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -409,7 +409,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Responsable du thème IA au Centre France / IRD. Spécialiste de l'apprentissage profond appliqué à la santé et à la nutrition.",
     email: "edi.prifti@ird.fr",
-    avatarSeed: "EP", photoUrl: "/photos/edi-prifti.png", publicationsCount: 32,
+    avatarSeed: "EP", photoUrl: "/photos/edi-prifti.png", publicationsCount: 0,
   },
   {
     id: "elhadi-ait-dads", name: "Elhadi AIT DADS",
@@ -417,7 +417,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Professeur émérite à l'Université Cadi Ayyad. Expert en équations différentielles fonctionnelles et en systèmes dynamiques non-linéaires.",
     email: "aitdads@uca.ac.ma",
-    avatarSeed: "EA", photoUrl: "/photos/elhadi-ait-dads.png", publicationsCount: 55,
+    avatarSeed: "EA", photoUrl: "/photos/elhadi-ait-dads.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Professeur émérite - FSSM Marrakech"],
     publications: [{ title: "Existence results for Riemann–Liouville fractional evolution inclusions in Banach spaces" }, { title: "Exponential Dichotomy and (μ, ν)-Pseudo almost automorphic soluntions for some ordinary differential equations" }, { title: "Study of existence, uniqueness and egularity of the solution of double delay nonlinear integral equation" }, { title: "The impact of water level fluctuations on a delayed prey–predator model" }, { title: "On the integro‐differential equations with reflection" }]
@@ -428,7 +428,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Ingénieur de recherche IA à Sorbonne Université / IRD. Expert en bio-informatique, analyse du microbiome et pipelines omiques.",
     email: "eugeni.belda@ird.fr", orcid: "0000-0002-3847-1920",
-    avatarSeed: "EB", photoUrl: "/photos/eugeni-belda.png", publicationsCount: 34,
+    avatarSeed: "EB", photoUrl: "/photos/eugeni-belda.png", publicationsCount: 0,
   },
   {
     id: "gabriel-guilsou-kolaye", name: "Gabriel Guilsou KOLAYE",
@@ -436,7 +436,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'University of Maroua. Expert en modélisation des cultures tropicales et de l'épidémiologie agricole.",
     email: "kolayegg@gmail.com",
-    avatarSeed: "GK", photoUrl: "/photos/gabriel-guilsou-kolaye.png", publicationsCount: 11,
+    avatarSeed: "GK", photoUrl: "/photos/gabriel-guilsou-kolaye.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -445,7 +445,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Personnel administratif au LMI ACROSS. Coordination logistique et support aux projets de recherche.",
     email: "hai_au.pham@ird.fr",
-    avatarSeed: "HP", photoUrl: "/photos/hai-au-pham.png", publicationsCount: 1,
+    avatarSeed: "HP", photoUrl: "/photos/hai-au-pham.png", publicationsCount: 0,
   },
   {
     id: "hamidou-a-diallo", name: "Hamidou A DIALLO",
@@ -453,7 +453,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Modélisation mathématique et systèmes complexes.",
     email: "hamidoua.diallo.1@gmail.com",
-    avatarSeed: "HD", photoUrl: "/photos/hamidou-a-diallo.png", publicationsCount: 8,
+    avatarSeed: "HD", photoUrl: "/photos/hamidou-a-diallo.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -461,7 +461,7 @@ export const RESEARCHERS: Researcher[] = [
     title: "Chercheur — Centre Afrique de l'Ouest", role: "chercheur", center: "afrique-ouest",
     axes: ["agents"],
     bio: "Chercheur à UCAD. Directeur du laboratoire Géométrie et Applications. Travaux sur les systèmes pastoraux sahéliens.",
-    avatarSeed: "HD", photoUrl: "/photos/hamidou-dathe.png", publicationsCount: 10,
+    avatarSeed: "HD", photoUrl: "/photos/hamidou-dathe.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Direction du laboratoire Géométrie et Applications et responsabilité de la formation"]
   },
@@ -471,7 +471,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheur à l'Université de Yaoundé I. Spécialisé en apprentissage profond et modélisation épidémiologique.",
     email: "admhamza@gmail.com",
-    avatarSeed: "HA", photoUrl: "/photos/hamza-adamou.png", publicationsCount: 9,
+    avatarSeed: "HA", photoUrl: "/photos/hamza-adamou.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -479,7 +479,7 @@ export const RESEARCHERS: Researcher[] = [
     title: "Chercheur — Centre Méditerranée", role: "chercheur", center: "mediterranee",
     axes: ["agents", "ia", "capteurs"],
     bio: "Chercheur à l'Université Cadi Ayyad. Expert en IA pour les écosystèmes marins (AIME) et surveillance environnementale (AIRQALY-4-ASMAFRI).",
-    avatarSeed: "HE", photoUrl: "/photos/hamza-elouiaazzani.png", publicationsCount: 8,
+    avatarSeed: "HE", photoUrl: "/photos/hamza-elouiaazzani.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -488,7 +488,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "participatif"],
     bio: "Chercheur à l'Université de Yaoundé I. Expert en traitement automatique du langage naturel et de la parole pour les langues africaines.",
     email: "hippolyte.tapamo@facsciences-uy1.cm",
-    avatarSeed: "HK", photoUrl: "/photos/hippolyte-tapamo-kenfack.png", publicationsCount: 14,
+    avatarSeed: "HK", photoUrl: "/photos/hippolyte-tapamo-kenfack.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Approches participatives et science citoyenne / Participatory approaches and citizen science",
     projects: ["Organisation de séminaires et conférences"]
   },
@@ -498,7 +498,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "capteurs", "participatif"],
     bio: "Chercheur à Hanoi University of Science and Technology. Modélisation de la dynamique côtière et des systèmes d'alerte précoce.",
     email: "dung.hanhuy@hust.edu.vn",
-    avatarSeed: "HN", photoUrl: "/photos/huy-dung-han.png", publicationsCount: 10,
+    avatarSeed: "HN", photoUrl: "/photos/huy-dung-han.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection, Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -507,7 +507,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université de Yaoundé I. Expert en modélisation mathématique des dynamiques forêt-savane et des processus écologiques.",
     email: "yatat.valaire@gmail.com",
-    avatarSeed: "IY", photoUrl: "/photos/ivric-valaire-yatat-djeumen.png", publicationsCount: 10,
+    avatarSeed: "IY", photoUrl: "/photos/ivric-valaire-yatat-djeumen.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -516,7 +516,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Maître de Conférence au CRMEF Béni Mellal. Expert en dynamique des populations et gestion durable des ressources en eau.",
     email: "elg_jalila@yahoo.fr", orcid: "0000-0003-4829-1029",
-    avatarSeed: "JG", photoUrl: "/photos/jalila-el-ghordaf.png", publicationsCount: 18,
+    avatarSeed: "JG", photoUrl: "/photos/jalila-el-ghordaf.png", publicationsCount: 0,
   },
   {
     id: "jean-daniel-zucker", name: "Jean-Daniel ZUCKER",
@@ -524,7 +524,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Directeur d'unité adjoint IRD. Pionnier de l'apprentissage profond appliqué à la santé (microbiome, métabolome, ECG).",
     email: "Jean-Daniel.zucker@ird.fr", orcid: "0000-0003-0021-7438",
-    avatarSeed: "JZ", photoUrl: "/photos/jean-daniel-zucker.png", publicationsCount: 89,
+    avatarSeed: "JZ", photoUrl: "/photos/jean-daniel-zucker.png", publicationsCount: 0,
   },
   {
     id: "jean-jules-tewa", name: "Jean-Jules TEWA",
@@ -532,7 +532,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur à l'Université de Yaoundé I. Expert en modélisation mathématique des maladies infectieuses tropicales et stratégies de prévention.",
     email: "jean-jules.tewa@ird.fr", orcid: "0000-0001-9384-2031",
-    avatarSeed: "JT", photoUrl: "/photos/jean-jules-tewa.png", publicationsCount: 33,
+    avatarSeed: "JT", photoUrl: "/photos/jean-jules-tewa.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Approches participatives et science citoyenne / Participatory approaches and citizen science",
     publications: [{ title: "Modelling and analysis of a within-host model of hepatitis B and D co-infections" }, { title: "Control Model of Banana Black Sigatoka Disease with Seasonality" }, { title: "Optimal Strategy in a Two Resources Two Consumers Grazing Model" }, { title: "Multi-seasonal modelling of the African maize stalk borer with assessment of crop residue management" }, { title: "Dynamics of human schistosomiasis model with hybrid miracidium and cercariae" }, { title: "Mathematical modelling of Banana Black Sigatoka Disease with delay and Seasonality" }, { title: "Optimal intervention strategies of staged progression HIV infections through an age-structured model with probabilities of ART drop out" }, { title: "Optimal and sustainable management of a soilborne banana pest" }, { title: "Modelling and control of a banana soilborne pest in a multi-seasonal framework" }, { title: "Optimal intervention strategies of a SI-HIV models with differential infectivity and time delays" }, { title: "Hopf bifurcation analysis in a delayed Leslie–Gower predator–prey model incorporating additional food for predators, refuge and threshold harvesting of preys" }, { title: "Hopf Bifurcation in a Delayed Herd Harvesting Model and Herbivory Optimization Hypothesis" }, { title: "Hopf bifurcation in a grazing system with two delays" }, { title: "Theoretical assessment of the impact of environmental contamination on the dynamical transmission of polio" }, { title: "Analysis of an Age-structured SIL model" }, { title: "A Generic Modelling of Fire Impact in a Tree-Grass Savanna Model" }, { title: "Mathematical Analysis of a Size Structured Tree-Grass Competition Model for Savanna Ecosystems" }]
   },
@@ -542,7 +542,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur à l'Université Gaston Berger. Expert en modélisation des socio-écosystèmes sahéliens et dynamiques de la végétation.",
     email: "jean-marie.dembele@ugb.edu.sn",
-    avatarSeed: "JD", photoUrl: "/photos/jean-marie-dembele.png", publicationsCount: 12,
+    avatarSeed: "JD", photoUrl: "/photos/jean-marie-dembele.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -551,14 +551,14 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Coordinatrice administrative du LMI ACROSS. Support à la gestion de projets et aux partenariats internationaux, participation projet SIMPLE.",
     email: "jeanne.cottenceau@ird.fr",
-    avatarSeed: "JC", photoUrl: "/photos/jeanne-cottenceau.png", publicationsCount: 1,
+    avatarSeed: "JC", photoUrl: "/photos/jeanne-cottenceau.png", publicationsCount: 0,
   },
   {
     id: "jihad-zahir", name: "Jihad ZAHIR",
     title: "Directeur d'Unité Adjoint — Centre Méditerranée", role: "directeur_unite", center: "mediterranee",
     axes: ["ia", "agents"],
     bio: "Directeur d'Unité Adjoint au Centre Méditerranée. Spécialisé en modélisation mathématique et IA pour les systèmes complexes.",
-    avatarSeed: "JZ", photoUrl: "/photos/jihad-zahir.png", publicationsCount: 22,
+    avatarSeed: "JZ", photoUrl: "/photos/jihad-zahir.png", publicationsCount: 0,
   },
   {
     id: "joseph-mbang", name: "Joseph MBANG",
@@ -566,7 +566,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université de Yaoundé I. Spécialisé en modélisation mathématique des systèmes épidémiques et applications de l'IA.",
     email: "joseph.mbang@facsciences-uy1.cm",
-    avatarSeed: "JM", photoUrl: "/photos/joseph-mbang.png", publicationsCount: 12,
+    avatarSeed: "JM", photoUrl: "/photos/joseph-mbang.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -575,7 +575,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur au Centre Pasteur du Cameroun. Expert en modélisation des cultures tropicales et IA appliquée à la santé.",
     email: "tchatchueng@pasteur-yaounde.org",
-    avatarSeed: "JB", photoUrl: "/photos/jules-brice-tchatchieng-mbougua.png", publicationsCount: 8,
+    avatarSeed: "JB", photoUrl: "/photos/jules-brice-tchatchieng-mbougua.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -584,7 +584,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à l'Université de Douala. Spécialisé en apprentissage multi-modal et algorithmes d'apprentissage profond pour la santé.",
     email: "moskojustin@gmail.com",
-    avatarSeed: "JN", photoUrl: "/photos/justin-moskolai-ngossaha.png", publicationsCount: 9,
+    avatarSeed: "JN", photoUrl: "/photos/justin-moskolai-ngossaha.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -593,7 +593,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur IRD au Centre France. Expert en modélisation comportementale, développement de GAMA et simulation de systèmes socio-environnementaux.",
     email: "kevin.chapuis@ird.fr",
-    avatarSeed: "KC", photoUrl: "/photos/kevin-chapuis.png", publicationsCount: 12,
+    avatarSeed: "KC", photoUrl: "/photos/kevin-chapuis.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Approches participatives et science citoyenne / Participatory approaches and citizen science",
     projects: ["Développement de GAMA"],
     publications: [{ title: "Dealing with mixed and non-normative traffic. An agent-based simulation with the GAMA platform" }, { title: "Exploring multi-modal evacuation strategies for a landlocked population using large-scale agent-based simulations" }, { title: "Using the COMOKIT model to study the impact of the morpho-functional organization of cities on the spread of COVID-19" }]
@@ -604,7 +604,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur du Centre Méditerranée / Université Cadi Ayyad. Lauréat du Prix Hassan II des Sciences. Expert mondial en équations différentielles.",
     email: "ezzinbi@uca.ac.ma", orcid: "0000-0002-1038-4920",
-    avatarSeed: "KE", photoUrl: "/photos/khalil-ezzinbi.png", publicationsCount: 78,
+    avatarSeed: "KE", photoUrl: "/photos/khalil-ezzinbi.png", publicationsCount: 0,
   },
   {
     id: "kittima-leeruttanawisut", name: "Kittima LEERUTTANAWISUT",
@@ -612,7 +612,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Chercheuse à Thammasat University. Expert en modélisation participative des systèmes agro-forestiers en Thaïlande.",
     email: "kittimalee@hotmail.com",
-    avatarSeed: "KL", photoUrl: "/photos/kittima-leeruttanawisut.png", publicationsCount: 9,
+    avatarSeed: "KL", photoUrl: "/photos/kittima-leeruttanawisut.png", publicationsCount: 0,
     themesDescription: "Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -621,7 +621,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur au CRMEF Béni Mellal. Expert en contrôle optimal et en contrôlabilité des équations aux dérivées partielles.",
     email: "66LHACHIMI@gmail.com",
-    avatarSeed: "LL", photoUrl: "/photos/lahcen-lhachimi.png", publicationsCount: 12,
+    avatarSeed: "LL", photoUrl: "/photos/lahcen-lhachimi.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Enseignement au centre de préparation à l'agrégation de mathématiques"]
   },
@@ -631,7 +631,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Expert en analyse fonctionnelle et systèmes d'évolution abstraits.",
     email: "lahcenmaniar@gmail.com",
-    avatarSeed: "LM", photoUrl: "/photos/lahcen-maniar.png", publicationsCount: 38,
+    avatarSeed: "LM", photoUrl: "/photos/lahcen-maniar.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -640,7 +640,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Spécialisé en équations différentielles stochastiques et contrôlabilité des systèmes.",
     email: "m.baroun@uca.ac.ma",
-    avatarSeed: "MB", photoUrl: "/photos/mahmoud-baroun.png", publicationsCount: 9,
+    avatarSeed: "MB", photoUrl: "/photos/mahmoud-baroun.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -649,7 +649,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Chercheuse IRD. Expert en modélisation participative et santé publique computationnelle en Asie du Sud-Est.",
     email: "mai-chi.nguyen@ird.fr",
-    avatarSeed: "MC", photoUrl: "/photos/mai-chi-nguyen.png", publicationsCount: 11,
+    avatarSeed: "MC", photoUrl: "/photos/mai-chi-nguyen.png", publicationsCount: 0,
     themesDescription: "Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -658,7 +658,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheuse à l'Université Gaston Berger. Spécialisée en IA appliquée aux systèmes agro-environnementaux du Sahel (projet AIME).",
     email: "maissa.mbaye@ugb.edu.sn",
-    avatarSeed: "MM", photoUrl: "/photos/maissa-mbaye.png", publicationsCount: 8,
+    avatarSeed: "MM", photoUrl: "/photos/maissa-mbaye.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection",
     projects: ["Participation au projet AIME"]
   },
@@ -668,7 +668,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Gaston Berger. Expert en modélisation des dynamiques de pêche artisanale et ressources halieutiques sénégalaises.",
     email: "mamadou-abdoul.diop@ugb.edu.sn",
-    avatarSeed: "MD", photoUrl: "/photos/mamadou-abdoul-diop.png", publicationsCount: 9,
+    avatarSeed: "MD", photoUrl: "/photos/mamadou-abdoul-diop.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     publications: [{ title: "Neutral stochastic delay partial functional integro-differential equations driven by a fractional Brownian motion" }, { title: "An ontology design pattern of the multidisciplinary and complex field of climate change" }, { title: "Mild solution of neutral stochastic partial functional integrodifferential equations with non-Lipschitz coefficients" }, { title: "Kuratowski measure of noncompactness and integro-differential equations in Banach spaces" }, { title: "Optimal Controls for Stochastic Functional Integro-differential Equation" }, { title: "Mathematical Analysis of Fasciola Epidemic Model with Treatment and Quarantine" }, { title: "Optimal control for semilinear integrodifferential evolution equations in Banach spaces" }, { title: "Well-posedness and approximate controllability for some integrodifferential evolution systems with multi-valued nonlocal conditions" }]
   },
@@ -678,7 +678,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur d'Unité Adjoint à l'Université Gaston Berger. Expert en modélisation des ressources naturelles et systèmes hydriques sahéliens.",
     email: "mamadou.sy@ugb.edu.sn", orcid: "0000-0001-8345-2910",
-    avatarSeed: "MS", photoUrl: "/photos/mamadou-sy.png", publicationsCount: 28,
+    avatarSeed: "MS", photoUrl: "/photos/mamadou-sy.png", publicationsCount: 0,
   },
   {
     id: "maurice-tchuente", name: "Maurice TCHUENTE",
@@ -686,7 +686,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur émérite à l'Université de Yaoundé I. Pionnier de l'informatique en Afrique Centrale. Encadrement de doctorants.",
     email: "Maurice.Tchuente@gmail.com",
-    avatarSeed: "MT", photoUrl: "/photos/maurice-tchuente.png", publicationsCount: 67,
+    avatarSeed: "MT", photoUrl: "/photos/maurice-tchuente.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Encadrement de doctorant"],
     publications: [{ title: "Extracting ontological knowledge from Java source code using Hidden Markov Models" }]
@@ -697,7 +697,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à Universiti Sains Malaysia. Expert en méthodes mathématiques pour la modélisation des systèmes complexes biologiques.",
     email: "yushalify@usm.my",
-    avatarSeed: "YM", photoUrl: "/photos/md-yushalify-misro.png", publicationsCount: 14,
+    avatarSeed: "YM", photoUrl: "/photos/md-yushalify-misro.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Participation à COSMOS Workshop/WARM Conference"]
   },
@@ -707,7 +707,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Expert en modélisation mathématique et systèmes complexes socio-économiques.",
     email: "m.halloumi@uca.ac.ma",
-    avatarSeed: "MH", photoUrl: "/photos/mohamed-halloumi.png", publicationsCount: 10,
+    avatarSeed: "MH", photoUrl: "/photos/mohamed-halloumi.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -716,7 +716,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Expert en dynamique des populations et contrôle optimal des systèmes biologiques.",
     email: "Khaladi@uca.ac.ma",
-    avatarSeed: "MK", photoUrl: "/photos/mohamed-khaladi.png", publicationsCount: 24,
+    avatarSeed: "MK", photoUrl: "/photos/mohamed-khaladi.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -725,7 +725,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à Universiti Sains Malaysia. Spécialisé en modélisation mathématique des populations et dynamiques écologiques.",
     email: "mohdhafizmohd@usm.my",
-    avatarSeed: "MH", photoUrl: "/photos/mohd-hafiz-bin-mohd.png", publicationsCount: 7,
+    avatarSeed: "MH", photoUrl: "/photos/mohd-hafiz-bin-mohd.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Participation à COSMOS Worshop"]
   },
@@ -735,7 +735,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à UCAD. Travaux sur la modélisation multi-agents des dynamiques pastorales et mobilité des éleveurs sahéliens.",
     email: "moussa.balde.math@ucad.edu.sn",
-    avatarSeed: "MB", photoUrl: "/photos/moussa-balde.png", publicationsCount: 7,
+    avatarSeed: "MB", photoUrl: "/photos/moussa-balde.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     publications: [{ title: "A Scalable Engineering Combination Therapies for Evolutionary Dynamic of Macrophages" }, { title: "A Location Problem of Obstacles in Population Dynamics" }, { title: "Visualization and machine learning for forecasting of COVID-19 in Senegal" }, { title: "Theoretical assessment of the impact of environmental contamination on the dynamical transmission of polio" }, { title: "Coupling the shallow water equation with a long term dynamics of sand dunes" }]
   },
@@ -745,7 +745,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur à l'Université Gaston Berger / Chaire UNESCO. Expert en modélisation à base d'agents pour la pêche artisanale sénégalaise.",
     email: "moussa.lo@ugb.edu.sn",
-    avatarSeed: "ML", photoUrl: "/photos/moussa-lo.png", publicationsCount: 9,
+    avatarSeed: "ML", photoUrl: "/photos/moussa-lo.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Titulaire de la Chaire UNESCO \"Sciences et technologies emergentes pour le developpement\""]
   },
@@ -755,7 +755,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directrice de centre adjointe à l'Université de Douala. Expert en modélisation mathématique des maladies vectorielles.",
     email: "myriamtapi@yahoo.fr",
-    avatarSeed: "MD", photoUrl: "/photos/myriam-sonia-djoukwe-tapi.png", publicationsCount: 12,
+    avatarSeed: "MD", photoUrl: "/photos/myriam-sonia-djoukwe-tapi.png", publicationsCount: 0,
   },
   {
     id: "nhat-quang-dinh", name: "Nhat Quang DINH",
@@ -763,7 +763,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheur à Thuyloi University. Expert en IA appliquée à la modélisation de l'intrusion saline dans les deltas côtiers.",
     email: "quangnd2006@gmail.com",
-    avatarSeed: "NQ", photoUrl: "/photos/nhat-quang-dinh.png", publicationsCount: 8,
+    avatarSeed: "NQ", photoUrl: "/photos/nhat-quang-dinh.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -772,7 +772,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Chercheur émérite à Sorbonne Université. Pionnier en géophysique appliquée et en approches participatives.",
     email: "nicolas.florsch@gmail.com",
-    avatarSeed: "NF", photoUrl: "/photos/nicolas-florsch.png", publicationsCount: 52,
+    avatarSeed: "NF", photoUrl: "/photos/nicolas-florsch.png", publicationsCount: 0,
     themesDescription: "Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -781,7 +781,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "capteurs", "participatif"],
     bio: "Directeur du Centre IRD/Sorbonne (France). Expert en simulation distribuée à grande échelle et modélisation participative (LittoSIM-GEN).",
     email: "nicolas.marilleau@ird.fr", orcid: "0000-0002-4019-2831",
-    avatarSeed: "NM", photoUrl: "/photos/nicolas-marilleau.png", publicationsCount: 55,
+    avatarSeed: "NM", photoUrl: "/photos/nicolas-marilleau.png", publicationsCount: 0,
   },
   {
     id: "nicolas-turenne", name: "Nicolas TURENNE",
@@ -789,7 +789,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à INRAE. Recherches sur la fouille de textes, le traitement automatique du langage naturel et la veille scientifique.",
     email: "nicolas.turenne@ird.fr",
-    avatarSeed: "NT", photoUrl: "/photos/nicolas-turenne.png", publicationsCount: 22,
+    avatarSeed: "NT", photoUrl: "/photos/nicolas-turenne.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -798,7 +798,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Responsable de thème à l'Université Cadi Ayyad. Expert en théorie des essaims et modélisation multi-agents.",
     email: "nisrine.outada@uca.ac.ma",
-    avatarSeed: "NO", photoUrl: "/photos/nisrine-outada.png", publicationsCount: 15,
+    avatarSeed: "NO", photoUrl: "/photos/nisrine-outada.png", publicationsCount: 0,
   },
   {
     id: "nohayla-alaoui", name: "Nohayla ALAOUI",
@@ -806,7 +806,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheuse à l'Université Cadi Ayyad. Modélisation mathématique et systèmes complexes.",
     email: "alaouinohayla0607@gmail.com",
-    avatarSeed: "NA", photoUrl: "/photos/nohayla-alaoui.png", publicationsCount: 6,
+    avatarSeed: "NA", photoUrl: "/photos/nohayla-alaoui.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -815,7 +815,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à l'Université de Yaoundé I. Expert en traitement automatique du langage naturel pour les langues africaines.",
     email: "tsopze.norbert@gmail.com",
-    avatarSeed: "NT", photoUrl: "/photos/norbert-tsopze.png", publicationsCount: 16,
+    avatarSeed: "NT", photoUrl: "/photos/norbert-tsopze.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -824,7 +824,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheuse à l'Université d'Ebolowa. Spécialisée en apprentissage profond et surveillance épidémiologique.",
     email: "olgakengni@gmail.com",
-    avatarSeed: "OK", photoUrl: "/photos/olga-kengni-ngangmo.png", publicationsCount: 7,
+    avatarSeed: "OK", photoUrl: "/photos/olga-kengni-ngangmo.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -833,7 +833,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur IRD au Centre France. Expert en modélisation 3D des microstructures des sols et simulation des processus biogéochimiques.",
     email: "olivier.monga@ird.fr",
-    avatarSeed: "OM", photoUrl: "/photos/olivier-monga.png", publicationsCount: 38,
+    avatarSeed: "OM", photoUrl: "/photos/olivier-monga.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -842,7 +842,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheur à l'Université Gaston Berger. Expert en modélisation multi-agents des dynamiques urbaines et IA appliquée.",
     email: "ousmane.thiare@ugb.edu.sn", orcid: "0000-0002-9012-3847",
-    avatarSeed: "OT", photoUrl: "/photos/ousmane-thiare.png", publicationsCount: 11,
+    avatarSeed: "OT", photoUrl: "/photos/ousmane-thiare.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -851,7 +851,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur d'Unité Adjoint à l'Université Alioune Diop. Spécialisé en modélisation informatique et IA appliquée aux défis africains.",
     email: "papaibra.ndiaye@uadb.edu.sn",
-    avatarSeed: "PN", photoUrl: "/photos/papa-ibrahima-ndiaye.png", publicationsCount: 20,
+    avatarSeed: "PN", photoUrl: "/photos/papa-ibrahima-ndiaye.png", publicationsCount: 0,
   },
   {
     id: "paulin-melatagia-yonta", name: "Paulin MELATAGIA YONTA",
@@ -859,7 +859,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Directeur de centre adjoint à l'Université de Yaoundé I. Expert en apprentissage automatique et TAL pour les langues africaines.",
     email: "paulinyonta@gmail.com",
-    avatarSeed: "PM", photoUrl: "/photos/paulin-melatagia-yonta.png", publicationsCount: 19,
+    avatarSeed: "PM", photoUrl: "/photos/paulin-melatagia-yonta.png", publicationsCount: 0,
   },
   {
     id: "pierre-auger", name: "Pierre AUGER",
@@ -867,7 +867,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur émérite IRD. Spécialiste des systèmes dynamiques et de la modélisation mathématique des populations biologiques.",
     email: "pierre.auger@ird.fr",
-    avatarSeed: "PA", photoUrl: "/photos/pierre-auger.png", publicationsCount: 68,
+    avatarSeed: "PA", photoUrl: "/photos/pierre-auger.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     publications: [{ title: "Effects of refuges and density dependent dispersal on dispersal on interspecific competition dynamics" }]
   },
@@ -877,7 +877,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à l'Université de Maroua. Expert en apprentissage profond et modélisation mathématique des systèmes biologiques.",
     email: "sylvain.iloga@gmail.com",
-    avatarSeed: "PS", photoUrl: "/photos/pierre-iloga-biyik.png", publicationsCount: 6,
+    avatarSeed: "PS", photoUrl: "/photos/pierre-iloga-biyik.png", publicationsCount: 0,
   },
   {
     id: "prachya-rachya-boonprasurt", name: "Prachya Rachya BOONPRASURT",
@@ -885,7 +885,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur à Thammasat University. Modélisation participative des dynamiques sociales dans les communautés rurales asiatiques.",
     email: "pachalow.g@gmail.com",
-    avatarSeed: "PB", photoUrl: "/photos/prachya-rachya-boonprasurt.png", publicationsCount: 6,
+    avatarSeed: "PB", photoUrl: "/photos/prachya-rachya-boonprasurt.png", publicationsCount: 0,
   },
   {
     id: "quang-nghi-huynh", name: "Quang Nghi HUYNH",
@@ -893,7 +893,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "participatif"],
     bio: "Chercheur à Can Tho University. Expert en simulation distribuée à large échelle et optimisation des architectures GAMA pour HPC.",
     email: "hqnghi@ctu.edu.vn",
-    avatarSeed: "QH", photoUrl: "/photos/quang-nghi-huynh.png", publicationsCount: 5,
+    avatarSeed: "QH", photoUrl: "/photos/quang-nghi-huynh.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning, Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -902,7 +902,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur CIRAD. Expert en modélisation bio-économique des pêcheries et simulation des ressources écologiques marines.",
     email: "raphael.duboz@cirad.fr",
-    avatarSeed: "RD", photoUrl: "/photos/raphael-duboz.png", publicationsCount: 18,
+    avatarSeed: "RD", photoUrl: "/photos/raphael-duboz.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -911,7 +911,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université de Yaoundé I. Expert en traitement automatique des langues africaines et ressources linguistiques numériques.",
     email: "ndoundam@yahoo.com",
-    avatarSeed: "RN", photoUrl: "/photos/rene-ndoundam.png", publicationsCount: 11,
+    avatarSeed: "RN", photoUrl: "/photos/rene-ndoundam.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling"
   },
   {
@@ -920,7 +920,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Expert en semi-groupes d'opérateurs et théorie qualitative des équations différentielles.",
     email: "s.boulite@uca.ma",
-    avatarSeed: "SB", photoUrl: "/photos/said-boulite.png", publicationsCount: 14,
+    avatarSeed: "SB", photoUrl: "/photos/said-boulite.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     publications: [{ title: "Existence and stability in the α-norm for nonlinear neutral partial differential equations with finite delay" }, { title: "Well-posedness and stability of nonautonomous past systems with unbounded operators in the delay term" }, { title: "Feedback theory to the well-posedness of evolution equations" }, { title: "A population dynamics model with nonautonomous past" }, { title: "Partial differential equations with nonautonomous past in Favard spaces" }, { title: "Approximate positive controllability of positive boundary control systems" }, { title: "Sufficient and necessary conditions for the solvability of the state feedback regulation problem" }, { title: "Impulse controllability for the heat equation with inverse square potential and dynamic boundary conditions" }, { title: "Null Controllability for Stochastic Parabolic Equations with Dynamic Boundary Conditions" }, { title: "Multi-objective control for stochastic parabolic equations with dynamic boundary conditions" }, { title: "Well-posedness and asynchronous exponential growth of an age-weighted structured fish population model with diffusion in L^1" }]
   },
@@ -930,14 +930,14 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur de centre adjoint à l'Université de Douala. Expert en modélisation mathématique des systèmes épidémiologiques.",
     email: "sbowong@gmail.com",
-    avatarSeed: "SB", photoUrl: "/photos/samuel-bowong.png", publicationsCount: 45,
+    avatarSeed: "SB", photoUrl: "/photos/samuel-bowong.png", publicationsCount: 0,
   },
   {
     id: "syakila-ahmad", name: "Syakila AHMAD",
     title: "Chercheur — Centre Asie du Sud-Est", role: "chercheur", center: "asie",
     axes: ["agents", "ia"],
     bio: "Chercheuse associée au Centre Asie. Spécialisée en modélisation des systèmes environnementaux marins et côtiers en Malaisie.",
-    avatarSeed: "SA", photoUrl: "/photos/syakila-ahmad.png", publicationsCount: 9,
+    avatarSeed: "SA", photoUrl: "/photos/syakila-ahmad.png", publicationsCount: 0,
   },
   {
     id: "thi-hai-van-dinh", name: "Thi Hai Van DINH",
@@ -945,7 +945,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Directrice de centre adjointe à Vietnam National University of Agriculture. Spécialiste de la modélisation participative du delta du Mékong.",
     email: "dinhthihaivan@vnua.edu.vn",
-    avatarSeed: "TD", photoUrl: "/photos/thi-hai-van-dinh.png", publicationsCount: 22,
+    avatarSeed: "TD", photoUrl: "/photos/thi-hai-van-dinh.png", publicationsCount: 0,
   },
   {
     id: "thi-hoai-phuong-tran", name: "Thi Hoai Phuong TRAN",
@@ -953,7 +953,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Chercheuse à VinUniversity. Travaux sur l'IA appliquée et la modélisation de l'eau dans le delta du Mékong.",
     email: "25phuong.tth@vinuni.edu.vn",
-    avatarSeed: "TH", photoUrl: "/photos/thi-hoai-phuong-tran.png", publicationsCount: 7,
+    avatarSeed: "TH", photoUrl: "/photos/thi-hoai-phuong-tran.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning, Capteurs et collecte de données / Sensors and data collection"
   },
   {
@@ -962,7 +962,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["participatif"],
     bio: "Chercheuse IRD. Expert en collecte de données de terrain et intégration de capteurs dans les modèles environnementaux.",
     email: "linh.huynh-thi-phuong@ird.fr",
-    avatarSeed: "PL", photoUrl: "/photos/thi-phuong-linh-huynh.png", publicationsCount: 6,
+    avatarSeed: "PL", photoUrl: "/photos/thi-phuong-linh-huynh.png", publicationsCount: 0,
     themesDescription: "Approches participatives et science citoyenne / Participatory approaches and citizen science"
   },
   {
@@ -971,7 +971,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia", "capteurs"],
     bio: "Responsable de thème à RMIT Ho Chi Minh City. Expert en sciences participatives et modélisation collaborative en Asie du Sud-Est.",
     email: "thuy.nguyen43@rmit.edu.vn",
-    avatarSeed: "TN", photoUrl: "/photos/thi-thuy-nguyen.png", publicationsCount: 16,
+    avatarSeed: "TN", photoUrl: "/photos/thi-thuy-nguyen.png", publicationsCount: 0,
   },
   {
     id: "thomas-messi-nguele", name: "Thomas MESSI NGUELE",
@@ -979,7 +979,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur à l'Université de Yaoundé I. Spécialisé en apprentissage profond et modélisation des réseaux complexes.",
     email: "thomas.messi@facsciences-uy1.cm",
-    avatarSeed: "TJ", photoUrl: "/photos/thomas-messi-nguele.png", publicationsCount: 8,
+    avatarSeed: "TJ", photoUrl: "/photos/thomas-messi-nguele.png", publicationsCount: 0,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -988,7 +988,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["capteurs"],
     bio: "Responsable de thème IRD. Expert en modélisation des écosystèmes marins et ichtyologie computationnelle.",
     email: "timothee.brochier@ird.fr",
-    avatarSeed: "TB", photoUrl: "/photos/timothee-brochier.png", publicationsCount: 24,
+    avatarSeed: "TB", photoUrl: "/photos/timothee-brochier.png", publicationsCount: 0,
   },
   {
     id: "tri-nguyen-huu", name: "Tri NGUYEN-HUU",
@@ -996,7 +996,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Responsable de thème IRD. Recherches sur les modèles hybrides couplant équations différentielles et systèmes multi-agents en épidémiologie.",
     email: "tri.nguyen-huu@ird.fr",
-    avatarSeed: "TN", photoUrl: "/photos/tri-nguyen-huu.png", publicationsCount: 19,
+    avatarSeed: "TN", photoUrl: "/photos/tri-nguyen-huu.png", publicationsCount: 0,
   },
   {
     id: "tuong-vinh-ho", name: "Tuong Vinh HO",
@@ -1004,7 +1004,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur à Hanoi University of Science and Technology. Modélisation de la dynamique des pêches et bio-économie au Vietnam.",
     email: "ho.tuong.vinh@gmail.com",
-    avatarSeed: "TV", photoUrl: "/photos/tuong-vinh-ho.png", publicationsCount: 8,
+    avatarSeed: "TV", photoUrl: "/photos/tuong-vinh-ho.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning"
   },
   {
@@ -1013,7 +1013,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "capteurs"],
     bio: "Directeur d'Unité Adjoint à Can Tho University. Expert en simulation multi-agents pour systèmes urbains, participation SIMPLE et STAR FARM.",
     email: "txviet@ctu.edu.vn",
-    avatarSeed: "VT", photoUrl: "/photos/viet-truong-xuan.png", publicationsCount: 28,
+    avatarSeed: "VT", photoUrl: "/photos/viet-truong-xuan.png", publicationsCount: 0,
   },
   {
     id: "youcef-sklab", name: "Youcef SKLAB",
@@ -1021,7 +1021,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Chercheur IRD au Centre France. Expert en systèmes multi-agents, formation de coalitions et IA distribuée.",
     email: "youcef.sklab@ird.fr",
-    avatarSeed: "YS", photoUrl: "/photos/youcef-sklab.png", publicationsCount: 15,
+    avatarSeed: "YS", photoUrl: "/photos/youcef-sklab.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Enseignement"]
   },
@@ -1031,7 +1031,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Cadi Ayyad. Membre élu CSS5. Expert en modélisation mathématique et systèmes complexes.",
     email: "y.elfoutayeni@uca.ac.ma",
-    avatarSeed: "YA", photoUrl: "/photos/youssef-el-foutayeni.png", publicationsCount: 7,
+    avatarSeed: "YA", photoUrl: "/photos/youssef-el-foutayeni.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     projects: ["Membre élu de la CSS5 (Sciences des données et des modèles)"]
   },
@@ -1041,7 +1041,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia"],
     bio: "Doctorant à l'Université Cadi Ayyad. Participation au projet I-Maroc. Travaux en apprentissage automatique et systèmes complexes.",
     email: "belzakariaghali@gmail.com",
-    avatarSeed: "ZB", photoUrl: "/photos/zakaria-belghali.png", publicationsCount: 1,
+    avatarSeed: "ZB", photoUrl: "/photos/zakaria-belghali.png", publicationsCount: 0,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Particiption au projet I-Maroc"]
   },
