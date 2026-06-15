@@ -186,7 +186,7 @@ function seed() {
   const now = new Date().toISOString();
   const users: DBUser[] = [
     {
-      id: "u-admin", nom: "Prof. Cheikh Diallo", email: "admin@ummisco.sn",
+      id: "u-admin", nom: "Professeur Cheikh Diallo", email: "admin@ummisco.sn",
       password: "admin123", role: "directeur" as UserRole, langue: "fr",
       biographie: "Directeur d'UMMISCO Dakar. Pionnier de la modélisation multi-agents en Afrique de l'Ouest.",
       expertises: ["Modélisation multi-agents", "Systèmes complexes", "Épidémiologie"],
