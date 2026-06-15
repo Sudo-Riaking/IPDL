@@ -2000,7 +2000,7 @@ export const PROJECTS: Project[] = [
   // ── Projets sans page ummisco.fr trouvée — à compléter ───────────────────
   {
     id: "escape",
-    name: "ESCAPE",
+    name: "ANR ESCAPE",
     centers: ["asie"],
     themes: ["agents"],
     domain: "Environnement",
@@ -2108,17 +2108,6 @@ export const PROJECTS: Project[] = [
     domain: "Société",
     description: "Description à compléter.",
     image: "/projets/SIEMENS.webp",
-  },
-  {
-    id: "histoire-danr",
-    name: "HISTOIRE D'ANR",
-    centers: ["france"],
-    themes: ["agents"],
-    domain: "Santé publique",
-    description: "Étude de l'histoire naturelle et de l'émergence des maladies infectieuses tropicales par approches computationnelles.",
-    url: "https://ummisco.fr/fr/projet-ummisco/histoire-danr/",
-    chefProjet: "Benjamin Roche, UMMISCO, IRD, 32 avenue Henri Varagnat, 93140 Bondy, France",
-    partenaires: "IRD, Bondy, France ; IRD, Montpellier, France ; CIRMF, Franceville, Gabon ; UPMC, Paris, France",
   },
   {
     id: "nocime",
