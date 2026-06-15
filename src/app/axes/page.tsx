@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { PUBLICATIONS, RESEARCHERS } from "@/data/ummiscoData";
+import { PUBLICATION, RESEARCHERS } from "@/data/ummiscoData";
 
 const AXES_DATA = [
   {
@@ -137,16 +137,16 @@ export default function AxesPage() {
 
                         <div>
                           <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                            <BookOpen className="h-3 w-3" /> Publications ({PUBLICATIONS.filter((p) => p.axis === axis.id).length})
+                            <BookOpen className="h-3 w-3" /> Publications ({PUBLICATION.filter((p) => p.axis === axis.id).length})
                           </h4>
                           <div className="space-y-2">
-                            {PUBLICATIONS.filter((p) => p.axis === axis.id).slice(0, 3).map((p) => (
+                            {PUBLICATION.filter((p) => p.axis === axis.id).slice(0, 3).map((p) => (
                               <div key={p.id} className="text-[11px] text-slate-400 border-l-2 border-slate-700 pl-3">
                                 <span className="font-semibold text-slate-300 line-clamp-1">{p.title}</span>
                                 <span className="text-slate-500"> — {p.authors.join(", ")} ({p.year})</span>
                               </div>
                             ))}
-                            {PUBLICATIONS.filter((p) => p.axis === axis.id).length === 0 && (
+                            {PUBLICATION.filter((p) => p.axis === axis.id).length === 0 && (
                               <p className="text-xs text-slate-500 italic">Aucune publication indexée sur cet axe.</p>
                             )}
                           </div>

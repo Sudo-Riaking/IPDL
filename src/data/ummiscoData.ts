@@ -16,6 +16,9 @@ export interface Researcher {
   publicationsCount: number;
   center: string;
   role: "directeur_centre" | "directeur_unite" | "responsable_theme" | "chercheur" | "doctorant" | "emerite" | "ingenieur";
+  themesDescription?: string;
+  projects?: string[];
+  publications?: { title: string; year?: number }[];
 }
 
 export interface Publication {
@@ -85,6 +88,8 @@ export interface Project {
   dateDebut?: string;
   budget?: string;
   partenaires?: string;
+  institutionPorteuse?: string;
+  financement?: string;
 }
 
 export interface SoftwareTool {

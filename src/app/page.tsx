@@ -26,7 +26,7 @@ import {
 import {
   AXES,
   RESEARCHERS,
-  PUBLICATIONS,
+  PUBLICATION,
   DATASETS,
   CENTERS,
   PROJECTS,
@@ -59,7 +59,7 @@ export default function Home() {
   const [citationModalPub, setCitationModalPub] = useState<Publication | null>(null);
 
   const q = searchQuery.trim().toLowerCase();
-  const filteredPubs = q ? PUBLICATIONS.filter((p) => p.title.toLowerCase().includes(q) || p.abstract.toLowerCase().includes(q) || p.authors.some((a) => a.toLowerCase().includes(q))).slice(0, 4) : [];
+  const filteredPubs = q ? PUBLICATION.filter((p) => p.title.toLowerCase().includes(q) || p.abstract.toLowerCase().includes(q) || p.authors.some((a) => a.toLowerCase().includes(q))).slice(0, 4) : [];
   const filteredResearchers = q ? RESEARCHERS.filter((r) => r.name.toLowerCase().includes(q) || r.title.toLowerCase().includes(q)).slice(0, 4) : [];
   const filteredDatasets = q ? DATASETS.filter((d) => d.title.toLowerCase().includes(q) || d.description.toLowerCase().includes(q)).slice(0, 4) : [];
 
@@ -256,10 +256,10 @@ export default function Home() {
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-8 rounded-xl border border-slate-900 bg-slate-900/30 p-6 overflow-hidden">
                 <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-blue-500" /> Publications liées à l&apos;axe sélectionné</h4>
                 <div className="space-y-4">
-                  {PUBLICATIONS.filter((p) => p.axis === selectedAxis).map((p) => (
+                  {PUBLICATION.filter((p) => p.axis === selectedAxis).map((p) => (
                     <div key={p.id} className="border-b border-slate-900/60 pb-3 last:border-b-0 last:pb-0"><div className="text-sm font-bold text-slate-200">{p.title}</div><div className="text-[13px] text-slate-400 mt-1">{p.authors.join(", ")} — {p.year}</div></div>
                   ))}
-                  {PUBLICATIONS.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">Aucune publication indexée sur cet axe pour le moment.</div>)}
+                  {PUBLICATION.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">Aucune publication indexée sur cet axe pour le moment.</div>)}
                 </div>
               </motion.div>
             )}
@@ -267,7 +267,7 @@ export default function Home() {
         </div>
       </section>
 
-{/* ── FEATURED PUBLICATIONS ─────────────────────────────────────────── */}
+{/* ── FEATURED PUBLICATION ─────────────────────────────────────────── */}
       <section id="publications" className="py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap gap-4 justify-between items-end">
@@ -281,7 +281,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {PUBLICATIONS.slice(0, 3).map((pub) => (
+            {PUBLICATION.slice(0, 3).map((pub) => (
               <div key={pub.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col justify-between shadow-md hover:border-slate-800/80 transition-all">
                 <div>
                   <div className="flex justify-between items-center mb-4">
