@@ -86,10 +86,10 @@ export default function Home() {
         <div className="absolute bottom-0 right-1/4 -z-10 h-72 w-72 rounded-full bg-green-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute top-1/3 right-1/3 -z-10 h-56 w-56 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
 
-        <div className="mx-auto max-w-4xl text-center relative z-10 flex flex-col items-center">
-          {/* Logo UMMISCO */}
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.02 }} className="mb-6">
-            <img src="/logos/logo_ummisco.png" alt="UMMISCO" className="h-16 w-auto mx-auto drop-shadow-lg" />
+        <div className="mx-auto max-w-5xl text-center relative z-10 flex flex-col items-center">
+          {/* Photo de groupe — bannière de bienvenue */}
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.02 }} className="mb-8 w-full rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+            <img src="/photo_de_groupe/membres.png" alt="Équipe UMMISCO" className="w-full h-auto object-cover" />
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/60 px-3.5 py-1 text-sm text-slate-400">
