@@ -34,8 +34,9 @@ export default function DashboardPage() {
 
   // Profile edit
   const [editMode, setEditMode] = useState(false);
-  const [bio, setBio] = useState(user?.role === "chercheur" ? "Chercheur UMMISCO" : "");
   const [profileSaved, setProfileSaved] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
+  const [profileData, setProfileData] = useState<Record<string, unknown>>({});
 
   // New publication form
   const [showPubForm, setShowPubForm] = useState(false);
@@ -67,8 +68,42 @@ export default function DashboardPage() {
       router.push("/connexion");
       return;
     }
-    loadData();
+    if (tab === "profile") loadProfile();
+    else loadData();
   }, [isAuthenticated, authLoading, tab]);
+
+  const loadProfile = async () => {
+    if (!token) return;
+    const res = await fetch("/api/auth/me", { headers: { Authorization: `Bearer ${token}` } });
+    if (res.ok) {
+      const data = await res.json();
+      setProfileData(data);
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    if (!token) return;
+    setProfileLoading(true);
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(profileData),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setProfileData(updated);
+        setEditMode(false);
+        setProfileSaved(true);
+        setTimeout(() => setProfileSaved(false), 3000);
+      }
+    } finally {
+      setProfileLoading(false);
+    }
+  };
+
+  const setProfile = (field: string, value: unknown) =>
+    setProfileData((prev) => ({ ...prev, [field]: value }));
 
   const loadData = async () => {
     if (!token) return;
@@ -218,6 +253,7 @@ export default function DashboardPage() {
             {tab === "profile" && (
               <div className="space-y-6">
                 <div className="rounded-xl border border-slate-900 bg-slate-900/10 p-6">
+                  {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
                       <div className="h-16 w-16 rounded-full bg-blue-600/10 text-blue-400 text-xl font-extrabold border border-blue-900/30 flex items-center justify-center">
@@ -239,24 +275,145 @@ export default function DashboardPage() {
                     </button>
                   </div>
 
+                  {profileSaved && (
+                    <div className="mb-4 rounded-lg bg-green-500/10 border border-green-900/30 px-3 py-2 text-xs text-green-400 flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5" /> Profil mis à jour.
+                    </div>
+                  )}
+
                   {editMode ? (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Biographie</label>
-                        <textarea
-                          rows={4}
-                          value={bio}
-                          onChange={(e) => setBio(e.target.value)}
-                          className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50"
-                          placeholder="Décrivez vos recherches et domaines d'expertise..."
-                        />
+                    <div className="space-y-6">
+                      {/* ── Section commune ── */}
+                      <div className="space-y-3">
+                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations générales</p>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Biographie</label>
+                          <textarea
+                            rows={3}
+                            value={(profileData.biographie as string) ?? ""}
+                            onChange={(e) => setProfile("biographie", e.target.value)}
+                            className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50"
+                            placeholder="Décrivez vos recherches et domaines d'expertise..."
+                          />
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Téléphone</label>
+                            <input type="tel" value={(profileData.telephone as string) ?? ""} onChange={(e) => setProfile("telephone", e.target.value)} placeholder="+221 77 000 00 00" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">ORCID</label>
+                            <input type="text" value={(profileData.orcid as string) ?? ""} onChange={(e) => setProfile("orcid", e.target.value)} placeholder="0000-0002-1234-5678" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 font-mono px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Profil externe (Google Scholar / ResearchGate / LinkedIn)</label>
+                          <input type="url" value={(profileData.lienExterne as string) ?? ""} onChange={(e) => setProfile("lienExterne", e.target.value)} placeholder="https://scholar.google.com/..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                        </div>
                       </div>
-                      <div className="flex gap-2">
+
+                      {/* ── Chercheurs / responsables / directeur ── */}
+                      {["chercheur", "responsable_axe", "directeur"].includes(user?.role ?? "") && (
+                        <div className="space-y-3">
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations académiques</p>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Affiliation / Université</label>
+                              <input type="text" value={(profileData.affiliation as string) ?? ""} onChange={(e) => setProfile("affiliation", e.target.value)} placeholder="UCAD — École Supérieure Polytechnique" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                            </div>
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Centre UMMISCO</label>
+                              <select value={(profileData.centre as string) ?? ""} onChange={(e) => setProfile("centre", e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
+                                <option value="">— Choisir —</option>
+                                <option value="Dakar">Dakar (ESP-UCAD)</option>
+                                <option value="Bondy">Bondy (IRD)</option>
+                                <option value="Hanoï">Hanoï (USTH)</option>
+                                <option value="Rabat">Rabat (UM5)</option>
+                                <option value="Yaoundé">Yaoundé (UYI)</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Domaine principal</label>
+                            <input type="text" value={(profileData.domaine as string) ?? ""} onChange={(e) => setProfile("domaine", e.target.value)} placeholder="Mathématiques, Informatique, Biologie..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Expertises / Spécialités <span className="font-normal text-slate-600 normal-case">— séparées par virgules</span></label>
+                            <input type="text" value={((profileData.expertises as string[]) ?? []).join(", ")} onChange={(e) => setProfile("expertises", e.target.value.split(",").map((s) => s.trim()).filter(Boolean))} placeholder="Modélisation multi-agents, Épidémiologie, GAMA..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* ── Étudiants / doctorants ── */}
+                      {user?.role === "etudiant" && (
+                        <div className="space-y-3">
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations doctorat</p>
+                          <label className="flex items-center gap-2.5 cursor-pointer">
+                            <input type="checkbox" checked={(profileData.estDoctorant as boolean) ?? false} onChange={(e) => setProfile("estDoctorant", e.target.checked)} className="rounded border-slate-600 accent-blue-500 h-3.5 w-3.5" />
+                            <span className="text-xs text-slate-300">Je suis doctorant(e)</span>
+                          </label>
+                          {profileData.estDoctorant && (
+                            <div className="space-y-3">
+                              <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Directeur de thèse</label>
+                                  <input type="text" value={(profileData.directeurThese as string) ?? ""} onChange={(e) => setProfile("directeurThese", e.target.value)} placeholder="Pr. Cheikh Diallo" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                                </div>
+                                <div>
+                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Année de thèse</label>
+                                  <select value={(profileData.anneeThese as number) ?? ""} onChange={(e) => setProfile("anneeThese", e.target.value ? parseInt(e.target.value) : undefined)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
+                                    <option value="">—</option>
+                                    {[1,2,3,4,5].map((n) => <option key={n} value={n}>{n}ère{n > 1 ? "" : ""} année</option>)}
+                                  </select>
+                                </div>
+                              </div>
+                              <div>
+                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Université d'inscription</label>
+                                <input type="text" value={(profileData.universiteInscription as string) ?? ""} onChange={(e) => setProfile("universiteInscription", e.target.value)} placeholder="UCAD, UASZ, UGB..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* ── Partenaires ── */}
+                      {user?.role === "partenaire" && (
+                        <div className="space-y-3">
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations organisation</p>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Type d'organisation</label>
+                              <select value={(profileData.typeOrganisation as string) ?? ""} onChange={(e) => setProfile("typeOrganisation", e.target.value || undefined)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
+                                <option value="">— Choisir —</option>
+                                <option value="academique">Académique</option>
+                                <option value="institutionnel">Institutionnel</option>
+                                <option value="industriel">Industriel</option>
+                                <option value="bailleur">Bailleur de fonds</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Pays</label>
+                              <input type="text" value={(profileData.pays as string) ?? ""} onChange={(e) => setProfile("pays", e.target.value)} placeholder="France, Sénégal, Maroc..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Site web</label>
+                            <input type="url" value={(profileData.siteWeb as string) ?? ""} onChange={(e) => setProfile("siteWeb", e.target.value)} placeholder="https://www.organisation.org" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Organisation</label>
+                            <input type="text" value={(profileData.organisation as string) ?? ""} onChange={(e) => setProfile("organisation", e.target.value)} placeholder="Nom complet de l'organisation" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex gap-2 pt-2 border-t border-slate-800">
                         <button
-                          onClick={() => { setEditMode(false); setProfileSaved(true); setTimeout(() => setProfileSaved(false), 3000); }}
-                          className="px-4 py-2 rounded-lg bg-ummisco-blue text-xs font-semibold text-white"
+                          onClick={handleSaveProfile}
+                          disabled={profileLoading}
+                          className="px-4 py-2 rounded-lg bg-ummisco-blue text-xs font-semibold text-white disabled:opacity-60 flex items-center gap-1.5"
                         >
-                          {t("common.save")}
+                          {profileLoading ? <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Enregistrement...</> : t("common.save")}
                         </button>
                         <button onClick={() => setEditMode(false)} className="px-4 py-2 rounded-lg border border-slate-800 text-xs font-semibold text-slate-400">
                           {t("common.cancel")}
@@ -264,13 +421,81 @@ export default function DashboardPage() {
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      {profileSaved && (
-                        <div className="mb-4 rounded-lg bg-green-500/10 border border-green-900/30 px-3 py-2 text-xs text-green-400 flex items-center gap-2">
-                          <CheckCircle2 className="h-3.5 w-3.5" /> Profil mis à jour.
+                    /* ── Vue lecture ── */
+                    <div className="space-y-5">
+                      {profileData.biographie && (
+                        <div>
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Biographie</p>
+                          <p className="text-xs text-slate-400 leading-relaxed">{profileData.biographie as string}</p>
                         </div>
                       )}
-                      <p className="text-xs text-slate-400 leading-relaxed">{bio || "Aucune biographie renseignée."}</p>
+
+                      {/* Champs communs renseignés */}
+                      {(profileData.telephone || profileData.orcid || profileData.lienExterne) && (
+                        <div className="grid grid-cols-1 gap-2">
+                          {profileData.telephone && (
+                            <div className="flex items-center gap-2 text-xs text-slate-400">
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Tél.</span>
+                              <span>{profileData.telephone as string}</span>
+                            </div>
+                          )}
+                          {profileData.orcid && (
+                            <div className="flex items-center gap-2 text-xs text-slate-400">
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">ORCID</span>
+                              <span className="font-mono">{profileData.orcid as string}</span>
+                            </div>
+                          )}
+                          {profileData.lienExterne && (
+                            <div className="flex items-center gap-2 text-xs text-slate-400">
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Profil</span>
+                              <a href={profileData.lienExterne as string} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{profileData.lienExterne as string}</a>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Chercheurs */}
+                      {["chercheur", "responsable_axe", "directeur"].includes(user?.role ?? "") && (
+                        <div className="space-y-2">
+                          {profileData.affiliation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Affil.</span>{profileData.affiliation as string}</div>}
+                          {profileData.centre && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Centre</span>{profileData.centre as string}</div>}
+                          {profileData.domaine && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Domaine</span>{profileData.domaine as string}</div>}
+                          {(profileData.expertises as string[] | undefined)?.length ? (
+                            <div>
+                              <p className="text-[9px] font-bold text-slate-600 uppercase mb-1.5">Expertises</p>
+                              <div className="flex flex-wrap gap-1.5">
+                                {(profileData.expertises as string[]).map((e) => (
+                                  <span key={e} className="px-2 py-0.5 rounded-full bg-blue-600/10 text-blue-400 border border-blue-900/30 text-[10px] font-medium">{e}</span>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
+                      )}
+
+                      {/* Étudiant */}
+                      {user?.role === "etudiant" && profileData.estDoctorant && (
+                        <div className="space-y-2">
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Doctorat</p>
+                          {profileData.directeurThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Directeur</span>{profileData.directeurThese as string}</div>}
+                          {profileData.anneeThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Année</span>{profileData.anneeThese as number}e année</div>}
+                          {profileData.universiteInscription && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Université</span>{profileData.universiteInscription as string}</div>}
+                        </div>
+                      )}
+
+                      {/* Partenaire */}
+                      {user?.role === "partenaire" && (
+                        <div className="space-y-2">
+                          {profileData.organisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Organisation</span>{profileData.organisation as string}</div>}
+                          {profileData.typeOrganisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Type</span><span className="capitalize">{profileData.typeOrganisation as string}</span></div>}
+                          {profileData.pays && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Pays</span>{profileData.pays as string}</div>}
+                          {profileData.siteWeb && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Site web</span><a href={profileData.siteWeb as string} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{profileData.siteWeb as string}</a></div>}
+                        </div>
+                      )}
+
+                      {!profileData.biographie && !profileData.telephone && !profileData.orcid && (
+                        <p className="text-xs text-slate-500 italic">Aucune information renseignée. Cliquez sur "Modifier le profil".</p>
+                      )}
                     </div>
                   )}
                 </div>
