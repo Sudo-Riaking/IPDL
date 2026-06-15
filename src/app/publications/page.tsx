@@ -16,7 +16,7 @@ import {
 import {
   AXES,
   RESEARCHERS,
-  PUBLICATIONS,
+  PUBLICATION,
   Publication
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
@@ -33,10 +33,10 @@ export default function PublicationsPage() {
   const ITEMS_PER_PAGE = 12;
 
   // Filter lists configuration
-  const uniqueYears = Array.from(new Set(PUBLICATIONS.map((p) => p.year))).sort((a, b) => b - a);
+  const uniqueYears = Array.from(new Set(PUBLICATION.map((p) => p.year))).sort((a, b) => b - a);
 
   // Filter processing
-  const filteredPublications = PUBLICATIONS.filter((pub) => {
+  const filteredPublications = PUBLICATION.filter((pub) => {
     const matchesSearch =
       pub.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       pub.abstract.toLowerCase().includes(searchTerm.toLowerCase());

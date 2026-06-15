@@ -1082,7 +1082,7 @@ export const PUBLICATIONS_SEED: Publication[] = [
 
 const existingPublicationIds = new Set(PUBLICATIONS_SEED.map((pub) => pub.id));
 
-export const PUBLICATIONS: Publication[] = [
+export const PUBLICATION: Publication[] = [
   ...PUBLICATIONS_SEED,
   ...UMMISCO_EXTERNAL_PUBLICATIONS.filter((pub) => !existingPublicationIds.has(pub.id)),
 ];
