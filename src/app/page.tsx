@@ -24,10 +24,9 @@ import {
 import {
   AXES,
   RESEARCHERS,
-  PUBLICATIONS,
+  PUBLICATION,
   DATASETS,
   CENTERS,
-  SOFTWARE_TOOLS,
   Publication,
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
@@ -57,7 +56,7 @@ export default function Home() {
   const [citationModalPub, setCitationModalPub] = useState<Publication | null>(null);
 
   const q = searchQuery.trim().toLowerCase();
-  const filteredPubs = q ? PUBLICATIONS.filter((p) => p.title.toLowerCase().includes(q) || p.abstract.toLowerCase().includes(q) || p.authors.some((a) => a.toLowerCase().includes(q))).slice(0, 4) : [];
+  const filteredPubs = q ? PUBLICATION.filter((p) => p.title.toLowerCase().includes(q) || p.abstract.toLowerCase().includes(q) || p.authors.some((a) => a.toLowerCase().includes(q))).slice(0, 4) : [];
   const filteredResearchers = q ? RESEARCHERS.filter((r) => r.name.toLowerCase().includes(q) || r.title.toLowerCase().includes(q)).slice(0, 4) : [];
   const filteredDatasets = q ? DATASETS.filter((d) => d.title.toLowerCase().includes(q) || d.description.toLowerCase().includes(q)).slice(0, 4) : [];
 
@@ -238,10 +237,10 @@ export default function Home() {
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-8 rounded-xl border border-slate-900 bg-slate-900/30 p-6 overflow-hidden">
                 <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-blue-500" /> Publications liées à l&apos;axe sélectionné</h4>
                 <div className="space-y-4">
-                  {PUBLICATIONS.filter((p) => p.axis === selectedAxis).map((p) => (
+                  {PUBLICATION.filter((p) => p.axis === selectedAxis).map((p) => (
                     <div key={p.id} className="border-b border-slate-900/60 pb-3 last:border-b-0 last:pb-0"><div className="text-sm font-bold text-slate-200">{p.title}</div><div className="text-[13px] text-slate-400 mt-1">{p.authors.join(", ")} — {p.year}</div></div>
                   ))}
-                  {PUBLICATIONS.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">Aucune publication indexée sur cet axe pour le moment.</div>)}
+                  {PUBLICATION.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">Aucune publication indexée sur cet axe pour le moment.</div>)}
                 </div>
               </motion.div>
             )}
@@ -249,45 +248,7 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
-=======
-      {/* ── LOGICIELS ─────────────────────────────────────────────────────── */}
-      <section id="logiciels" className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8">
-            <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2 flex items-center gap-2"><Boxes className="h-4 w-4 text-violet-400" /> Logiciels open source</span>
-            <h2 className="text-3xl font-extrabold tracking-tight text-white">Des outils utilisés dans le monde entier</h2>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {SOFTWARE_TOOLS.map((tool) => {
-              const accent = SOFTWARE_ACCENT[tool.id] ?? "text-blue-400 bg-blue-500/10";
-              return (
-                <div key={tool.id} className="rounded-xl border border-slate-800 bg-slate-950 p-6 flex flex-col hover:border-slate-700 transition-colors">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${accent} font-extrabold`}>
-                      {tool.name.slice(0, 2)}
-                    </span>
-                    {tool.since && (<span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">depuis {tool.since}</span>)}
-                  </div>
-                  <h3 className="text-base font-bold text-white">{tool.name}</h3>
-                  <p className="mt-2 text-[13px] text-slate-400 leading-relaxed flex-1 line-clamp-4">{tool.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {tool.tags.slice(0, 4).map((tag) => (<span key={tag} className="text-[10px] bg-slate-900 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded">{tag}</span>))}
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-slate-900/60 flex items-center gap-4">
-                    {tool.website && (<a href={tool.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] font-semibold text-blue-400 hover:text-blue-300"><ExternalLink className="h-3 w-3" /> Site</a>)}
-                    {tool.github && (<a href={tool.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] font-semibold text-slate-400 hover:text-slate-200"><ExternalLink className="h-3 w-3" /> GitHub</a>)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
->>>>>>> 317c363 (Streamline homepage: remove redundant descriptions and tighten spacing)
-{/* ── FEATURED PUBLICATIONS ─────────────────────────────────────────── */}
+{/* ── FEATURED PUBLICATION ─────────────────────────────────────────── */}
       <section id="publications" className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap gap-4 justify-between items-end">
@@ -301,7 +262,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {PUBLICATIONS.slice(0, 3).map((pub) => (
+            {PUBLICATION.slice(0, 3).map((pub) => (
               <div key={pub.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col justify-between shadow-md hover:border-slate-800/80 transition-all">
                 <div>
                   <div className="flex justify-between items-center mb-4">

@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Avatar from "@/components/Avatar";
-import { RESEARCHERS, PUBLICATIONS, SEMINARS, AXES } from "@/data/ummiscoData";
+import { RESEARCHERS, PUBLICATION, SEMINARS, AXES } from "@/data/ummiscoData";
 import { scholarUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
 
 // A few senior figures available for press interviews (leadership + an email).
@@ -27,7 +27,7 @@ export default function PressePage() {
     .map((id) => RESEARCHERS.find((r) => r.id === id))
     .filter((r): r is NonNullable<typeof r> => Boolean(r));
 
-  const highlights = PUBLICATIONS.slice(0, 3);
+  const highlights = PUBLICATION.slice(0, 3);
   const upcoming = [...SEMINARS]
     .filter((s) => new Date(s.date).getTime() >= Date.now() - 86400000)
     .slice(0, 3);

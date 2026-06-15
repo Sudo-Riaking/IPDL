@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import {
   RESEARCHERS,
-  PUBLICATIONS,
+  PUBLICATION,
   DATASETS,
   AXES,
   CENTERS,
@@ -41,7 +41,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
     notFound();
   }
 
-  // Use researcher's publications if available, otherwise filter from global PUBLICATIONS
+  // Use researcher's publications if available, otherwise filter from global PUBLICATION
   const researcherPubs = researcher.publications ?
     researcher.publications.map(pub => ({
       id: `${researcher.id}-${pub.title.substring(0, 20).replace(/\s+/g, '-')}`,
@@ -57,7 +57,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
       doi: undefined,
       journal: undefined,
     })) :
-    PUBLICATIONS.filter((p) =>
+    PUBLICATION.filter((p) =>
       p.researcherIds.includes(researcher.id)
     );
 

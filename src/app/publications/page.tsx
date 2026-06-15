@@ -205,7 +205,7 @@ export default function PublicationsPage() {
             </div>
           </div>
 
-          {/* RIGHT CONTENT: PUBLICATIONS LIST */}
+          {/* RIGHT CONTENT: PUBLICATION LIST */}
           <div className="lg:col-span-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs text-slate-500 gap-3">
               <span>{filteredPublications.length} publication(s) trouvée(s)</span>

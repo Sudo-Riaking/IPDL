@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Mail, ExternalLink, BookOpen, Database } from "lucide-react";
 import Footer from "@/components/Footer";
 import Avatar from "@/components/Avatar";
-import { RESEARCHERS, PUBLICATIONS, DATASETS, AXES } from "@/data/ummiscoData";
+import { RESEARCHERS, PUBLICATION, DATASETS, AXES } from "@/data/ummiscoData";
 import { useLang } from "@/context/LangContext";
 
 const FILTER_AXES = [{ id: "all", name: "Tous les axes" }, ...AXES];
@@ -28,7 +28,7 @@ export default function EquipePage() {
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("researchers.title")}</h1>
           <p className="mt-2 text-slate-400 text-base">
-            {filtered.length} membre(s) répartis dans les 5 centres internationaux d&apos;UMMISCO (UMI 209).
+            {filtered.length} membres répartis dans les 5 centres internationaux d&apos;UMMISCO (UMI 209).
           </p>
           <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
@@ -52,7 +52,7 @@ export default function EquipePage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((r) => {
-            const pubCount = r.publications?.length ?? PUBLICATIONS.filter((p) => p.researcherIds.includes(r.id)).length;
+            const pubCount = r.publications?.length ?? PUBLICATION.filter((p) => p.researcherIds.includes(r.id)).length;
             const dsCount = DATASETS.filter((d) => d.creatorId === r.id).length;
             return (
               <div key={r.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col hover:border-slate-800 transition-colors group">
