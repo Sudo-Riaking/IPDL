@@ -14,6 +14,12 @@ export interface Researcher {
   publicationsCount: number;
   center: string;
   role: "directeur_centre" | "directeur_unite" | "responsable_theme" | "chercheur" | "doctorant" | "emerite" | "ingenieur";
+  /** Thèmes détaillés en anglais et français */
+  themesDescription?: string;
+  /** Projets spécifiques du chercheur */
+  projects?: string[];
+  /** Liste des publications avec détails */
+  publications?: { title: string; year?: number }[];
 }
 
 export interface Publication {
