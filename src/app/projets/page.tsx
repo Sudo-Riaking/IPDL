@@ -242,7 +242,7 @@ function ProjectCard({
       className="group flex flex-col rounded-xl border border-slate-800 bg-slate-900/30 hover:border-slate-700 hover:bg-slate-900/50 transition-all duration-300 overflow-hidden"
     >
       {/* Zone logo — fond blanc fixe, object-contain centré */}
-      <div className="relative w-full h-48 flex-none bg-white flex items-center justify-center overflow-hidden rounded-t-xl p-4">
+      <div className="relative w-full h-48 flex-none flex items-center justify-center overflow-hidden rounded-t-xl p-4" style={{ backgroundColor: "#ffffff" }}>
         {project.image && !imgFailed ? (
           <img
             src={project.image}
@@ -418,7 +418,7 @@ export default function ProjetsPage() {
               { src: "/logos/logo_irn.png", alt: "IRN" },
               { src: "/logos/logo_cnrs.png", alt: "CNRS" },
             ].map(({ src, alt }) => (
-              <div key={alt} className="h-8 w-14 bg-white rounded p-1 flex items-center justify-center shadow-sm">
+              <div key={alt} className="h-8 w-14 rounded p-1 flex items-center justify-center shadow-sm" style={{ backgroundColor: "#ffffff" }}>
                 <img src={src} alt={alt} className="h-full w-full object-contain" />
               </div>
             ))}
