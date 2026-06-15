@@ -242,13 +242,13 @@ function ProjectCard({
       className="group flex flex-col rounded-xl border border-slate-800 bg-slate-900/30 hover:border-slate-700 hover:bg-slate-900/50 transition-all duration-300 overflow-hidden"
     >
       {/* Zone logo — fond blanc fixe, object-contain centré */}
-      <div className="relative w-full h-48 flex-none bg-white flex items-center justify-center overflow-hidden rounded-t-xl">
+      <div className="relative w-full h-48 flex-none bg-white flex items-center justify-center overflow-hidden rounded-t-xl p-4">
         {project.image && !imgFailed ? (
           <img
             src={project.image}
             alt={project.name}
             onError={() => setImgFailed(true)}
-            className="w-full h-full object-contain p-4"
+            className="max-w-full max-h-full w-auto h-auto object-contain"
           />
         ) : (
           <span className="text-sm font-bold text-slate-700 text-center px-4 leading-snug">
