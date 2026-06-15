@@ -2146,7 +2146,7 @@ export const DOCTORAL_CONTRACTS: DoctoralContract[] = [
   {
     id: "doc-01",
     title: "Modélisation hybride de la dynamique des socio-écosystèmes sahéliens (Grande Muraille Verte)",
-    supervisor: "Prof. Alassane BAH",
+    supervisor: "Professeur Alassane BAH",
     funding: "Bourse d'excellence IRD / Projet IRN RESET-GMV",
     description:
       "L'objectif est de concevoir un modèle à base d'agents couplé à MAELIA pour simuler les dynamiques pastorales et agricoles dans la zone Ferlo-Sine. Les scénarios co-construits visent la neutralité carbone d'ici 2035.",

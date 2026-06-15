@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import BrandLogo from "./BrandLogo";
 import {
   Home, Layers, FolderKanban, BookOpen, Database,
-  Play, Users, Handshake, Newspaper,
+  Play, Users, Handshake, Newspaper, Boxes,
   ChevronLeft, ChevronRight, Menu, X,
   Lock, Sun, Moon, LogOut, LayoutDashboard, Shield,
 } from "lucide-react";
@@ -39,6 +39,7 @@ export default function Sidebar() {
     { label: t("nav.publications"),href: "/publications", icon: BookOpen },
     { label: t("nav.datasets"),    href: "/datasets",     icon: Database },
     { label: t("nav.simulations"), href: "/simulations",  icon: Play },
+    { label: t("nav.logiciels"),   href: "/logiciels",    icon: Boxes },
     { label: t("nav.equipe"),      href: "/equipe",       icon: Users },
     { label: t("nav.partenaires"), href: "/partenaires",  icon: Handshake },
     { label: t("nav.actualites"),  href: "/actualites",   icon: Newspaper },

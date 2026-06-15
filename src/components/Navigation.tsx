@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import BrandLogo from "./BrandLogo";
-import { Menu, X, Lock, Sun, Moon, LogOut, LayoutDashboard, Shield } from "lucide-react";
+import { Menu, X, Lock, Sun, Moon, LogOut, LayoutDashboard, Shield, Boxes } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLang } from "@/context/LangContext";
 import { useAuth } from "@/context/AuthContext";
@@ -24,6 +24,7 @@ export default function Navigation() {
     { label: t("nav.publications"), href: "/publications" },
     { label: t("nav.datasets"), href: "/datasets" },
     { label: t("nav.simulations"), href: "/simulations" },
+    { label: t("nav.logiciels"), href: "/logiciels" },
     { label: t("nav.equipe"), href: "/equipe" },
     { label: t("nav.partenaires"), href: "/partenaires" },
     { label: t("nav.actualites"), href: "/actualites" },
