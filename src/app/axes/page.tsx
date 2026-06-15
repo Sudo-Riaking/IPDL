@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { PUBLICATION, RESEARCHERS } from "@/data/ummiscoData";
+import { PUBLICATION, RESEARCHERS, AXES } from "@/data/ummiscoData";
 
 const AXES_DATA = [
   {
@@ -60,6 +60,13 @@ const iconColorMap: Record<string, string> = {
   purple: "text-purple-400",
   amber: "text-amber-400",
   red: "text-red-400",
+};
+
+const axisButtonStyle: Record<string, { active: string; text: string }> = {
+  agents:      { active: "border-blue-500 bg-blue-500/10",   text: "text-blue-400" },
+  ia:          { active: "border-violet-500 bg-violet-500/10", text: "text-violet-400" },
+  capteurs:    { active: "border-green-500 bg-green-500/10",  text: "text-green-400" },
+  participatif:{ active: "border-amber-500 bg-amber-500/10",  text: "text-amber-400" },
 };
 
 export default function AxesPage() {
@@ -184,20 +191,21 @@ export default function AxesPage() {
             >
               Tous ({RESEARCHERS.length})
             </button>
-            {AXES_DATA.map((axis) => {
+            {AXES.map((axis) => {
               const count = RESEARCHERS.filter((r) => r.axes.includes(axis.id)).length;
               const isActive = activeAxis === axis.id;
+              const style = axisButtonStyle[axis.id] ?? { active: "border-slate-500 bg-slate-700", text: "text-white" };
               return (
                 <button
                   key={axis.id}
                   onClick={() => setActiveAxis(isActive ? null : axis.id)}
                   className={`text-[11px] font-semibold px-3 py-1.5 rounded-lg border transition-all ${
                     isActive
-                      ? `${colorMap[axis.color]} ${iconColorMap[axis.color]}`
+                      ? `${style.active} ${style.text}`
                       : "border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300"
                   }`}
                 >
-                  {axis.name.split(" ")[0]} ({count})
+                  {axis.shortName} ({count})
                 </button>
               );
             })}
@@ -225,7 +233,7 @@ export default function AxesPage() {
                 <div className="mt-3 flex flex-wrap gap-1">
                   {r.axes.map((a) => (
                     <span key={a} className="text-[8px] bg-slate-900 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded uppercase">
-                      {AXES_DATA.find((ax) => ax.id === a)?.name.split(" ")[0]}
+                      {AXES.find((ax) => ax.id === a)?.shortName ?? a}
                     </span>
                   ))}
                 </div>
