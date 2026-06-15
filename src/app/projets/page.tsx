@@ -113,11 +113,14 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   }, [onClose]);
 
   const details = [
-    { label: "Chef de projet", value: project.chefProjet },
-    { label: "Durée du projet", value: project.duree },
-    { label: "Date de début",   value: project.dateDebut },
-    { label: "Budget total",    value: project.budget },
-  ];
+    { label: "Chef de projet",       value: project.chefProjet },
+    { label: "Durée",                value: project.duree },
+    { label: "Date de début",        value: project.dateDebut },
+    { label: "Budget",               value: project.budget },
+    { label: "Institution porteuse", value: project.institutionPorteuse },
+    { label: "Financement",          value: project.financement },
+    { label: "Partenaires",          value: project.partenaires },
+  ].filter((d): d is { label: string; value: string } => !!d.value);
 
   return (
     <motion.div
@@ -185,18 +188,20 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
 
           {/* Tableau de métadonnées */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden divide-y divide-slate-800">
-            {details.map(({ label, value }) => (
-              <div key={label} className="flex items-center justify-between gap-4 px-4 py-3">
-                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold flex-none">
-                  {label}
-                </span>
-                <span className={`text-sm font-medium text-right ${value ? "text-white" : "text-slate-600 italic"}`}>
-                  {value || "Non défini"}
-                </span>
-              </div>
-            ))}
-          </div>
+          {details.length > 0 && (
+            <div className="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden divide-y divide-slate-800">
+              {details.map(({ label, value }) => (
+                <div key={label} className="flex items-start justify-between gap-4 px-4 py-3">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold flex-none w-32">
+                    {label}
+                  </span>
+                  <span className="text-sm font-medium text-right text-white flex-1 break-words">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Bouton SAVOIR PLUS */}
           {project.url && (
@@ -228,38 +233,28 @@ function ProjectCard({
 }) {
   const [imgFailed, setImgFailed] = useState(false);
   const dc = getDomainConfig(project.domain);
-  const gradient = getDomainGradient(project.domain);
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: index * 0.04 }}
-      className="group flex flex-col rounded-xl border border-slate-800 bg-slate-900/30 hover:border-slate-700 hover:bg-slate-900/50 transition-all duration-300 overflow-hidden cursor-pointer"
-      onClick={onOpen}
+      className="group flex flex-col rounded-xl border border-slate-800 bg-slate-900/30 hover:border-slate-700 hover:bg-slate-900/50 transition-all duration-300 overflow-hidden"
     >
-      {/* Zone image 16/9 */}
-      <div
-        className={`relative w-full aspect-video flex-none bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}
-      >
+      {/* Zone logo — fond blanc fixe, object-contain centré */}
+      <div className="relative w-full h-48 flex-none bg-white flex items-center justify-center overflow-hidden rounded-t-xl">
         {project.image && !imgFailed ? (
           <img
             src={project.image}
             alt={project.name}
             onError={() => setImgFailed(true)}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain p-4"
           />
         ) : (
-          <span className="text-sm font-bold text-gray-100 text-center px-4 leading-snug">
+          <span className="text-sm font-bold text-slate-700 text-center px-4 leading-snug">
             {project.name}
           </span>
         )}
-        {/* Indication "Voir le détail" au survol */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center pointer-events-none">
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[11px] font-bold text-gray-100 bg-black/60 px-3 py-1.5 rounded-full">
-            Voir le détail
-          </span>
-        </div>
       </div>
 
       <div className="flex-1 flex flex-col p-6">
@@ -340,6 +335,14 @@ function ProjectCard({
             })}
           </div>
         </div>
+
+        {/* Bouton Voir détails */}
+        <button
+          onClick={onOpen}
+          className="mt-auto w-full rounded-lg border border-blue-500/20 bg-blue-600/10 hover:bg-blue-600/20 hover:border-blue-500/40 py-2 text-[11px] font-bold text-blue-400 transition flex items-center justify-center gap-1.5"
+        >
+          Voir détails <ChevronRight className="h-3 w-3" />
+        </button>
       </div>
     </motion.article>
   );
