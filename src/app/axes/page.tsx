@@ -64,6 +64,7 @@ const iconColorMap: Record<string, string> = {
 
 export default function AxesPage() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [activeAxis, setActiveAxis] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
@@ -170,8 +171,43 @@ export default function AxesPage() {
           <h2 className="text-xl font-extrabold text-white mb-6 border-b border-slate-900 pb-4">
             Chercheurs par Axe
           </h2>
+
+          {/* Filtres par axe */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            <button
+              onClick={() => setActiveAxis(null)}
+              className={`text-[11px] font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                activeAxis === null
+                  ? "border-slate-500 bg-slate-700 text-white"
+                  : "border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300"
+              }`}
+            >
+              Tous ({RESEARCHERS.length})
+            </button>
+            {AXES_DATA.map((axis) => {
+              const count = RESEARCHERS.filter((r) => r.axes.includes(axis.id)).length;
+              const isActive = activeAxis === axis.id;
+              return (
+                <button
+                  key={axis.id}
+                  onClick={() => setActiveAxis(isActive ? null : axis.id)}
+                  className={`text-[11px] font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                    isActive
+                      ? `${colorMap[axis.color]} ${iconColorMap[axis.color]}`
+                      : "border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300"
+                  }`}
+                >
+                  {axis.name.split(" ")[0]} ({count})
+                </button>
+              );
+            })}
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {RESEARCHERS.map((r) => (
+            {(activeAxis
+              ? RESEARCHERS.filter((r) => r.axes.includes(activeAxis))
+              : RESEARCHERS
+            ).map((r) => (
               <Link key={r.id} href={`/chercheurs/${r.id}`} className="rounded-xl border border-slate-900 bg-slate-950 p-5 hover:border-slate-800 transition-colors group">
                 {r.photoUrl ? (
                   <img
