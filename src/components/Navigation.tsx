@@ -42,7 +42,7 @@ export default function Navigation() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 text-slate-100 hover:text-white flex-none" aria-label="UMMISCO — Accueil">
-          <BrandLogo height={46} animated />
+          <BrandLogo height={60} animated />
           <div className="hidden lg:flex flex-col border-l border-slate-800 pl-2.5">
             <span className="text-[13px] font-bold tracking-wide text-slate-100 leading-tight">
               Systèmes Complexes
