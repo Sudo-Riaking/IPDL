@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine, Wrench } from "lucide-react";
+import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { PUBLICATIONS, RESEARCHERS } from "@/data/ummiscoData";
@@ -44,15 +44,6 @@ const AXES_DATA = [
     keywords: ["Érosion côtière", "Inondations", "Changement climatique", "Langue de Barbarie"],
     lead: "Prof. Cheikh Diallo",
   },
-  {
-    id: "fablab",
-    name: "FabLab & Prototypage",
-    icon: Wrench,
-    color: "red",
-    description: "Conception de matériel scientifique open-source : pluviomètres 3D, stations météo ESP32, équipements de mesure reproductibles à coût réduit pour les pays du Sud.",
-    keywords: ["Open hardware", "Impression 3D", "ESP32", "Low-cost", "Reproductible"],
-    lead: "Dr. Moussa Ndiaye",
-  },
 ];
 
 const colorMap: Record<string, string> = {
@@ -83,7 +74,7 @@ export default function AxesPage() {
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">Axes Thématiques de Recherche</h1>
           <p className="mt-3 text-slate-400 text-sm max-w-2xl leading-relaxed">
-            Les travaux d'UMMISCO s'organisent autour de cinq piliers alliant modélisation fondamentale et applications concrètes dans les pays du Sud.
+            Les travaux d'UMMISCO s'organisent autour de quatre piliers alliant modélisation fondamentale et applications concrètes dans les pays du Sud.
           </p>
         </div>
 
