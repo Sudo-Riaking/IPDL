@@ -87,6 +87,8 @@ export interface Project {
   duree?: string;
   dateDebut?: string;
   budget?: string;
+  institutionPorteuse?: string;
+  financement?: string;
   partenaires?: string;
 }
 
@@ -1392,7 +1394,7 @@ export const PROJECTS: Project[] = [
     image: "/projets/HABITABLE.png",
     chefProjet: "François Gemene, University of Liège, Hugo Observatory, Belgique",
     duree: "36 mois",
-    dateDebut: "December 2020",
+    dateDebut: "Décembre 2020",
     budget: "126 000 K€",
   },
   {
@@ -1407,7 +1409,7 @@ export const PROJECTS: Project[] = [
     image: "/projets/DigEpi.png",
     chefProjet: "Benjamin Roche, MIVEGEC, IRD",
     duree: "18 mois",
-    dateDebut: "April 2020",
+    dateDebut: "Avril 2020",
     budget: "100 K€",
   },
   {
@@ -1423,7 +1425,8 @@ export const PROJECTS: Project[] = [
     chefProjet: "Nicolas Marilleau, UMMISCO, Bondy, France et Thomas Bur, URBASENSE, Villeurbanne",
     duree: "54 mois",
     budget: "360 K€ (budget IRD)",
-    partenaires: "IRD (institution porteuse) — Financement ANR LAB-COM",
+    institutionPorteuse: "IRD",
+    financement: "ANR LAB-COM",
   },
   {
     id: "comokit",
@@ -1433,7 +1436,7 @@ export const PROJECTS: Project[] = [
     domain: "Santé publique",
     description:
       "Modèle informatique permettant d'explorer in silico les stratégies d'intervention épidémique (COVID-19) avant leur mise en application.",
-    url: "https://comokit.org/",
+    url: "https://ummisco.fr/fr/projet-ummisco/comokit/",
     image: "/projets/COMOKIT.png",
     chefProjet: "Alexis Drogoul, UMI 209, UMMISCO, IRD, Sorbonne Université, Bondy, France",
     duree: "18 mois",
@@ -1465,14 +1468,14 @@ export const PROJECTS: Project[] = [
     image: "/projets/DOM.png",
     chefProjet: "Dr. Ayesha Almazooqi, Khalifa University, Abu Dhabi",
     duree: "36 mois",
-    dateDebut: "December 2020",
+    dateDebut: "Décembre 2020",
     budget: "750 K$",
   },
   {
     id: "airqaly-4-asmafri",
     name: "AIRQALY-4-ASMAFRI",
-    centers: ["mediterranee"],
-    themes: ["participatif", "capteurs"],
+    centers: ["mediterranee", "afrique-ouest"],
+    themes: ["participatif"],
     domain: "Santé humaine",
     description:
       "Réseau de capteurs citoyens pour la surveillance de la qualité de l'air et son impact sur l'asthme en Afrique. Science participative et acquisition de données.",
@@ -1487,7 +1490,7 @@ export const PROJECTS: Project[] = [
     id: "aime",
     name: "AIME",
     centers: ["mediterranee"],
-    themes: ["ia", "participatif"],
+    themes: ["participatif"],
     domain: "Santé humaine",
     description:
       "Artificial Intelligence for Marine Ecosystems. Application de l'IA pour la modélisation et le suivi des écosystèmes marins méditerranéens.",
@@ -1495,7 +1498,7 @@ export const PROJECTS: Project[] = [
     image: "/projets/AIME.png",
     chefProjet: "Jihad Zahir, CAU / UMMISCO, Morocco",
     duree: "48 mois",
-    dateDebut: "January 2021",
+    dateDebut: "Janvier 2021",
     budget: "649 K€",
   },
   {
@@ -1525,7 +1528,7 @@ export const PROJECTS: Project[] = [
     image: "/projets/CsCov19.png",
     chefProjet: "Nguyen Ngoc Doanh, Thuyloi University, UMMISCO Vietnam",
     duree: "24 mois",
-    dateDebut: "April 2022",
+    dateDebut: "Avril 2022",
     budget: "271 000 €",
   },
   {
@@ -1580,7 +1583,7 @@ export const PROJECTS: Project[] = [
     name: "EPITAG",
     centers: ["afrique-centrale", "france"],
     themes: ["agents"],
-    domain: "Santé publique",
+    domain: "Modélisation Mathématique",
     description:
       "Modélisation épidémiologique et contrôle optimal des maladies infectieuses en Afrique subsaharienne. Coopération UMMISCO Cameroun – INRIA.",
     url: "https://ummisco.fr/fr/projet-ummisco/epitag/",
@@ -1593,7 +1596,7 @@ export const PROJECTS: Project[] = [
   {
     id: "i-maroc",
     name: "I-MAROC",
-    centers: ["mediterranee", "france"],
+    centers: ["mediterranee"],
     themes: ["agents", "ia"],
     domain: "Environnement",
     description:
@@ -1657,10 +1660,11 @@ export const PROJECTS: Project[] = [
   {
     id: "escape",
     name: "ESCAPE",
-    centers: ["france"],
+    centers: ["asie"],
     themes: ["agents"],
     domain: "Environnement",
     description: "Description à compléter.",
+    url: "https://ummisco.fr/fr/projet-ummisco/anr-escape/",
     image: "/projets/ESCAPE.png",
     chefProjet: "Alexis Drogoul, UMMISCO, IRD, 32 av. Henri Varagnat, 93140 Bondy, France",
     duree: "48 mois",
@@ -1675,6 +1679,7 @@ export const PROJECTS: Project[] = [
     themes: ["agents"],
     domain: "Société",
     description: "Générateur de populations synthétiques pour la simulation multi-agents de systèmes socio-démographiques.",
+    url: "https://ummisco.fr/fr/projet-ummisco/anr-genstar/",
     image: "/projets/GENSTAR.png",
     chefProjet: "Alexis Drogoul, UMMISCO, IRD, 32 av. Henri Varagnat, 93140 Bondy, France",
     duree: "42 mois",
@@ -1689,6 +1694,7 @@ export const PROJECTS: Project[] = [
     themes: ["agents"],
     domain: "Santé publique",
     description: "Description à compléter.",
+    url: "https://ummisco.fr/fr/projet-ummisco/anr-mepsom/",
     image: "/projets/MEPSOM.png",
     chefProjet: "Claire Chenu, AgroParisTech, France",
     partenaires: "BIOEMCO, UMR UPMC-CNRS-IRD-ENS-UPEC-AgroParisTech-INRA, Paris ; Environnement et Grandes Cultures, UMR INRA-AgroParisTech, Grignon ; Laboratoire d'Écologie Microbienne, Université de Lyon 1 ; UMMISCO, IRD, Yaoundé, Cameroun ; SIMBIOS, Université d'Abertay, Dundee, Écosse",
@@ -1700,6 +1706,7 @@ export const PROJECTS: Project[] = [
     themes: ["agents"],
     domain: "Société",
     description: "Description à compléter.",
+    url: "https://ummisco.fr/fr/projet-ummisco/anr-panique/",
     image: "/projets/PANIC.png",
     chefProjet: "Bernard Cazelles, UMMISCO, IRD, 32 av. Henri Varagnat, 93140 Bondy, France",
     duree: "48 mois",
@@ -1713,6 +1720,7 @@ export const PROJECTS: Project[] = [
     themes: ["agents", "capteurs"],
     domain: "Environnement",
     description: "Modélisation 3D des microstructures du sol et de la dynamique microbienne par simulation multi-agents couplée à l'imagerie haute résolution.",
+    url: "https://ummisco.fr/fr/projet-ummisco/anr-soilmu-3d/",
     image: "/projets/Soilmu-3D.png",
     chefProjet: "Patricia Garnier, INRA Grignon",
     duree: "2016-2019",
@@ -1744,6 +1752,7 @@ export const PROJECTS: Project[] = [
     themes: ["agents"],
     domain: "Environnement",
     description: "Description à compléter.",
+    url: "https://ummisco.fr/fr/projet-ummisco/qnrf-simupor/",
     image: "/projets/SIMUPOR.png",
     chefProjet: "Serkan Kiranyaz, Université du Qatar",
     duree: "36 mois",
@@ -1762,20 +1771,22 @@ export const PROJECTS: Project[] = [
   {
     id: "histoire-danr",
     name: "HISTOIRE D'ANR",
-    centers: ["france", "afrique-centrale"],
+    centers: ["france"],
     themes: ["agents"],
     domain: "Santé publique",
     description: "Étude de l'histoire naturelle et de l'émergence des maladies infectieuses tropicales par approches computationnelles.",
+    url: "https://ummisco.fr/fr/projet-ummisco/histoire-danr/",
     chefProjet: "Benjamin Roche, UMMISCO, IRD, 32 avenue Henri Varagnat, 93140 Bondy, France",
     partenaires: "IRD, Bondy, France ; IRD, Montpellier, France ; CIRMF, Franceville, Gabon ; UPMC, Paris, France",
   },
   {
     id: "nocime",
     name: "NOCIME",
-    centers: ["france"],
+    centers: ["asie"],
     themes: ["agents"],
     domain: "Santé publique",
     description: "Nouvelles approches de contrôle optimal et d'intervention pour les maladies émergentes.",
+    url: "https://ummisco.fr/fr/projet-ummisco/nocime/",
     chefProjet: "G. Sallet et B. Cazelles (correspondant IRD et responsable WP1)",
     duree: "36 mois",
     dateDebut: "Janvier 2024",
@@ -1789,6 +1800,7 @@ export const PROJECTS: Project[] = [
     themes: ["participatif"],
     domain: "Biodiversité",
     description: "Obligations de résultats pour la biodiversité : quantification et suivi à l'interface science-politiques.",
+    url: "https://ummisco.fr/fr/projet-ummisco/obligations/",
     chefProjet: "Marie-Paule Bonnet, UMR Espace-Dev, IRD",
     partenaires: "IRD Montpellier & Bondy ; Universidad Nacional de Colombia ; CIRAD ; MNHN/GBIF-France ; Université Friedrich-Schiller, Iéna ; Instituto Nacional de Pesquisas Spatiales, Brésil ; Université norvégienne des sciences de la vie ; Université de Californie Santa Barbara ; Université de Lausanne ; Virginia Polytechnic Institute ; Université de Brasilia ; Université d'East Anglia, Norwich",
   },
@@ -1978,7 +1990,7 @@ export const INTEGRATED_APPLICATIONS: IntegratedApplication[] = [
     name: "COMOKIT",
     description:
       "Explorez les stratégies d'intervention épidémique in silico développé par UMMISCO en réponse au COVID-19.",
-    url: "https://comokit.org/",
+    url: "https://ummisco.fr/fr/projet-ummisco/comokit/",
     type: "link",
   },
   {
