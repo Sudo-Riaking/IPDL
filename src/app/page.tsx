@@ -167,7 +167,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/equipe" className="inline-flex items-center gap-2 rounded-lg bg-ummisco-blue px-5 py-2.5 text-sm font-semibold text-white hover:bg-ummisco-blue/90 active:scale-95 transition-all">
+              <Link href="/equipe" style={{ color: "#ffffff" }} className="inline-flex items-center gap-2 rounded-lg bg-ummisco-blue px-5 py-2.5 text-sm font-semibold text-white hover:bg-ummisco-blue/90 active:scale-95 transition-all">
                 <Users className="h-4 w-4" /> Découvrir l&apos;équipe
               </Link>
               <Link href="/axes" className="inline-flex items-center gap-2 rounded-lg border border-slate-800 px-5 py-2.5 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all">
