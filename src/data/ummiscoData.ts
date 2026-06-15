@@ -1363,7 +1363,15 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "ia", "capteurs"],
     bio: "Directeur d'Unité Adjoint à Can Tho University. Expert en simulation multi-agents pour systèmes urbains, participation SIMPLE et STAR FARM.",
     email: "txviet@ctu.edu.vn",
-    avatarSeed: "VT", photoUrl: "/photos/viet-truong-xuan.png", publicationsCount: 0,
+    avatarSeed: "VT", photoUrl: "/photos/viet-truong-xuan.png", publicationsCount: 4,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    projects: ["Participation au projets SIMPLE et STAR FARM"],
+    publications: [
+      { title: "Optimizing an Environmental Surveillance Network with Gaussian Process Entropy" },
+      { title: "Modeling a Surveillance Network Based on Unit Disk Graph Technique – Application for Monitoring the Invasion of Insects in Mekong Delta Region" },
+      { title: "Estimating the Density of Brown Plant Hoppers from a Light-Traps Network Based on Unit Disk Graph" },
+      { title: "Modeling the brown plant hoppers surveillance network using agent-based model: application for the Mekong Delta region" },
+    ],
   },
   {
     id: "youcef-sklab", name: "Youcef SKLAB",
