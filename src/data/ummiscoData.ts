@@ -794,10 +794,25 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents", "participatif"],
     bio: "Chercheur IRD au Centre France. Expert en modélisation comportementale, développement de GAMA et simulation de systèmes socio-environnementaux.",
     email: "kevin.chapuis@ird.fr",
-    avatarSeed: "KC", photoUrl: "/photos/kevin-chapuis.png", publicationsCount: 0,
+    avatarSeed: "KC", photoUrl: "/photos/kevin-chapuis.png", publicationsCount: 14,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling, Approches participatives et science citoyenne / Participatory approaches and citizen science",
     projects: ["Développement de GAMA"],
-    publications: [{ title: "Dealing with mixed and non-normative traffic. An agent-based simulation with the GAMA platform" }, { title: "Exploring multi-modal evacuation strategies for a landlocked population using large-scale agent-based simulations" }, { title: "Using the COMOKIT model to study the impact of the morpho-functional organization of cities on the spread of COVID-19" }]
+    publications: [
+      { title: "COMOKIT v2: A multi-scale approach to modeling and simulating epidemic control policies" },
+      { title: "Dealing with mixed and non-normative traffic. An agent-based simulation with the GAMA platform" },
+      { title: "Exploring multi-modal evacuation strategies for a landlocked population using large-scale agent-based simulations" },
+      { title: "Generation of Synthetic Populations in Social Simulations: A Review of Methods and Practices" },
+      { title: "An Agent-Based Co-modeling Approach to Simulate the Evacuation of a Population in the Context of a Realistic Flooding Event: A Case Study in Hanoi (Vietnam)" },
+      { title: "Experimenting the Impact of Pedestrianisation on Urban Pollution Using Tangible Agent-Based Simulations: Application to Hoan Kiem District, Hanoi, Vietnam" },
+      { title: "Using the COMOKIT model to study the impact of the morpho-functional organization of cities on the spread of COVID-19" },
+      { title: "COMOKIT : un environnement générique et modulaire pour analyser les impacts des politiques d'intervention contre l'épidémie de COVID-19" },
+      { title: "Vulnérabilité face aux catastrophes naturelles : comportements de mise en protection et gestion de l'évacuation en cas de crue rapide" },
+      { title: "HoanKiemAir: simulating impacts of urban management practices on traffic and air pollution using a tangible agent-based model" },
+      { title: "Designing social simulation to (seriously) support decision-making: COMOKIT, an agent-based modelling toolkit to analyse and compare the impacts of public health interventions against COVID-19" },
+      { title: "COMOKIT: A Modeling Kit to Understand, Analyze, and Compare the Impacts of Mitigation Policies Against the COVID-19 Epidemic at the Scale of a City" },
+      { title: "ESCAPE: Exploring by Simulation Cities Awareness on Population Evacuation" },
+      { title: "Gen*: a generic toolkit to generate spatially explicit synthetic populations" },
+    ],
   },
   {
     id: "khalil-ezzinbi", name: "Khalil EZZINBI",
@@ -805,7 +820,13 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur du Centre Méditerranée / Université Cadi Ayyad. Lauréat du Prix Hassan II des Sciences. Expert mondial en équations différentielles.",
     email: "ezzinbi@uca.ac.ma", orcid: "0000-0002-1038-4920",
-    avatarSeed: "KE", photoUrl: "/photos/khalil-ezzinbi.png", publicationsCount: 0,
+    avatarSeed: "KE", photoUrl: "/photos/khalil-ezzinbi.png", publicationsCount: 3,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    publications: [
+      { title: "Pseudo almost periodic solutions for some parabolic evolution equations with Stepanov-like pseudo almost periodic forcing terms" },
+      { title: "Almost automorphic solutions for nonautonomous parabolic evolution equations" },
+      { title: "Compact almost automorphic solutions for semiline" },
+    ],
   },
   {
     id: "kittima-leeruttanawisut", name: "Kittima LEERUTTANAWISUT",
@@ -869,7 +890,7 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Chercheur à l'Université Gaston Berger. Expert en modélisation des dynamiques de pêche artisanale et ressources halieutiques sénégalaises.",
     email: "mamadou-abdoul.diop@ugb.edu.sn",
-    avatarSeed: "MD", photoUrl: "/photos/mamadou-abdoul-diop.png", publicationsCount: 0,
+    avatarSeed: "MD", photoUrl: "/photos/mamadou-abdoul-diop.png", publicationsCount: 8,
     themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
     publications: [{ title: "Neutral stochastic delay partial functional integro-differential equations driven by a fractional Brownian motion" }, { title: "An ontology design pattern of the multidisciplinary and complex field of climate change" }, { title: "Mild solution of neutral stochastic partial functional integrodifferential equations with non-Lipschitz coefficients" }, { title: "Kuratowski measure of noncompactness and integro-differential equations in Banach spaces" }, { title: "Optimal Controls for Stochastic Functional Integro-differential Equation" }, { title: "Mathematical Analysis of Fasciola Epidemic Model with Treatment and Quarantine" }, { title: "Optimal control for semilinear integrodifferential evolution equations in Banach spaces" }, { title: "Well-posedness and approximate controllability for some integrodifferential evolution systems with multi-valued nonlocal conditions" }]
   },
@@ -879,7 +900,11 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["agents"],
     bio: "Directeur d'Unité Adjoint à l'Université Gaston Berger. Expert en modélisation des ressources naturelles et systèmes hydriques sahéliens.",
     email: "mamadou.sy@ugb.edu.sn", orcid: "0000-0001-8345-2910",
-    avatarSeed: "MS", photoUrl: "/photos/mamadou-sy.png", publicationsCount: 0,
+    avatarSeed: "MS", photoUrl: "/photos/mamadou-sy.png", publicationsCount: 1,
+    themesDescription: "Modélisation mathématique et informatique à base d'agents / Mathematical and Agent-Based Modelling",
+    publications: [
+      { title: "Optimal Control of Thermal Pollution Emitted by Power Plants" },
+    ],
   },
   {
     id: "maurice-tchuente", name: "Maurice TCHUENTE",
@@ -887,10 +912,12 @@ export const RESEARCHERS: Researcher[] = [
     axes: ["ia"],
     bio: "Chercheur émérite à l'Université de Yaoundé I. Pionnier de l'informatique en Afrique Centrale. Encadrement de doctorants.",
     email: "Maurice.Tchuente@gmail.com",
-    avatarSeed: "MT", photoUrl: "/photos/maurice-tchuente.png", publicationsCount: 0,
+    avatarSeed: "MT", photoUrl: "/photos/maurice-tchuente.png", publicationsCount: 1,
     themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
     projects: ["Encadrement de doctorant"],
-    publications: [{ title: "Extracting ontological knowledge from Java source code using Hidden Markov Models" }]
+    publications: [
+      { title: "Extracting ontological knowledge from Java source code using Hidden Markov Models" },
+    ],
   },
   {
     id: "md-yushalify-misro", name: "Md Yushalify MISRO",
