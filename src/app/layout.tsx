@@ -51,6 +51,7 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} h-full antialiased dark`}
       style={{ scrollBehavior: "smooth" }}
+      suppressHydrationWarning
     >
       <head>
         {/* Apply saved theme before first paint to prevent flash */}
