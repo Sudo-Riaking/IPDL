@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import TopBar from "@/components/TopBar";
 import Providers from "@/components/Providers";
 import ChatWidget from "@/components/ChatWidget";
 import NotificationContainer from "@/components/NotificationContainer";
@@ -65,6 +66,7 @@ export default function RootLayout({
         <Providers>
           <Sidebar />
           <div className="sidebar-offset min-h-screen flex flex-col">
+            <TopBar />
             {children}
             <ChatWidget />
           </div>

@@ -31,7 +31,7 @@ export default function BrandLogo({
   const img = (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/logos/logo_ummisco.png"
+      src="/logos/UMMISCO_logo2.png"
       alt="UMMISCO — Unité Mixte Internationale de Modélisation Mathématique et Informatique des Systèmes Complexes"
       style={{ height }}
       className="w-auto object-contain select-none"
