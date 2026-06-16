@@ -70,7 +70,6 @@ export default function Home() {
     <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 font-sans">
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-slate-900">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
         <div className="absolute top-0 left-1/4 -z-10 h-72 w-72 rounded-full bg-blue-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 -z-10 h-72 w-72 rounded-full bg-green-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute top-1/3 right-1/3 -z-10 h-56 w-56 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
@@ -173,23 +172,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Floating badge — publications count */}
-            <div className="absolute -top-4 -right-4 flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/90 backdrop-blur-sm px-3.5 py-2.5 shadow-xl">
-              <BookOpen className="h-4 w-4 text-blue-400 flex-shrink-0" />
-              <div>
-                <div className="text-sm font-black text-white leading-none">{PUBLICATION.length}</div>
-                <div className="text-[9px] uppercase tracking-widest text-slate-400 font-bold mt-0.5">{t("nav.publications")}</div>
-              </div>
-            </div>
 
-            {/* Floating badge — researchers count */}
-            <div className="absolute -bottom-4 -left-4 flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/90 backdrop-blur-sm px-3.5 py-2.5 shadow-xl">
-              <Users className="h-4 w-4 text-violet-400 flex-shrink-0" />
-              <div>
-                <div className="text-sm font-black text-white leading-none">{RESEARCHERS.length}</div>
-                <div className="text-[9px] uppercase tracking-widest text-slate-400 font-bold mt-0.5">{t("nav.equipe")}</div>
-              </div>
-            </div>
           </motion.div>
 
         </div>
