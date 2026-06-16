@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { PUBLICATION, RESEARCHERS } from "@/data/ummiscoData";
+import { PUBLICATION, RESEARCHERS, AXES } from "@/data/ummiscoData";
 import { useLang } from "@/context/LangContext";
 
 const AXES_DATA = [
@@ -63,9 +63,17 @@ const iconColorMap: Record<string, string> = {
   red: "text-red-400",
 };
 
+const axisButtonStyle: Record<string, { active: string; text: string }> = {
+  agents:      { active: "border-blue-500 bg-blue-500/10",   text: "text-blue-400" },
+  ia:          { active: "border-violet-500 bg-violet-500/10", text: "text-violet-400" },
+  capteurs:    { active: "border-green-500 bg-green-500/10",  text: "text-green-400" },
+  participatif:{ active: "border-amber-500 bg-amber-500/10",  text: "text-amber-400" },
+};
+
 export default function AxesPage() {
   const { t } = useLang();
   const [selected, setSelected] = useState<string | null>(null);
+  const [activeAxis, setActiveAxis] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
@@ -172,8 +180,44 @@ export default function AxesPage() {
           <h2 className="text-xl font-extrabold text-white mb-6 border-b border-slate-900 pb-4">
             {t("axes.researchersByAxis")}
           </h2>
+
+          {/* Filtres par axe */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            <button
+              onClick={() => setActiveAxis(null)}
+              className={`text-[11px] font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                activeAxis === null
+                  ? "border-slate-500 bg-slate-700 text-white"
+                  : "border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300"
+              }`}
+            >
+              Tous ({RESEARCHERS.length})
+            </button>
+            {AXES.map((axis) => {
+              const count = RESEARCHERS.filter((r) => r.axes.includes(axis.id)).length;
+              const isActive = activeAxis === axis.id;
+              const style = axisButtonStyle[axis.id] ?? { active: "border-slate-500 bg-slate-700", text: "text-white" };
+              return (
+                <button
+                  key={axis.id}
+                  onClick={() => setActiveAxis(isActive ? null : axis.id)}
+                  className={`text-[11px] font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                    isActive
+                      ? `${style.active} ${style.text}`
+                      : "border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300"
+                  }`}
+                >
+                  {axis.shortName} ({count})
+                </button>
+              );
+            })}
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {RESEARCHERS.map((r) => (
+            {(activeAxis
+              ? RESEARCHERS.filter((r) => r.axes.includes(activeAxis))
+              : RESEARCHERS
+            ).map((r) => (
               <Link key={r.id} href={`/chercheurs/${r.id}`} className="rounded-xl border border-slate-900 bg-slate-950 p-5 hover:border-slate-800 transition-colors group">
                 {r.photoUrl ? (
                   <img
@@ -191,7 +235,7 @@ export default function AxesPage() {
                 <div className="mt-3 flex flex-wrap gap-1">
                   {r.axes.map((a) => (
                     <span key={a} className="text-[8px] bg-slate-900 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded uppercase">
-                      {AXES_DATA.find((ax) => ax.id === a)?.name.split(" ")[0]}
+                      {AXES.find((ax) => ax.id === a)?.shortName ?? a}
                     </span>
                   ))}
                 </div>

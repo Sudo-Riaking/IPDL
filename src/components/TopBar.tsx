@@ -7,17 +7,22 @@ import { Sun, Moon, Lock, LogOut, LayoutDashboard, Shield } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLang } from "@/context/LangContext";
 import { useAuth } from "@/context/AuthContext";
+import NotificationBell from "@/components/NotificationBell";
+import { useNotification } from "@/context/NotificationContext";
 
 export default function TopBar() {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const { lang, setLang, t } = useLang();
   const { isAuthenticated, user, logout } = useAuth();
+  const { notify } = useNotification();
 
-  const handleLogout = () => { logout(); router.push("/"); };
+  const handleLogout = () => { notify("À bientôt !", "info"); logout(); router.push("/"); };
 
   return (
     <div className="sticky top-0 z-40 flex items-center justify-end gap-2 px-4 h-12 border-b border-slate-800 bg-slate-950/90 backdrop-blur-md">
+      <NotificationBell />
+
       <button
         onClick={() => setLang(lang === "fr" ? "en" : "fr")}
         className="px-2.5 py-1 rounded-md border border-slate-800 text-[11px] font-bold text-slate-400 hover:text-slate-200 uppercase tracking-widest transition-all"
