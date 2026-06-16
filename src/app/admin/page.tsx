@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Shield, CheckCircle2, XCircle, Users, BookOpen,
   Activity, ChevronDown, X, Eye, Search,
   Mail, UserX, UserCheck, Info,
-  KeyRound, Plus, Trash2, Layers, ShieldCheck, Clock, Check,
+  KeyRound, Plus, Trash2, Layers, ShieldCheck, Clock, Check, ArrowLeft,
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
@@ -447,6 +448,12 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
+
+        {/* Back link */}
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 mb-8 font-semibold">
+          <ArrowLeft className="h-4 w-4" />
+          <span>Retour à l'accueil</span>
+        </Link>
 
         {/* Header */}
         <div className="flex flex-wrap items-center gap-3 border-b border-slate-900 pb-8 mb-8">
