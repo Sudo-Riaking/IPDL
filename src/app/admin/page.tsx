@@ -384,6 +384,8 @@ export default function AdminPage() {
         setRoles((prev) => [...prev, role]);
         setNewRoleName(""); setNewRoleDesc(""); setNewRolePerms([]);
         notify(`Rôle "${role.name}" créé.`, "success");
+      } else if (res.status === 409) {
+        notify(`Un rôle nommé "${newRoleName.trim()}" existe déjà.`, "error");
       } else {
         notify("Erreur lors de la création du rôle.", "error");
       }
