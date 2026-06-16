@@ -145,9 +145,9 @@ export default function ProjetDetailPage({ params }: PageProps) {
         )}
 
         {/* Bouton En savoir plus */}
-        {project.url && (
+        {project.projectWebsite && (
           <a
-            href={project.url}
+            href={project.projectWebsite}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all"

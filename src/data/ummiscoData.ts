@@ -82,6 +82,7 @@ export interface Project {
   domain: string;
   description: string;
   url?: string;
+  projectWebsite?: string;
   image?: string;
   chefProjet?: string;
   duree?: string;
@@ -1291,6 +1292,10 @@ export const PROJECTS: Project[] = [
     description:
       "Modélisation de la mobilité des pêcheurs artisanaux au Sénégal. Simulateur Lolli implémenté sous GAMA pour explorer des scénarios climatiques et socio-économiques.",
     url: "https://ummisco.fr/fr/projet-ummisco/habitable/",
+    chefProjet: "François Gemene, University of Liège, Hugo Observatory, Belgique",
+    duree: "36 mois",
+    dateDebut: "Décembre 2020",
+    budget: "126 000 €",
   },
   {
     id: "digepi",
@@ -1313,8 +1318,14 @@ export const PROJECTS: Project[] = [
     themes: ["ia"],
     domain: "Gestion de l'eau et irrigation, Société",
     description:
-      "Application de l'IA pour l'optimisation de l'irrigation dans les zones semi-arides. Combine apprentissage profond et données capteurs terrain.",
+      "Laboratoire commun IRD–URBASENSE pour l'optimisation des infrastructures vertes en ville. Combine modélisation multi-agents et capteurs IoT pour améliorer la gestion de l'eau et de la végétation urbaine.",
     url: "https://ummisco.fr/fr/projet-ummisco/waqatali/",
+    projectWebsite: "https://www.ird.fr/waqatali-un-laboratoire-commun-pour-optimiser-les-infrastructures-vertes-en-ville",
+    chefProjet: "Nicolas Marilleau, UMMISCO & Thomas Bur, URBASENSE",
+    duree: "54 mois",
+    budget: "360 K€ (IRD)",
+    institutionPorteuse: "IRD",
+    financement: "ANR LAB-COM",
   },
   {
     id: "comokit",
@@ -1325,6 +1336,7 @@ export const PROJECTS: Project[] = [
     description:
       "Modèle informatique permettant d'explorer in silico les stratégies d'intervention épidémique (COVID-19) avant leur mise en application.",
     url: "https://comokit.org/",
+    projectWebsite: "https://comokit.org/",
     chefProjet: "Alexis Drogoul, UMI 209 UMMISCO, IRD / Sorbonne Université, Bondy, France",
     duree: "18 mois",
     dateDebut: "Juillet 2020",
@@ -1351,6 +1363,10 @@ export const PROJECTS: Project[] = [
     description:
       "Distribution Model : séparation des préoccupations pour faciliter la distribution des modèles à base d'agents sur clusters HPC.",
     url: "https://ummisco.fr/fr/projet-ummisco/dom/",
+    chefProjet: "Dr. Ayesha Almazooqi, Khalifa University, Abu Dhabi",
+    duree: "36 mois",
+    dateDebut: "Décembre 2020",
+    budget: "750 K$",
   },
   {
     id: "airqaly-4-asmafri",
@@ -1612,8 +1628,11 @@ export const PROJECTS: Project[] = [
     centers: ["france"],
     themes: ["agents", "participatif"],
     domain: "Société",
-    description: "Description à compléter.",
+    description:
+      "Pathogenèse et interactions entre pathogènes – approche comparative pour comprendre les dynamiques d'émergence virale en milieu tropical. Modélisation multi-agents couplée à des données de terrain au Gabon.",
     image: "/projets/STORY.png",
+    chefProjet: "Benjamin Roche, UMMISCO, IRD, 32 avenue Henri Varagnat, 93140 Bondy, France",
+    partenaires: "IRD Bondy, France ; IRD Montpellier, France ; CIRMF Franceville, Gabon ; UPMC Paris, France",
   },
   {
     id: "bonds",
@@ -1621,8 +1640,11 @@ export const PROJECTS: Project[] = [
     centers: ["france"],
     themes: ["agents"],
     domain: "Environnement",
-    description: "Description à compléter.",
+    description:
+      "Opération de recherche sur les services écosystémiques et les obligations environnementales. Analyse des mécanismes de gouvernance et de compensation pour la biodiversité à l'échelle internationale.",
     image: "/projets/BONDS.png",
+    chefProjet: "Marie-Paule Bonnet, UMR Espace-Dev, IRD",
+    partenaires: "IRD France, CIRAD France, MNHN France, CNRS France, Université de Montpellier France, UFM Guadaloupe, Universidade de Brasilia Brésil, INPE Brésil, FONDAZIONE MACH Italie, Universidade de Évora Portugal, BIOCONSULT Danemark, UNIVERZA V LJUBLJANI Slovénie",
   },
   {
     id: "simupor",
@@ -1644,8 +1666,12 @@ export const PROJECTS: Project[] = [
     centers: ["france"],
     themes: ["ia"],
     domain: "Société",
-    description: "Description à compléter.",
+    description:
+      "Partenariat UMMISCO–Siemens pour le développement d'outils de simulation et d'optimisation intelligente appliqués aux systèmes industriels complexes.",
     image: "/projets/SIEMENS.webp",
+    chefProjet: "Moussa LO & Gaoussou CAMARA",
+    dateDebut: "2012",
+    budget: "75 000 EUR",
   },
   {
     id: "nocime",
