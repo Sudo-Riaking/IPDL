@@ -199,6 +199,7 @@ export default function ProjetsPage() {
   const [activeTheme, setActiveTheme] = useState<string | null>(null);
   const [activeDomain, setActiveDomain] = useState<string | null>(null);
   const [activeCenter, setActiveCenter] = useState<string | null>(null);
+  const [displayedCount, setDisplayedCount] = useState(5);
 
   const allDomains = useMemo(() => getDistinctDomains(PROJECTS), []);
 
@@ -379,15 +380,33 @@ export default function ProjetsPage() {
         {/* ── Grille de projets ── */}
         <AnimatePresence mode="popLayout">
           {filtered.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((project, i) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={i}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {filtered.slice(0, displayedCount).map((project, i) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={i}
+                  />
+                ))}
+              </div>
+              
+              {/* Bouton "Voir plus" */}
+              {displayedCount < filtered.length && (
+                <div className="mt-12 flex justify-center">
+                  <motion.button
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    onClick={() => setDisplayedCount((prev) => Math.min(prev + 6, filtered.length))}
+                    className="px-8 py-3 rounded-lg border border-slate-700 bg-slate-900/40 hover:bg-slate-900/60 text-sm font-semibold text-slate-300 hover:text-white transition-all duration-300 flex items-center gap-2"
+                  >
+                    Voir plus de projets ({displayedCount}/{filtered.length})
+                    <ChevronRight className="h-4 w-4" />
+                  </motion.button>
+                </div>
+              )}
+            </>
           ) : (
             <motion.div
               key="empty"
