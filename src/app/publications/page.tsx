@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -30,7 +30,7 @@ import SignatureModal from "@/components/signatures/SignatureModal";
 import SignatureBadge from "@/components/signatures/SignatureBadge";
 import type { SignPayload } from "@/hooks/useSignature";
 
-export default function PublicationsPage() {
+function PublicationsContent() {
   const { t } = useLang();
   const { user, isAuthenticated } = useAuth();
   const searchParams = useSearchParams();
@@ -485,5 +485,13 @@ export default function PublicationsPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function PublicationsPage() {
+  return (
+    <Suspense>
+      <PublicationsContent />
+    </Suspense>
   );
 }
