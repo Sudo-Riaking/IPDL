@@ -180,9 +180,6 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                   </span>
                 ) : null;
               })}
-              <span className="inline-flex items-center gap-1 rounded-full bg-blue-500/10 border border-blue-900/30 px-2.5 py-0.5 text-[11px] font-bold text-blue-400">
-                {researcher.publicationsCount} {t("researcher.publicationsCount")}
-              </span>
               <a
                 href={scholarUrl({ title: researcher.name })}
                 target="_blank"

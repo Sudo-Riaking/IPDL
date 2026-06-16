@@ -71,7 +71,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl grid gap-12 lg:grid-cols-2 items-center">
           <div>
             <div className="mb-6 rounded-xl overflow-hidden border border-slate-800 shadow-lg">
-              <img src="/themes/allthemes.webp" alt="Axes thématiques UMMISCO" className="w-full h-48 object-cover" />
+              <img src="/themes/allthemes.png" alt="Axes thématiques UMMISCO" className="w-full h-48 object-cover" />
             </div>
             <h2 className="text-3xl font-extrabold tracking-tight text-white leading-tight">
               {t("home.aboutTitle")}
@@ -153,10 +153,10 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {AXES.map((axis) => {
               const axisImage: Record<string, string> = {
-                agents: "/themes/modelisation.jpg",
-                ia: "/themes/intelligence.jpg",
-                capteurs: "/themes/capteurs.jpg",
-                participatif: "/themes/science_citoyenne.jpg",
+                agents: "/themes/modelisation.png",
+                ia: "/themes/intelligence.png",
+                capteurs: "/themes/capteurs.png",
+                participatif: "/themes/science_citoyenne.png",
               };
               return (
                 <Link
