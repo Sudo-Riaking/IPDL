@@ -59,8 +59,14 @@ export default function ChatWidget() {
       if (raw) {
         const saved = JSON.parse(raw) as { conversations: Conversation[]; activeId: string };
         if (Array.isArray(saved.conversations) && saved.conversations.length > 0) {
-          setConversations(saved.conversations);
-          setActiveId(saved.activeId || saved.conversations[0].id);
+          const activeId = saved.activeId || saved.conversations[0].id;
+          // Nettoyage des conversations jamais utilisées (créées par erreur via plusieurs clics
+          // sur "nouvelle conversation"), pour ne pas polluer l'historique avec des doublons vides.
+          const cleaned = saved.conversations.filter(
+            (c) => c.id === activeId || c.messages.some((m) => m.role === "user")
+          );
+          setConversations(cleaned.length > 0 ? cleaned : saved.conversations);
+          setActiveId(activeId);
           setReady(true);
           return;
         }
@@ -118,6 +124,13 @@ export default function ChatWidget() {
   };
 
   const newConversation = () => {
+    // Si la conversation active n'a encore reçu aucun message, c'est déjà une
+    // conversation "neuve" : on la réutilise au lieu d'empiler un doublon vide.
+    const current = conversations.find((c) => c.id === activeId);
+    if (current && !current.messages.some((m) => m.role === "user")) {
+      setSidebarOpen(false);
+      return;
+    }
     const fresh = makeConversation();
     setConversations((prev) => [fresh, ...prev]);
     setActiveId(fresh.id);
@@ -207,8 +220,13 @@ export default function ChatWidget() {
   };
 
   const sortedConversations = useMemo(
-    () => [...conversations].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()),
-    [conversations]
+    () =>
+      [...conversations]
+        // On masque les conversations vides (jamais utilisées) sauf celle en cours,
+        // pour éviter une liste d'historique remplie de "Nouvelle conversation" identiques.
+        .filter((c) => c.id === activeId || c.messages.some((m) => m.role === "user"))
+        .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()),
+    [conversations, activeId]
   );
 
   const HistoryList = () => (
@@ -266,9 +284,11 @@ export default function ChatWidget() {
         </button>
       )}
 
-      {/* Chat panel — plein écran, façon Claude */}
+      {/* Chat panel — plein écran, façon Claude. On laisse la sidebar du site
+          visible/cliquable (left géré par .chat-fullscreen) pour que le chat ne
+          bloque pas complètement l'accès au reste du site. */}
       {open && (
-        <div className="fixed inset-0 z-[100] flex bg-slate-950">
+        <div className="chat-fullscreen fixed top-0 right-0 bottom-0 z-[100] flex bg-slate-950">
           {/* Sidebar historique — desktop */}
           <div className="hidden md:flex md:w-[260px] flex-none flex-col border-r border-slate-800 bg-slate-900/40">
             <HistoryList />
