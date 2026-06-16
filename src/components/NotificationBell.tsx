@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bell, X, BookOpen, Calendar, Database, Info, CheckCheck } from "lucide-react";
+import { Bell, X, BookOpen, Calendar, Database, Info, CheckCheck, MailOpen, Mail } from "lucide-react";
 import Link from "next/link";
 import { useInbox, InboxItem, InboxItemType } from "@/context/InboxContext";
 
@@ -29,11 +29,13 @@ const TYPE_CONFIG: Record<InboxItemType, { icon: React.ElementType; color: strin
 function NotifRow({
   notif,
   onRead,
+  onUnread,
   onRemove,
   onClose,
 }: {
   notif: InboxItem;
   onRead: (id: string) => void;
+  onUnread: (id: string) => void;
   onRemove: (id: string) => void;
   onClose: () => void;
 }) {
@@ -42,6 +44,12 @@ function NotifRow({
   const handleClick = () => {
     onRead(notif.id);
     if (notif.link) onClose();
+  };
+
+  const handleToggleRead = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    notif.read ? onUnread(notif.id) : onRead(notif.id);
   };
 
   const handleRemove = (e: React.MouseEvent) => {
@@ -71,13 +79,22 @@ function NotifRow({
         </p>
         <p className="mt-1 text-[9px] text-slate-600 font-medium">{relativeTime(notif.timestamp)}</p>
       </div>
-      <button
-        onClick={handleRemove}
-        className="flex-none opacity-0 group-hover:opacity-100 mt-0.5 p-1 rounded text-slate-600 hover:text-white hover:bg-slate-800 transition-all"
-        title="Supprimer"
-      >
-        <X className="h-3 w-3" />
-      </button>
+      <div className="flex-none flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all mt-0.5">
+        <button
+          onClick={handleToggleRead}
+          className="p-1 rounded text-slate-600 hover:text-blue-400 hover:bg-slate-800 transition-all"
+          title={notif.read ? "Marquer comme non lu" : "Marquer comme lu"}
+        >
+          {notif.read ? <Mail className="h-3 w-3" /> : <MailOpen className="h-3 w-3" />}
+        </button>
+        <button
+          onClick={handleRemove}
+          className="p-1 rounded text-slate-600 hover:text-white hover:bg-slate-800 transition-all"
+          title="Supprimer"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      </div>
     </>
   );
 
@@ -96,8 +113,9 @@ function NotifRow({
   );
 }
 
+
 export default function NotificationBell() {
-  const { items, unreadCount, markRead, markAllRead, remove } = useInbox();
+  const { items, unreadCount, markRead, markUnread, markAllRead, remove } = useInbox();
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -210,6 +228,7 @@ export default function NotificationBell() {
                     key={notif.id}
                     notif={notif}
                     onRead={markRead}
+                    onUnread={markUnread}
                     onRemove={remove}
                     onClose={() => setOpen(false)}
                   />

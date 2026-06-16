@@ -18,6 +18,7 @@ interface InboxContextType {
   items: InboxItem[];
   unreadCount: number;
   markRead: (id: string) => void;
+  markUnread: (id: string) => void;
   markAllRead: () => void;
   remove: (id: string) => void;
   add: (item: Omit<InboxItem, "id" | "read" | "timestamp">) => void;
@@ -67,6 +68,7 @@ const InboxContext = createContext<InboxContextType>({
   items: [],
   unreadCount: 0,
   markRead: () => {},
+  markUnread: () => {},
   markAllRead: () => {},
   remove: () => {},
   add: () => {},
@@ -93,6 +95,10 @@ export function InboxProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
   }, []);
 
+  const markUnread = useCallback((id: string) => {
+    setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read: false } : n)));
+  }, []);
+
   const markAllRead = useCallback(() => {
     setItems((prev) => prev.map((n) => ({ ...n, read: true })));
   }, []);
@@ -114,7 +120,7 @@ export function InboxProvider({ children }: { children: React.ReactNode }) {
   const unreadCount = items.filter((n) => !n.read).length;
 
   return (
-    <InboxContext.Provider value={{ items, unreadCount, markRead, markAllRead, remove, add }}>
+    <InboxContext.Provider value={{ items, unreadCount, markRead, markUnread, markAllRead, remove, add }}>
       {children}
     </InboxContext.Provider>
   );
