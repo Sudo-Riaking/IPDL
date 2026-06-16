@@ -37,6 +37,13 @@ export async function POST(req: NextRequest) {
     return jsonError("Signature cryptographique invalide.", 422);
   }
 
+  // Pour les profils : vérifier que c'est le propre profil de l'utilisateur
+  if (type === "profile") {
+    if (targetId !== payload.sub && payload.role !== "directeur") {
+      return jsonError("Vous ne pouvez signer que votre propre profil.", 403);
+    }
+  }
+
   // Pour les datasets : vérifier que l'utilisateur en est le créateur
   if (type === "dataset") {
     const ds = db.datasets.get(targetId);
