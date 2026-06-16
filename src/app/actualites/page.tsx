@@ -10,12 +10,7 @@ import { useNotification } from "@/context/NotificationContext";
 import type { DBEvent } from "@/lib/db";
 import { SEMINARS, RESEARCHERS } from "@/data/ummiscoData";
 
-const TYPE_LABELS: Record<string, string> = {
-  seminaire: "Séminaire",
-  conference: "Conférence",
-  atelier: "Atelier",
-  autre: "Actualité",
-};
+// TYPE_LABELS is built inside the component using t() so it reacts to lang changes
 
 const TYPE_COLORS: Record<string, string> = {
   seminaire: "bg-blue-500/10 text-blue-400 border-blue-900/30",
@@ -26,6 +21,12 @@ const TYPE_COLORS: Record<string, string> = {
 
 export default function ActualitesPage() {
   const { t } = useLang();
+  const TYPE_LABELS: Record<string, string> = {
+    seminaire: t("events.type_seminaire"),
+    conference: t("events.type_conference"),
+    atelier: t("events.type_atelier"),
+    autre: t("events.type_autre"),
+  };
   const { isAuthenticated, user, token } = useAuth();
   const { notify } = useNotification();
   const [events, setEvents] = useState<DBEvent[]>([]);
@@ -74,7 +75,7 @@ export default function ActualitesPage() {
             {t("events.sectionTag")}
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("events.title")}</h1>
-          <p className="mt-2 text-slate-400 text-sm">Séminaires, conférences et ateliers du laboratoire UMMISCO.</p>
+          <p className="mt-2 text-slate-400 text-sm">{t("events.desc")}</p>
           <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
 
@@ -82,7 +83,7 @@ export default function ActualitesPage() {
         <section className="mb-14">
           <div className="flex items-center gap-2 mb-6">
             <Mic className="h-4 w-4 text-blue-400" />
-            <h2 className="text-base font-extrabold text-white uppercase tracking-wide">Prochains séminaires UMMISCO</h2>
+            <h2 className="text-base font-extrabold text-white uppercase tracking-wide">{t("events.upcomingTitle")}</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SEMINARS.map((sem) => {
@@ -121,7 +122,7 @@ export default function ActualitesPage() {
                   </div>
                   <div className="p-4 flex-1 flex flex-col">
                     <span className={`inline-flex self-start text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider mb-2 ${typeColor[sem.type ?? "seminaire"]}`}>
-                      {sem.type ?? "Séminaire"}
+                      {t(`events.type_${sem.type ?? "seminaire"}`)}
                     </span>
                     <h3 className="text-xs font-bold text-white leading-snug mb-2 line-clamp-3 flex-1">{sem.title}</h3>
                     <div className="flex items-center gap-1.5 text-[9px] text-slate-500 mt-auto pt-2 border-t border-slate-800">
@@ -179,7 +180,7 @@ export default function ActualitesPage() {
                         {filter !== "past" && (
                           <span className="text-[9px] text-green-400 font-bold uppercase tracking-wider flex items-center gap-1">
                             <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
-                            À venir
+                            {t("events.upcoming")}
                           </span>
                         )}
                       </div>
@@ -201,7 +202,7 @@ export default function ActualitesPage() {
                           </span>
                         )}
                         <span className="flex items-center gap-1.5">
-                          <Users className="h-3 w-3" /> {ev.inscrits.length}/{ev.capacite} inscrits
+                          <Users className="h-3 w-3" /> {ev.inscrits.length}/{ev.capacite} {t("events.registeredCount")}
                         </span>
                       </div>
                     </div>
@@ -226,7 +227,7 @@ export default function ActualitesPage() {
                           )
                         ) : (
                           <a href="/connexion" className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-4 py-2 text-[10px] font-semibold text-slate-400 hover:text-slate-200 transition-all">
-                            Se connecter pour s'inscrire
+                            {t("events.loginToRegister")}
                           </a>
                         )}
                       </div>
@@ -238,7 +239,7 @@ export default function ActualitesPage() {
 
             {display.length === 0 && (
               <div className="rounded-xl border border-slate-900 border-dashed p-16 text-center text-slate-500 text-xs">
-                {filter === "upcoming" ? "Aucun événement à venir pour l'instant." : "Aucun événement passé."}
+                {filter === "upcoming" ? t("events.noUpcoming") : t("events.noPast")}
               </div>
             )}
           </div>

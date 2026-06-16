@@ -15,10 +15,10 @@ export default function LogicielsPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="border-b border-slate-900 pb-8 mb-12">
           <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2 flex items-center gap-2">
-            <Boxes className="h-4 w-4 text-violet-400" /> Logiciels open source
+            <Boxes className="h-4 w-4 text-violet-400" /> {t("logiciels.tag")}
           </span>
-          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">Des outils utilisés dans le monde entier</h1>
-          <p className="mt-3 text-slate-400 text-base leading-relaxed max-w-2xl">UMMISCO conçoit et maintient des plateformes de modélisation reconnues internationalement.</p>
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("logiciels.title")}</h1>
+          <p className="mt-3 text-slate-400 text-base leading-relaxed max-w-2xl">{t("logiciels.desc")}</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -41,7 +41,7 @@ export default function LogicielsPage() {
                         {tool.name.slice(0, 2)}
                       </div>
                     )}
-                    {tool.since && <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">depuis {tool.since}</span>}
+                    {tool.since && <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{t("logiciels.since")} {tool.since}</span>}
                   </div>
                   <h3 className="text-base font-bold text-white">{tool.name}</h3>
                   <p className="mt-2 text-[13px] text-slate-400 leading-relaxed flex-1 line-clamp-4">{tool.description}</p>
@@ -55,12 +55,12 @@ export default function LogicielsPage() {
                   <div className="mt-4 pt-4 border-t border-slate-900/60 flex items-center gap-4">
                     {tool.website && (
                       <a href={tool.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] font-semibold text-blue-400 hover:text-blue-300">
-                        <ExternalLink className="h-3 w-3" /> Site
+                        <ExternalLink className="h-3 w-3" /> {t("logiciels.site")}
                       </a>
                     )}
                     {tool.github && (
                       <a href={tool.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] font-semibold text-slate-400 hover:text-slate-200">
-                        <ExternalLink className="h-3 w-3" /> GitHub
+                        <ExternalLink className="h-3 w-3" /> {t("logiciels.github")}
                       </a>
                     )}
                   </div>

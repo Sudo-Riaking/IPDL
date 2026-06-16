@@ -12,6 +12,7 @@ import {
 import Footer from "@/components/Footer";
 import Avatar from "@/components/Avatar";
 import CentreGlobe, { CENTRE_VISUALS } from "@/components/CentreGlobe";
+import { useLang } from "@/context/LangContext";
 
 const CENTER_META: Record<string, { flag: string; gradient: string; ring: string; dot: string }> = {
   france: { flag: "🇫🇷", gradient: "from-blue-600/25 to-indigo-700/5", ring: "border-blue-800/40", dot: "bg-blue-400" },
@@ -26,6 +27,7 @@ interface PageProps {
 }
 
 export default function CentrePage({ params }: PageProps) {
+  const { t } = useLang();
   const { id } = use(params);
   const center = CENTERS.find((c) => c.id === id);
   if (!center) notFound();
@@ -39,7 +41,7 @@ export default function CentrePage({ params }: PageProps) {
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <Link href="/#centres" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 mb-8 font-semibold">
-          <ArrowLeft className="h-4 w-4" /> <span>Tous les centres</span>
+          <ArrowLeft className="h-4 w-4" /> <span>{t("centre.allCenters")}</span>
         </Link>
 
         {/* Hero */}
@@ -66,17 +68,17 @@ export default function CentrePage({ params }: PageProps) {
           <div className="mt-6 flex flex-wrap gap-3">
             <div className="inline-flex items-center gap-2 rounded-lg bg-slate-950/50 border border-slate-800 px-3.5 py-2 text-[13px]">
               <Building2 className="h-4 w-4 text-slate-400 flex-none" />
-              <span className="text-slate-400">Tutelle(s) : <strong className="text-slate-200">{center.tutelle}</strong></span>
+              <span className="text-slate-400">{t("centre.tutelleLabel")} : <strong className="text-slate-200">{center.tutelle}</strong></span>
             </div>
             {center.director && center.director !== "—" && (
               <div className="inline-flex items-center gap-2 rounded-lg bg-slate-950/50 border border-slate-800 px-3.5 py-2 text-[13px]">
                 <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
-                <span className="text-slate-400">Direction : <strong className="text-slate-200">{center.director}</strong></span>
+                <span className="text-slate-400">{t("centre.direction")} <strong className="text-slate-200">{center.director}</strong></span>
               </div>
             )}
             <div className="inline-flex items-center gap-2 rounded-lg bg-slate-950/50 border border-slate-800 px-3.5 py-2 text-[13px]">
               <Users className="h-4 w-4 text-slate-400 flex-none" />
-              <span className="text-slate-400"><strong className="text-slate-200">{members.length}</strong> membres</span>
+              <span className="text-slate-400"><strong className="text-slate-200">{members.length}</strong> {t("centre.membersTitle")}</span>
             </div>
           </div>
         </div>
@@ -85,7 +87,7 @@ export default function CentrePage({ params }: PageProps) {
         {center.themes.length > 0 && (
           <section className="mb-12">
             <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 mb-4">
-              <Layers className="h-4 w-4 text-violet-400" /> Axes de recherche du centre
+              <Layers className="h-4 w-4 text-violet-400" /> {t("centre.axesTitle")}
             </h2>
             <div className="flex flex-wrap gap-2">
               {center.themes.map((th) => {
@@ -104,7 +106,7 @@ export default function CentrePage({ params }: PageProps) {
         {center.partners && center.partners.length > 0 && (
           <section className="mb-12">
             <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 mb-4">
-              <Handshake className="h-4 w-4 text-cyan-400" /> Tutelles &amp; partenaires
+              <Handshake className="h-4 w-4 text-cyan-400" /> {t("centre.tutelles")}
             </h2>
             <div className="flex flex-wrap gap-2">
               {center.partners.map((p) => (
@@ -120,7 +122,7 @@ export default function CentrePage({ params }: PageProps) {
         {projects.length > 0 && (
           <section className="mb-12">
             <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 mb-4">
-              <FolderGit2 className="h-4 w-4 text-blue-400" /> Projets ({projects.length})
+              <FolderGit2 className="h-4 w-4 text-blue-400" /> {t("centre.projects")} ({projects.length})
             </h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((p) => (
@@ -130,7 +132,7 @@ export default function CentrePage({ params }: PageProps) {
                   <p className="mt-2 text-[13px] text-slate-400 leading-relaxed line-clamp-3">{p.description}</p>
                   {p.url && (
                     <a href={p.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-blue-400 hover:text-blue-300">
-                      <ExternalLink className="h-3 w-3" /> En savoir plus
+                      <ExternalLink className="h-3 w-3" /> {t("centre.learnMore")}
                     </a>
                   )}
                 </div>
@@ -142,11 +144,11 @@ export default function CentrePage({ params }: PageProps) {
         {/* Membres du centre */}
         <section>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 mb-4">
-            <Users className="h-4 w-4 text-green-400" /> Membres du centre ({members.length})
+            <Users className="h-4 w-4 text-green-400" /> {t("centre.membersTitle")} ({members.length})
           </h2>
           {directors.length > 0 && (
             <p className="text-[13px] text-slate-500 mb-4">
-              Direction : {directors.map((d) => d.name).join(", ")}.
+              {t("centre.direction")} {directors.map((d) => d.name).join(", ")}.
             </p>
           )}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -161,7 +163,7 @@ export default function CentrePage({ params }: PageProps) {
             ))}
           </div>
           {members.length === 0 && (
-            <p className="text-sm text-slate-500 italic">Aucun membre référencé pour ce centre.</p>
+            <p className="text-sm text-slate-500 italic">{t("centre.noMembers")}</p>
           )}
         </section>
       </main>

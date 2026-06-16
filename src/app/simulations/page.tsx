@@ -38,6 +38,7 @@ const PARAM_FORMS: Record<string, { key: string; label: string; type: string; de
 interface TimePoint { day: number; susceptibles: number; infectes: number; retablis: number; }
 
 function SIRChart({ data }: { data: TimePoint[] }) {
+  const { t } = useLang();
   if (!data.length) return null;
   const W = 500, H = 200, PAD = { top: 10, right: 10, bottom: 30, left: 50 };
   const maxY = Math.max(...data.flatMap((d) => [d.susceptibles, d.infectes, d.retablis]));
@@ -51,9 +52,9 @@ function SIRChart({ data }: { data: TimePoint[] }) {
   return (
     <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
       <div className="flex items-center gap-4 mb-3 text-[10px] font-semibold">
-        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-blue-500 inline-block" />Susceptibles</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-red-500 inline-block" />Infectés</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-green-500 inline-block" />Rétablis</span>
+        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-blue-500 inline-block" />{t("simulations.sirSusceptible")}</span>
+        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-red-500 inline-block" />{t("simulations.sirInfected")}</span>
+        <span className="flex items-center gap-1.5"><span className="h-2 w-5 rounded-full bg-green-500 inline-block" />{t("simulations.sirRecovered")}</span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 180 }}>
         {/* Y grid + labels */}
@@ -277,7 +278,7 @@ export default function SimulationsPage() {
                     <div className="h-16 w-16 rounded-full bg-blue-600/10 text-blue-400 border border-blue-900/30 flex items-center justify-center mx-auto animate-pulse">
                       <Play className="h-8 w-8 ml-1" />
                     </div>
-                    <p className="text-xs text-slate-500 leading-relaxed">Modèle interactif NetLogo Web. Cliquez pour initialiser le moteur de simulation.</p>
+                    <p className="text-xs text-slate-500 leading-relaxed">{t("simulations.netlogoDesc")}</p>
                     <button
                       onClick={() => setStartedSims((p) => ({ ...p, [activeSim.id]: true }))}
                       className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white hover:bg-green-700 active:scale-95 transition-all"
@@ -299,15 +300,15 @@ export default function SimulationsPage() {
               {!isAuthenticated ? (
                 <div className="rounded-xl border border-slate-900 bg-slate-900/10 p-8 text-center">
                   <Cpu className="h-10 w-10 text-slate-600 mx-auto mb-4" />
-                  <p className="text-sm text-slate-400 mb-4">Connectez-vous pour lancer des simulations backend.</p>
+                  <p className="text-sm text-slate-400 mb-4">{t("simulations.loginRequired")}</p>
                   <a href="/connexion" className="inline-flex items-center gap-1.5 rounded-lg bg-ummisco-blue px-4 py-2 text-xs font-semibold text-white">
-                    Se connecter <ChevronRight className="h-3.5 w-3.5" />
+                    {t("simulations.loginBtn")} <ChevronRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
               ) : (
                 <form onSubmit={handleLaunch} className="rounded-xl border border-slate-900 bg-slate-900/10 p-6 space-y-5">
                   <h3 className="text-xs font-bold text-white uppercase tracking-wider border-l-2 border-blue-500 pl-2">
-                    Configurer la Simulation
+                    {t("simulations.configTitle")}
                   </h3>
 
                   {/* Type selector */}
@@ -396,7 +397,7 @@ export default function SimulationsPage() {
                 {simStatus === "idle" && (
                   <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4">
                     <BarChart3 className="h-12 w-12 text-slate-700" />
-                    <p className="text-xs text-slate-500">Configurez et lancez une simulation pour voir les résultats ici.</p>
+                    <p className="text-xs text-slate-500">{t("simulations.noResults")}</p>
                   </div>
                 )}
 
@@ -404,8 +405,8 @@ export default function SimulationsPage() {
                   <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4">
                     <Loader2 className="h-12 w-12 text-blue-500 animate-spin" />
                     <div>
-                      <p className="text-sm font-bold text-white">Simulation en cours...</p>
-                      <p className="text-xs text-slate-500 mt-1">Calcul des résultats. Sondage toutes les 2s.</p>
+                      <p className="text-sm font-bold text-white">{t("simulations.computing")}</p>
+                      <p className="text-xs text-slate-500 mt-1">{t("simulations.computingDesc")}</p>
                     </div>
                   </div>
                 )}
@@ -418,7 +419,7 @@ export default function SimulationsPage() {
 
                 {simStatus === "error" && (
                   <div className="flex-1 flex items-center justify-center">
-                    <p className="text-xs text-red-400">Une erreur est survenue lors de la simulation.</p>
+                    <p className="text-xs text-red-400">{t("simulations.simError")}</p>
                   </div>
                 )}
               </div>

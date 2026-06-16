@@ -54,13 +54,14 @@ function PublicationDetailModal({
   updating: string | null;
   datasets: DBDataset[];
 }) {
+  const { t } = useLang();
   const datasetTitles = Object.fromEntries(datasets.map((d) => [d.id, d.titre]));
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
       <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl">
         <div className="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-3 z-10">
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Fiche de publication — Admin</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t("admin.pubSheet")}</p>
         </div>
         <div className="p-6">
           <PublicationCard
@@ -91,6 +92,7 @@ function UserDetailPanel({
   onToggleActive: (id: string, active: boolean) => void;
   updating: string | null;
 }) {
+  const { t } = useLang();
   const [editRole, setEditRole] = useState(false);
   const [selectedRole, setSelectedRole] = useState<UserRole>(u.role);
   const isCurrentUser = u.id === currentUserId;
@@ -110,7 +112,7 @@ function UserDetailPanel({
         </div>
         {u.active === false && (
           <span className="text-[9px] text-red-400 font-bold uppercase border border-red-900/30 bg-red-500/10 px-2 py-0.5 rounded flex-none">
-            Désactivé
+            {t("admin.disabled")}
           </span>
         )}
       </div>
@@ -118,7 +120,7 @@ function UserDetailPanel({
       {/* Bio */}
       {u.biographie && (
         <div>
-          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Biographie</label>
+          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("admin.biography")}</label>
           <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-3">{u.biographie}</p>
         </div>
       )}
@@ -126,7 +128,7 @@ function UserDetailPanel({
       {/* Expertises */}
       {u.expertises && u.expertises.length > 0 && (
         <div>
-          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Expertises</label>
+          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">{t("admin.expertises")}</label>
           <div className="flex flex-wrap gap-1">
             {u.expertises.map((e) => (
               <span key={e} className="text-[9px] bg-slate-800 border border-slate-700 text-slate-300 px-1.5 py-0.5 rounded">
@@ -140,7 +142,7 @@ function UserDetailPanel({
       {/* Organisation (Partenaire) */}
       {u.organisation && (
         <div>
-          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Organisation</label>
+          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("admin.organisation")}</label>
           <p className="text-xs text-slate-300">{u.organisation} {u.domaine ? `— ${u.domaine}` : ""}</p>
         </div>
       )}
@@ -148,11 +150,11 @@ function UserDetailPanel({
       {/* Metadata */}
       <div className="grid grid-cols-2 gap-3 text-[10px] pt-1 border-t border-slate-800">
         <div>
-          <span className="text-slate-500 block">Inscrit le</span>
+          <span className="text-slate-500 block">{t("admin.registeredOn")}</span>
           <span className="text-slate-300">{new Date(u.createdAt).toLocaleDateString("fr-FR")}</span>
         </div>
         <div>
-          <span className="text-slate-500 block">Rôle actuel</span>
+          <span className="text-slate-500 block">{t("admin.currentRole")}</span>
           <span className="text-slate-300 capitalize">{u.role.replace("_", " ")}</span>
         </div>
       </div>
@@ -177,7 +179,7 @@ function UserDetailPanel({
                 disabled={updating === u.id}
                 className="px-3 py-1.5 rounded-lg bg-blue-600/20 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/30 disabled:opacity-50"
               >
-                Confirmer
+                {t("admin.confirm")}
               </button>
               <button
                 onClick={() => { setEditRole(false); setSelectedRole(u.role); }}
@@ -191,7 +193,7 @@ function UserDetailPanel({
               onClick={() => setEditRole(true)}
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-[10px] font-semibold text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-all"
             >
-              <ChevronDown className="h-3 w-3" /> Modifier le rôle
+              <ChevronDown className="h-3 w-3" /> {t("admin.editRole")}
             </button>
           )}
 
@@ -206,15 +208,15 @@ function UserDetailPanel({
             }`}
           >
             {u.active === false ? (
-              <><UserCheck className="h-3.5 w-3.5" /> Réactiver le compte</>
+              <><UserCheck className="h-3.5 w-3.5" /> {t("admin.reactivate")}</>
             ) : (
-              <><UserX className="h-3.5 w-3.5" /> Désactiver le compte</>
+              <><UserX className="h-3.5 w-3.5" /> {t("admin.deactivate")}</>
             )}
           </button>
         </div>
       )}
       {isCurrentUser && (
-        <p className="text-[9px] text-slate-600 italic text-center">Votre propre compte — modifications désactivées.</p>
+        <p className="text-[9px] text-slate-600 italic text-center">{t("admin.ownAccount")}</p>
       )}
     </div>
   );
@@ -435,7 +437,7 @@ export default function AdminPage() {
 
   if (authLoading) return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950">
-      <div className="text-slate-400 text-sm">Chargement...</div>
+      <div className="text-slate-400 text-sm">{t("common.loading")}</div>
     </div>
   );
   if (!isAuthenticated || user?.role !== "directeur") return null;
@@ -450,12 +452,12 @@ export default function AdminPage() {
             <Shield className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-white">Administration</h1>
-            <p className="text-xs text-slate-500">Espace réservé au Directeur — {user?.email}</p>
+            <h1 className="text-2xl font-extrabold text-white">{t("admin.title")}</h1>
+            <p className="text-xs text-slate-500">{t("admin.subtitle")} — {user?.email}</p>
           </div>
           {pending.length > 0 && (
             <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 border border-amber-900/30 px-3 py-1 text-[10px] font-bold text-amber-400">
-              {pending.length} en attente de validation
+              {pending.length} {t("admin.pendingCount")}
             </span>
           )}
         </div>
@@ -463,10 +465,10 @@ export default function AdminPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { label: "Total publications", value: publications.length, icon: BookOpen, color: "text-blue-400" },
-            { label: "En attente", value: pending.length, icon: Activity, color: "text-amber-400" },
-            { label: "Utilisateurs", value: users.length, icon: Users, color: "text-green-400" },
-            { label: "Validées", value: publications.filter((p) => p.statut === "validee").length, icon: CheckCircle2, color: "text-purple-400" },
+            { label: t("admin.statTotal"), value: publications.length, icon: BookOpen, color: "text-blue-400" },
+            { label: t("admin.statPending"), value: pending.length, icon: Activity, color: "text-amber-400" },
+            { label: t("admin.statUsers"), value: users.length, icon: Users, color: "text-green-400" },
+            { label: t("admin.statValidated"), value: publications.filter((p) => p.statut === "validee").length, icon: CheckCircle2, color: "text-purple-400" },
           ].map(({ label, value, icon: Icon, color }) => (
             <div key={label} className="rounded-xl border border-slate-900 bg-slate-900/10 p-4 text-center">
               <Icon className={`h-5 w-5 mx-auto mb-2 ${color}`} />
@@ -497,7 +499,7 @@ export default function AdminPage() {
               tab === "users" ? "bg-blue-600/20 text-blue-400 border-blue-900/40" : "border-slate-800 text-slate-500 hover:text-slate-300"
             }`}
           >
-            <Users className="h-3.5 w-3.5" /> Utilisateurs ({users.length})
+            <Users className="h-3.5 w-3.5" /> {t("admin.statUsers")} ({users.length})
           </button>
           <button
             onClick={() => setTab("acl")}
@@ -514,7 +516,7 @@ export default function AdminPage() {
           </button>
         </div>
 
-        {loading && <div className="text-center py-10 text-slate-500 text-xs">Chargement...</div>}
+        {loading && <div className="text-center py-10 text-slate-500 text-xs">{t("common.loading")}</div>}
 
         {/* ── Publications ─────────────────────────────────────────── */}
         {!loading && tab === "publications" && (
@@ -525,7 +527,7 @@ export default function AdminPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-600" />
                 <input
                   type="text"
-                  placeholder="Rechercher par titre ou auteur..."
+                  placeholder={t("admin.searchPub")}
                   value={pubSearch}
                   onChange={(e) => setPubSearch(e.target.value)}
                   className="w-full rounded-lg border border-slate-800 bg-slate-900/50 text-xs text-slate-200 pl-9 pr-3 py-2 focus:outline-none focus:border-blue-500/50"
@@ -542,7 +544,7 @@ export default function AdminPage() {
                         : "border-slate-800 text-slate-500 hover:text-slate-300"
                     }`}
                   >
-                    {f === "all" ? "Toutes" : f.replace("_", " ")} {f !== "all" ? `(${publications.filter((p) => p.statut === f).length})` : ""}
+                    {f === "all" ? t("admin.allStatuses") : f.replace("_", " ")} {f !== "all" ? `(${publications.filter((p) => p.statut === f).length})` : ""}
                   </button>
                 ))}
               </div>
@@ -576,7 +578,7 @@ export default function AdminPage() {
                       onClick={() => setSelectedPub(pub)}
                       className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-3 py-1.5 text-[10px] font-semibold text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-all"
                     >
-                      <Eye className="h-3 w-3" /> Lire
+                      <Eye className="h-3 w-3" /> {t("admin.read")}
                     </button>
                     {pub.statut === "en_attente" && (
                       <>
@@ -620,7 +622,7 @@ export default function AdminPage() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-600" />
                   <input
                     type="text"
-                    placeholder="Nom ou email..."
+                    placeholder={t("admin.searchUser")}
                     value={userSearch}
                     onChange={(e) => setUserSearch(e.target.value)}
                     className="w-full rounded-lg border border-slate-800 bg-slate-900/50 text-xs text-slate-200 pl-9 pr-3 py-2 focus:outline-none focus:border-blue-500/50"
@@ -632,7 +634,7 @@ export default function AdminPage() {
                     onChange={(e) => setRoleFilter(e.target.value)}
                     className="rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 pl-3 pr-8 py-2 focus:outline-none appearance-none"
                   >
-                    <option value="all">Tous les rôles</option>
+                    <option value="all">{t("admin.allRoles")}</option>
                     {ROLE_OPTIONS.map((r) => (
                       <option key={r.value} value={r.value}>{r.label}</option>
                     ))}
@@ -661,7 +663,7 @@ export default function AdminPage() {
                         <p className="text-xs font-semibold text-white truncate">{u.nom}</p>
                         {u.active === false && (
                           <span className="text-[8px] text-red-400 border border-red-900/30 bg-red-500/10 px-1.5 py-0.5 rounded font-bold uppercase">
-                            Désactivé
+                            {t("admin.disabled")}
                           </span>
                         )}
                         {u.id === user?.id && (
@@ -680,7 +682,7 @@ export default function AdminPage() {
 
                 {filteredUsers.length === 0 && (
                   <div className="rounded-xl border border-slate-900 border-dashed p-10 text-center text-slate-500 text-xs">
-                    Aucun utilisateur ne correspond aux filtres.
+                    {t("admin.noUsers")}
                   </div>
                 )}
               </div>
@@ -691,7 +693,7 @@ export default function AdminPage() {
               {selectedUser ? (
                 <div className="sticky top-24">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Fiche utilisateur</h3>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t("admin.selectUser")}</h3>
                     <button
                       onClick={() => setSelectedUser(null)}
                       className="text-slate-600 hover:text-slate-300 transition-colors"
@@ -710,7 +712,7 @@ export default function AdminPage() {
               ) : (
                 <div className="rounded-xl border border-slate-900 border-dashed h-48 flex flex-col items-center justify-center text-slate-600 gap-2">
                   <Info className="h-6 w-6" />
-                  <p className="text-xs">Cliquez sur un utilisateur pour voir sa fiche</p>
+                  <p className="text-xs">{t("admin.selectUser")}</p>
                 </div>
               )}
             </div>
@@ -734,10 +736,10 @@ export default function AdminPage() {
             <section className="space-y-4">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-amber-400" />
-                <h2 className="text-sm font-bold text-white uppercase tracking-wider">Demandes d&apos;accès</h2>
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">{t("admin.accessRequests")}</h2>
                 {pendingReq.length > 0 && (
                   <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-900/30 px-2.5 py-0.5 text-[10px] font-bold text-amber-400">
-                    {pendingReq.length} en attente
+                    {pendingReq.length} {t("admin.pendingRequests")}
                   </span>
                 )}
               </div>
@@ -785,14 +787,14 @@ export default function AdminPage() {
                                 disabled={updating === r.id}
                                 className="inline-flex items-center gap-1 rounded-lg bg-green-600/10 px-3 py-1.5 text-[10px] font-bold text-green-400 border border-green-900/30 hover:bg-green-600/20 disabled:opacity-50 transition-all"
                               >
-                                <Check className="h-3 w-3" /> Approuver
+                                <Check className="h-3 w-3" /> {t("common.validated")}
                               </button>
                               <button
                                 onClick={() => decideRequest(r.id, "refusee")}
                                 disabled={updating === r.id}
                                 className="inline-flex items-center gap-1 rounded-lg bg-red-600/10 px-3 py-1.5 text-[10px] font-bold text-red-400 border border-red-900/30 hover:bg-red-600/20 disabled:opacity-50 transition-all"
                               >
-                                <X className="h-3 w-3" /> Refuser
+                                <X className="h-3 w-3" /> {t("common.rejected")}
                               </button>
                             </div>
                           )}
@@ -803,7 +805,7 @@ export default function AdminPage() {
 
                 {requests.length === 0 && (
                   <div className="rounded-xl border border-slate-900 border-dashed p-10 text-center text-slate-500 text-xs">
-                    Aucune demande d&apos;accès pour le moment.
+                    {t("admin.noRequests")}
                   </div>
                 )}
               </div>
@@ -815,7 +817,7 @@ export default function AdminPage() {
               <section className="rounded-xl border border-slate-900 bg-slate-900/10 p-5 space-y-4">
                 <div className="flex items-center gap-2">
                   <Plus className="h-4 w-4 text-green-400" />
-                  <h2 className="text-sm font-bold text-white uppercase tracking-wider">Composer un rôle</h2>
+                  <h2 className="text-sm font-bold text-white uppercase tracking-wider">{t("admin.composeRole")}</h2>
                 </div>
 
                 <input
@@ -835,7 +837,7 @@ export default function AdminPage() {
 
                 <div>
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
-                    Permissions ({newRolePerms.length} sélectionnée(s))
+                    {t("admin.permissions")} ({newRolePerms.length})
                   </p>
                   <div className="space-y-3 max-h-80 overflow-y-auto pr-1 rounded-lg border border-slate-900 bg-slate-950/40 p-3">
                     {permGroups.map((group) => (
@@ -867,7 +869,7 @@ export default function AdminPage() {
                   disabled={!newRoleName.trim() || newRolePerms.length === 0 || updating === "new-role"}
                   className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-blue-700 disabled:opacity-50 active:scale-95 transition-all"
                 >
-                  <Plus className="h-4 w-4" /> Créer le rôle
+                  <Plus className="h-4 w-4" /> {t("admin.createRole")}
                 </button>
               </section>
 
@@ -875,7 +877,7 @@ export default function AdminPage() {
               <section className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Layers className="h-4 w-4 text-violet-400" />
-                  <h2 className="text-sm font-bold text-white uppercase tracking-wider">Rôles ({roles.length})</h2>
+                  <h2 className="text-sm font-bold text-white uppercase tracking-wider">{t("admin.rolesTitle")} ({roles.length})</h2>
                 </div>
                 <div className="space-y-3 max-h-[42rem] overflow-y-auto pr-1">
                   {roles.map((role) => (
@@ -886,7 +888,7 @@ export default function AdminPage() {
                             <h3 className="text-xs font-bold text-white">{role.name}</h3>
                             {role.system && (
                               <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 border border-slate-700 bg-slate-800 px-1.5 py-0.5 rounded">
-                                Système
+                                {t("admin.system")}
                               </span>
                             )}
                           </div>

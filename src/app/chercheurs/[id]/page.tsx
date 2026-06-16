@@ -26,12 +26,14 @@ import {
 import Footer from "@/components/Footer";
 import Avatar from "@/components/Avatar";
 import { scholarUrl } from "@/lib/scholar";
+import { useLang } from "@/context/LangContext";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
 export default function ResearcherProfilePage({ params }: PageProps) {
+  const { t } = useLang();
   const { id } = use(params);
 
   // Find researcher
@@ -74,7 +76,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
           className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 mb-8 font-semibold"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span>Retour à l&apos;équipe</span>
+          <span>{t("researcher.backToTeam")}</span>
         </Link>
 
         {/* Profile Card */}
@@ -100,7 +102,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
               const center = CENTERS.find((c) => c.id === researcher.center);
               return center ? (
                 <div className="inline-flex items-center gap-2 rounded-lg bg-slate-900 border border-slate-800 px-3 py-1.5 text-[13px]">
-                  <span className="text-slate-500 uppercase tracking-wider font-bold">Centre</span>
+                  <span className="text-slate-500 uppercase tracking-wider font-bold">{t("researcher.center")}</span>
                   <span className="text-slate-300 font-semibold">{center.name}</span>
                   <span className="text-slate-600">·</span>
                   <span className="text-slate-500">{center.city}</span>
@@ -112,7 +114,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
             {researcher.orcid && (
               <div className="inline-flex items-center gap-2 rounded-lg bg-green-500/5 border border-green-950 px-3.5 py-1.5 text-sm">
                 <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-slate-400 font-bold uppercase tracking-wider text-[12px]">ORCID iD</span>
+                <span className="text-slate-400 font-bold uppercase tracking-wider text-[12px]">{t("researcher.orcid")}</span>
                 <a
                   href={`https://orcid.org/${researcher.orcid}`}
                   target="_blank"
@@ -136,7 +138,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                 ) : null;
               })}
               <span className="inline-flex items-center gap-1 rounded-full bg-blue-500/10 border border-blue-900/30 px-2.5 py-0.5 text-[11px] font-bold text-blue-400">
-                {researcher.publicationsCount} publications
+                {researcher.publicationsCount} {t("researcher.publicationsCount")}
               </span>
               <a
                 href={scholarUrl({ title: researcher.name })}
@@ -192,7 +194,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                       href={`/publications/${pub.id}`}
                       className="inline-flex items-center gap-1 text-[13px] text-blue-400 hover:text-blue-300 font-semibold"
                     >
-                      <span>Consulter</span>
+                      <span>{t("researcher.consult")}</span>
                       <ExternalLink className="h-3 w-3" />
                     </Link>
                     {pub.doi && (
@@ -211,7 +213,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
 
               {researcherPubs.length === 0 && (
                 <div className="text-sm text-slate-500 italic py-4">
-                  Aucune publication scientifique enregistrée pour le moment.
+                  {t("researcher.noPubs")}
                 </div>
               )}
             </div>
@@ -221,7 +223,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
           <div className="space-y-6">
             <h2 className="text-lg font-extrabold text-white flex items-center gap-2 border-b border-slate-900 pb-3">
               <Database className="h-5 w-5 text-blue-500" />
-              Datasets déposés ({researcherDatasets.length})
+              {t("researcher.datasetsTitle")} ({researcherDatasets.length})
             </h2>
 
             <div className="space-y-4">
@@ -239,17 +241,17 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                       <div className="flex-none">
                         {isPublic && (
                           <span className="inline-flex items-center gap-1 rounded bg-green-500/10 px-2 py-0.5 text-[11px] font-bold text-green-400 border border-green-900/30 uppercase tracking-wider">
-                            <Eye className="h-2 w-2" /> Public
+                            <Eye className="h-2 w-2" /> {t("common.public")}
                           </span>
                         )}
                         {isProtected && (
                           <span className="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-0.5 text-[11px] font-bold text-blue-400 border border-blue-900/30 uppercase tracking-wider">
-                            <Lock className="h-2.5 w-2.5" /> Protégé
+                            <Lock className="h-2.5 w-2.5" /> {t("common.protected")}
                           </span>
                         )}
                         {isPrivate && (
                           <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-2 py-0.5 text-[11px] font-bold text-red-400 border border-red-900/30 uppercase tracking-wider">
-                            <Shield className="h-2.5 w-2.5" /> Privé
+                            <Shield className="h-2.5 w-2.5" /> {t("common.private")}
                           </span>
                         )}
                       </div>
@@ -258,8 +260,8 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                       {dataset.description}
                     </p>
                     <div className="text-[13px] text-slate-500 flex justify-between pt-2">
-                      <span>Taille : {dataset.size}</span>
-                      <span>Téléchargements : {dataset.downloads}</span>
+                      <span>{t("researcher.sizeLabel")} {dataset.size}</span>
+                      <span>{t("researcher.downloadsLabel")} {dataset.downloads}</span>
                     </div>
                   </div>
                 );
@@ -267,7 +269,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
 
               {researcherDatasets.length === 0 && (
                 <div className="text-sm text-slate-500 italic py-4">
-                  Aucun dataset de recherche déposé par ce chercheur.
+                  {t("researcher.noDatasets")}
                 </div>
               )}
             </div>

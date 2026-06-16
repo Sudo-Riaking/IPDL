@@ -8,11 +8,10 @@ import Avatar from "@/components/Avatar";
 import { RESEARCHERS, PUBLICATION, DATASETS, AXES } from "@/data/ummiscoData";
 import { useLang } from "@/context/LangContext";
 
-const FILTER_AXES = [{ id: "all", name: "Tous les axes" }, ...AXES];
-
 export default function EquipePage() {
   const { t } = useLang();
   const [axeFilter, setAxeFilter] = useState("all");
+  const FILTER_AXES = [{ id: "all", name: t("researchers.allAxes") }, ...AXES];
 
   const filtered =
     axeFilter === "all"
@@ -28,7 +27,7 @@ export default function EquipePage() {
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("researchers.title")}</h1>
           <p className="mt-2 text-slate-400 text-base">
-            {filtered.length} membres répartis dans les 5 centres internationaux d&apos;UMMISCO (UMI 209).
+            {filtered.length} {t("researchers.membersCount")}
           </p>
           <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
@@ -88,17 +87,17 @@ export default function EquipePage() {
                 {/* Stats */}
                 <div className="flex gap-4 text-[13px] text-slate-500 border-t border-slate-900 pt-3 mb-4">
                   <span className="flex items-center gap-1">
-                    <BookOpen className="h-3 w-3" /> {pubCount} publications
+                    <BookOpen className="h-3 w-3" /> {pubCount} {t("researchers.publications")}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Database className="h-3 w-3" /> {dsCount} datasets
+                    <Database className="h-3 w-3" /> {dsCount} {t("researchers.datasets")}
                   </span>
                 </div>
 
                 {/* Actions */}
                 <div className="flex items-center justify-between">
                   <a href={`mailto:${r.email}`} className="inline-flex items-center gap-1 text-[13px] text-slate-500 hover:text-slate-200 transition-colors">
-                    <Mail className="h-3 w-3" /> Contact
+                    <Mail className="h-3 w-3" /> {t("researchers.contact")}
                   </a>
                   <Link href={`/chercheurs/${r.id}`} className="inline-flex items-center gap-1 text-[13px] text-blue-400 hover:text-blue-300 font-semibold">
                     {t("researchers.viewProfile")}

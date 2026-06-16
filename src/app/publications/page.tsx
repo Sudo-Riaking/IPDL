@@ -22,8 +22,10 @@ import {
 import { useNotification } from "@/context/NotificationContext";
 import Footer from "@/components/Footer";
 import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
+import { useLang } from "@/context/LangContext";
 
 export default function PublicationsPage() {
+  const { t } = useLang();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAxis, setSelectedAxis] = useState<string>("all");
   const [selectedResearcher, setSelectedResearcher] = useState<string>("all");
@@ -123,13 +125,13 @@ export default function PublicationsPage() {
         <div className="border-b border-slate-900 pb-8 mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
-              Archive scientifique ouverte
+              {t("publications.archiveTag")}
             </span>
             <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
-              Publications d&apos;UMMISCO
+              {t("publications.pageTitle")}
             </h1>
             <p className="mt-2 text-slate-400 text-xs sm:text-sm max-w-2xl">
-              Les publications sont validées par des revues internationales puis référencées ici — chaque entrée renvoie vers Google Scholar et le DOI de l&apos;éditeur, sans hébergement de PDF.
+              {t("publications.pageDesc")}
             </p>
             <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
           </div>
@@ -139,7 +141,7 @@ export default function PublicationsPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/40 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all"
           >
-            <Quote className="h-3.5 w-3.5" /> Profil Google Scholar <ExternalLink className="h-3 w-3" />
+            <Quote className="h-3.5 w-3.5" /> {t("publications.scholarLink")} <ExternalLink className="h-3 w-3" />
           </a>
         </div>
 
@@ -149,26 +151,26 @@ export default function PublicationsPage() {
             <div className="flex items-center justify-between border-b border-slate-900 pb-3">
               <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <Filter className="h-4 w-4 text-blue-500" />
-                Filtres de recherche
+                {t("publications.filters")}
               </h3>
               <button
                 onClick={resetFilters}
                 className="text-[10px] text-slate-500 hover:text-slate-300 font-semibold"
               >
-                Réinitialiser
+                {t("common.reset")}
               </button>
             </div>
 
             {/* Keyword Search */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">
-                Mot-clé / Titre
+                {t("publications.keyword")}
               </label>
               <div className="relative rounded-lg border border-slate-800 bg-slate-950/60 focus-within:border-blue-500/50">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-600" />
                 <input
                   type="text"
-                  placeholder="Rechercher..."
+                  placeholder={t("publications.searchPlaceholder")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full bg-transparent text-xs text-slate-300 pl-9 pr-3 py-2.5 focus:outline-none"
@@ -179,14 +181,14 @@ export default function PublicationsPage() {
             {/* Axis Filter */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">
-                Axe Thématique
+                {t("axes.title")}
               </label>
               <select
                 value={selectedAxis}
                 onChange={(e) => setSelectedAxis(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 px-3 py-2.5 focus:outline-none focus:border-blue-500/50"
               >
-                <option value="all">Tous les axes</option>
+                <option value="all">{t("researchers.allAxes")}</option>
                 {AXES.map((a) => (
                   <option key={a.id} value={a.id}>
                     {a.name}
@@ -198,14 +200,14 @@ export default function PublicationsPage() {
             {/* Researcher Filter */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">
-                Chercheur auteur
+                {t("publications.filterResearcher")}
               </label>
               <select
                 value={selectedResearcher}
                 onChange={(e) => setSelectedResearcher(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 px-3 py-2.5 focus:outline-none focus:border-blue-500/50"
               >
-                <option value="all">Tous les chercheurs</option>
+                <option value="all">{t("publications.allResearchers")}</option>
                 {RESEARCHERS.map((r) => (
                   <option key={r.id} value={r.id}>
                     {r.name}
@@ -217,14 +219,14 @@ export default function PublicationsPage() {
             {/* Year Filter */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">
-                Année de publication
+                {t("publications.filterYear")}
               </label>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 px-3 py-2.5 focus:outline-none focus:border-blue-500/50"
               >
-                <option value="all">Toutes les années</option>
+                <option value="all">{t("publications.allYears")}</option>
                 {uniqueYears.map((y) => (
                   <option key={y} value={y.toString()}>
                     {y}
@@ -237,8 +239,8 @@ export default function PublicationsPage() {
           {/* RIGHT CONTENT: PUBLICATION LIST */}
           <div className="lg:col-span-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs text-slate-500 gap-3">
-              <span>{filteredPublications.length} publication(s) trouvée(s)</span>
-              <span>Affichage {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filteredPublications.length)}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredPublications.length)} sur {filteredPublications.length}</span>
+              <span>{filteredPublications.length} {t("publications.resultsCount")}</span>
+              <span>{t("publications.showing")} {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filteredPublications.length)}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredPublications.length)} / {filteredPublications.length}</span>
             </div>
 
             <div className="space-y-4">
@@ -263,17 +265,17 @@ export default function PublicationsPage() {
                         <div>
                           {isPublic && (
                             <span className="inline-flex items-center gap-1 rounded bg-green-500/10 px-2 py-0.5 text-[8px] font-bold text-green-400 border border-green-900/30 uppercase tracking-wider">
-                              <Eye className="h-2 w-2" /> Public
+                              <Eye className="h-2 w-2" /> {t("common.public")}
                             </span>
                           )}
                           {isProtected && (
                             <span className="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-0.5 text-[8px] font-bold text-blue-400 border border-blue-900/30 uppercase tracking-wider">
-                              <Lock className="h-2 w-2" /> Protégé
+                              <Lock className="h-2 w-2" /> {t("common.protected")}
                             </span>
                           )}
                           {isPrivate && (
                             <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-2 py-0.5 text-[8px] font-bold text-red-400 border border-red-900/30 uppercase tracking-wider">
-                              <Shield className="h-2 w-2" /> Privé
+                              <Shield className="h-2 w-2" /> {t("common.private")}
                             </span>
                           )}
                         </div>
@@ -288,7 +290,7 @@ export default function PublicationsPage() {
                     {/* Authors & actions */}
                     <div className="mt-6 pt-4 border-t border-slate-900 flex flex-wrap items-center justify-between gap-3">
                       <span className="text-[10px] text-slate-500 italic">
-                        Auteurs : {pub.authors.join(", ")}
+                        {t("publications.authors")} {pub.authors.join(", ")}
                       </span>
                       <div className="flex flex-wrap items-center gap-2">
                         <a
@@ -316,7 +318,7 @@ export default function PublicationsPage() {
                           className="inline-flex items-center gap-1.5 rounded bg-blue-600/10 px-2.5 py-1.5 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 active:scale-95 transition-all"
                         >
                           <Clipboard className="h-3 w-3" />
-                          <span>Citer</span>
+                          <span>{t("publications.cite")}</span>
                         </button>
                       </div>
                     </div>
@@ -326,7 +328,7 @@ export default function PublicationsPage() {
 
               {filteredPublications.length === 0 && (
                 <div className="rounded-xl border border-slate-900 border-dashed p-12 text-center text-slate-500 text-xs">
-                  Aucune publication ne correspond à vos critères de filtrage.
+                  {t("publications.noResults")}
                 </div>
               )}
             </div>
@@ -338,7 +340,7 @@ export default function PublicationsPage() {
                   disabled={currentPage === 1}
                   className="rounded-full border border-slate-800 bg-slate-900/70 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:border-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Précédent
+                  {t("publications.prev")}
                 </button>
 
                 {paginationPages.map((page, index) => {
@@ -367,7 +369,7 @@ export default function PublicationsPage() {
                   disabled={currentPage === totalPages}
                   className="rounded-full border border-slate-800 bg-slate-900/70 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:border-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Suivant
+                  {t("publications.next")}
                 </button>
               </div>
             )}
@@ -387,12 +389,12 @@ export default function PublicationsPage() {
               className="w-full max-w-2xl rounded-2xl border border-slate-800 bg-slate-900 p-6 md:p-8 shadow-2xl relative"
             >
               <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-6">
-                <h3 className="text-sm font-bold text-white">Générateur de Citation</h3>
+                <h3 className="text-sm font-bold text-white">{t("publications.citeTitle")}</h3>
                 <button
                   onClick={() => setCitationModalPub(null)}
                   className="text-xs text-slate-500 hover:text-slate-200"
                 >
-                  Fermer
+                  {t("common.close")}
                 </button>
               </div>
 
@@ -400,13 +402,13 @@ export default function PublicationsPage() {
                 {/* APA */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                    <span>Format APA</span>
+                    <span>{t("publications.citationApa")}</span>
                     <button
                       onClick={() => handleCopyCitation(citationModalPub.citationApa, "apa")}
                       className="inline-flex items-center gap-1 hover:text-white"
                     >
                       {copiedPubId === "apa" ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Clipboard className="h-3.5 w-3.5" />}
-                      <span>Copier APA</span>
+                      <span>{t("publications.copyApa")}</span>
                     </button>
                   </div>
                   <div className="p-4 rounded-lg bg-slate-950 border border-slate-900 text-xs text-slate-300 leading-relaxed font-mono select-all">
@@ -417,13 +419,13 @@ export default function PublicationsPage() {
                 {/* BibTeX */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                    <span>Format BibTeX</span>
+                    <span>{t("publications.citationBibtex")}</span>
                     <button
                       onClick={() => handleCopyCitation(citationModalPub.citationBibtex, "bibtex")}
                       className="inline-flex items-center gap-1 hover:text-white"
                     >
                       {copiedPubId === "bibtex" ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Clipboard className="h-3.5 w-3.5" />}
-                      <span>Copier BibTeX</span>
+                      <span>{t("publications.copyBibtex")}</span>
                     </button>
                   </div>
                   <pre className="p-4 rounded-lg bg-slate-950 border border-slate-900 text-[10px] text-slate-300 leading-relaxed font-mono overflow-x-auto select-all max-h-40">

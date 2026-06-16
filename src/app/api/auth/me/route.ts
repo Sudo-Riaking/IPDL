@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 }
 
 const ALLOWED_FIELDS = [
-  "biographie", "telephone", "orcid", "lienExterne",
+  "avatar", "biographie", "telephone", "orcid", "lienExterne",
   "affiliation", "centre", "organisation", "domaine", "expertises",
   "estDoctorant", "directeurThese", "anneeThese", "universiteInscription",
   "typeOrganisation", "pays", "siteWeb",

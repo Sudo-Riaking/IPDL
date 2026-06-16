@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User, BookOpen, Database, Activity, FileText, Plus, Edit3, Loader2, CheckCircle2, Clock, XCircle, LogOut } from "lucide-react";
+import { useRef } from "react";
+import { User, BookOpen, Database, Activity, FileText, Plus, Edit3, Loader2, CheckCircle2, Clock, XCircle, LogOut, Camera } from "lucide-react";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useLang } from "@/context/LangContext";
@@ -39,6 +40,7 @@ export default function DashboardPage() {
   const [profileSaved, setProfileSaved] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileData, setProfileData] = useState<Record<string, unknown>>({});
+  const avatarInputRef = useRef<HTMLInputElement>(null);
 
   // New publication form
   const [showPubForm, setShowPubForm] = useState(false);
@@ -106,6 +108,16 @@ export default function DashboardPage() {
 
   const setProfile = (field: string, value: unknown) =>
     setProfileData((prev) => ({ ...prev, [field]: value }));
+
+  const str = (v: unknown) => (v as string) ?? "";
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setProfile("avatar", reader.result as string);
+    reader.readAsDataURL(file);
+  };
 
   const loadData = async () => {
     if (!token) return;
@@ -206,7 +218,7 @@ export default function DashboardPage() {
 
   if (authLoading) return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950">
-      <div className="text-slate-400 text-sm">Chargement...</div>
+      <div className="text-slate-400 text-sm">{t("common.loading")}</div>
     </div>
   );
   if (!isAuthenticated) return null;
@@ -264,8 +276,22 @@ export default function DashboardPage() {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className="h-16 w-16 rounded-full bg-blue-600/10 text-blue-400 text-xl font-extrabold border border-blue-900/30 flex items-center justify-center">
-                        {user?.nom?.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)}
+                      <div className="relative group h-16 w-16 flex-none">
+                        {profileData.avatar ? (
+                          <img src={profileData.avatar as string} alt="avatar" className="h-16 w-16 rounded-full object-cover border border-blue-900/30" />
+                        ) : (
+                          <div className="h-16 w-16 rounded-full bg-blue-600/10 text-blue-400 text-xl font-extrabold border border-blue-900/30 flex items-center justify-center">
+                            {user?.nom?.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)}
+                          </div>
+                        )}
+                        <button
+                          onClick={() => avatarInputRef.current?.click()}
+                          className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          title="Changer la photo"
+                        >
+                          <Camera className="h-5 w-5 text-white" />
+                        </button>
+                        <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
                       </div>
                       <div>
                         <h2 className="text-lg font-extrabold text-white">{user?.nom}</h2>
@@ -293,9 +319,9 @@ export default function DashboardPage() {
                     <div className="space-y-6">
                       {/* ── Section commune ── */}
                       <div className="space-y-3">
-                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations générales</p>
+                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("profile.generalInfo")}</p>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Biographie</label>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("admin.biography")}</label>
                           <textarea
                             rows={3}
                             value={(profileData.biographie as string) ?? ""}
@@ -306,7 +332,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Téléphone</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.labelTel")}</label>
                             <input type="tel" value={(profileData.telephone as string) ?? ""} onChange={(e) => setProfile("telephone", e.target.value)} placeholder="+221 77 000 00 00" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                           </div>
                           <div>
@@ -315,7 +341,7 @@ export default function DashboardPage() {
                           </div>
                         </div>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Profil externe (Google Scholar / ResearchGate / LinkedIn)</label>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.externalProfile")}</label>
                           <input type="url" value={(profileData.lienExterne as string) ?? ""} onChange={(e) => setProfile("lienExterne", e.target.value)} placeholder="https://scholar.google.com/..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                         </div>
                       </div>
@@ -323,30 +349,30 @@ export default function DashboardPage() {
                       {/* ── Chercheurs / responsables / directeur ── */}
                       {["chercheur", "responsable_axe", "directeur"].includes(user?.role ?? "") && (
                         <div className="space-y-3">
-                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations académiques</p>
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("profile.academicInfo")}</p>
                           <div className="grid grid-cols-2 gap-3">
                             <div>
-                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Affiliation / Université</label>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.affiliation")}</label>
                               <input type="text" value={(profileData.affiliation as string) ?? ""} onChange={(e) => setProfile("affiliation", e.target.value)} placeholder="UCAD — École Supérieure Polytechnique" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                             </div>
                             <div>
-                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Centre UMMISCO</label>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.ummiscoCenter")}</label>
                               <select value={(profileData.centre as string) ?? ""} onChange={(e) => setProfile("centre", e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
-                                <option value="">— Choisir —</option>
-                                <option value="Dakar">Dakar (ESP-UCAD)</option>
-                                <option value="Bondy">Bondy (IRD)</option>
-                                <option value="Hanoï">Hanoï (USTH)</option>
-                                <option value="Rabat">Rabat (UM5)</option>
-                                <option value="Yaoundé">Yaoundé (UYI)</option>
+                                <option value="">{t("profile.centerChoose")}</option>
+                                <option value="Dakar">{t("profile.centerDakar")}</option>
+                                <option value="Bondy">{t("profile.centerBondy")}</option>
+                                <option value="Hanoï">{t("profile.centerHanoi")}</option>
+                                <option value="Rabat">{t("profile.centerRabat")}</option>
+                                <option value="Yaoundé">{t("profile.centerYaounde")}</option>
                               </select>
                             </div>
                           </div>
                           <div>
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Domaine principal</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.domain")}</label>
                             <input type="text" value={(profileData.domaine as string) ?? ""} onChange={(e) => setProfile("domaine", e.target.value)} placeholder="Mathématiques, Informatique, Biologie..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                           </div>
                           <div>
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Expertises / Spécialités <span className="font-normal text-slate-600 normal-case">— séparées par virgules</span></label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.expertises")} <span className="font-normal text-slate-600 normal-case">— {t("profile.expertisesNote")}</span></label>
                             <input type="text" value={((profileData.expertises as string[]) ?? []).join(", ")} onChange={(e) => setProfile("expertises", e.target.value.split(",").map((s) => s.trim()).filter(Boolean))} placeholder="Modélisation multi-agents, Épidémiologie, GAMA..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                           </div>
                         </div>
@@ -355,20 +381,20 @@ export default function DashboardPage() {
                       {/* ── Étudiants / doctorants ── */}
                       {user?.role === "etudiant" && (
                         <div className="space-y-3">
-                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations doctorat</p>
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("profile.phdInfo")}</p>
                           <label className="flex items-center gap-2.5 cursor-pointer">
                             <input type="checkbox" checked={(profileData.estDoctorant as boolean) ?? false} onChange={(e) => setProfile("estDoctorant", e.target.checked)} className="rounded border-slate-600 accent-blue-500 h-3.5 w-3.5" />
-                            <span className="text-xs text-slate-300">Je suis doctorant(e)</span>
+                            <span className="text-xs text-slate-300">{t("profile.isPhD")}</span>
                           </label>
-                          {profileData.estDoctorant && (
+                          {!!profileData.estDoctorant && (
                             <div className="space-y-3">
                               <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Directeur de thèse</label>
+                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.thesisDirector")}</label>
                                   <input type="text" value={(profileData.directeurThese as string) ?? ""} onChange={(e) => setProfile("directeurThese", e.target.value)} placeholder="Pr. Cheikh Diallo" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                                 </div>
                                 <div>
-                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Année de thèse</label>
+                                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.thesisYear")}</label>
                                   <select value={(profileData.anneeThese as number) ?? ""} onChange={(e) => setProfile("anneeThese", e.target.value ? parseInt(e.target.value) : undefined)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
                                     <option value="">—</option>
                                     {[1,2,3,4,5].map((n) => <option key={n} value={n}>{n}ère{n > 1 ? "" : ""} année</option>)}
@@ -376,7 +402,7 @@ export default function DashboardPage() {
                                 </div>
                               </div>
                               <div>
-                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Université d'inscription</label>
+                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.registrationUniversity")}</label>
                                 <input type="text" value={(profileData.universiteInscription as string) ?? ""} onChange={(e) => setProfile("universiteInscription", e.target.value)} placeholder="UCAD, UASZ, UGB..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                               </div>
                             </div>
@@ -387,29 +413,29 @@ export default function DashboardPage() {
                       {/* ── Partenaires ── */}
                       {user?.role === "partenaire" && (
                         <div className="space-y-3">
-                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">Informations organisation</p>
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("profile.orgInfo")}</p>
                           <div className="grid grid-cols-2 gap-3">
                             <div>
-                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Type d'organisation</label>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.orgType")}</label>
                               <select value={(profileData.typeOrganisation as string) ?? ""} onChange={(e) => setProfile("typeOrganisation", e.target.value || undefined)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
-                                <option value="">— Choisir —</option>
-                                <option value="academique">Académique</option>
-                                <option value="institutionnel">Institutionnel</option>
-                                <option value="industriel">Industriel</option>
-                                <option value="bailleur">Bailleur de fonds</option>
+                                <option value="">{t("profile.orgTypeChoose")}</option>
+                                <option value="academique">{t("profile.orgTypeAcademic")}</option>
+                                <option value="institutionnel">{t("profile.orgTypeInstitutional")}</option>
+                                <option value="industriel">{t("profile.orgTypeIndustrial")}</option>
+                                <option value="bailleur">{t("profile.orgTypeFunder")}</option>
                               </select>
                             </div>
                             <div>
-                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Pays</label>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.country")}</label>
                               <input type="text" value={(profileData.pays as string) ?? ""} onChange={(e) => setProfile("pays", e.target.value)} placeholder="France, Sénégal, Maroc..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                             </div>
                           </div>
                           <div>
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Site web</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.website")}</label>
                             <input type="url" value={(profileData.siteWeb as string) ?? ""} onChange={(e) => setProfile("siteWeb", e.target.value)} placeholder="https://www.organisation.org" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                           </div>
                           <div>
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Organisation</label>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("profile.organisation")}</label>
                             <input type="text" value={(profileData.organisation as string) ?? ""} onChange={(e) => setProfile("organisation", e.target.value)} placeholder="Nom complet de l'organisation" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                           </div>
                         </div>
@@ -431,32 +457,32 @@ export default function DashboardPage() {
                   ) : (
                     /* ── Vue lecture ── */
                     <div className="space-y-5">
-                      {profileData.biographie && (
+                      {!!profileData.biographie && (
                         <div>
-                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Biographie</p>
-                          <p className="text-xs text-slate-400 leading-relaxed">{profileData.biographie as string}</p>
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">{t("admin.biography")}</p>
+                          <p className="text-xs text-slate-400 leading-relaxed">{str(profileData.biographie)}</p>
                         </div>
                       )}
 
                       {/* Champs communs renseignés */}
-                      {(profileData.telephone || profileData.orcid || profileData.lienExterne) && (
+                      {!!(profileData.telephone || profileData.orcid || profileData.lienExterne) && (
                         <div className="grid grid-cols-1 gap-2">
-                          {profileData.telephone && (
+                          {!!profileData.telephone && (
                             <div className="flex items-center gap-2 text-xs text-slate-400">
-                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Tél.</span>
-                              <span>{profileData.telephone as string}</span>
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelTel")}</span>
+                              <span>{str(profileData.telephone)}</span>
                             </div>
                           )}
-                          {profileData.orcid && (
+                          {!!profileData.orcid && (
                             <div className="flex items-center gap-2 text-xs text-slate-400">
-                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">ORCID</span>
-                              <span className="font-mono">{profileData.orcid as string}</span>
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelOrcid")}</span>
+                              <span className="font-mono">{str(profileData.orcid)}</span>
                             </div>
                           )}
-                          {profileData.lienExterne && (
+                          {!!profileData.lienExterne && (
                             <div className="flex items-center gap-2 text-xs text-slate-400">
-                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Profil</span>
-                              <a href={profileData.lienExterne as string} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{profileData.lienExterne as string}</a>
+                              <span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelProfile")}</span>
+                              <a href={str(profileData.lienExterne)} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{str(profileData.lienExterne)}</a>
                             </div>
                           )}
                         </div>
@@ -465,12 +491,12 @@ export default function DashboardPage() {
                       {/* Chercheurs */}
                       {["chercheur", "responsable_axe", "directeur"].includes(user?.role ?? "") && (
                         <div className="space-y-2">
-                          {profileData.affiliation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Affil.</span>{profileData.affiliation as string}</div>}
-                          {profileData.centre && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Centre</span>{profileData.centre as string}</div>}
-                          {profileData.domaine && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">Domaine</span>{profileData.domaine as string}</div>}
+                          {!!profileData.affiliation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelAffil")}</span>{str(profileData.affiliation)}</div>}
+                          {!!profileData.centre && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelCentre")}</span>{str(profileData.centre)}</div>}
+                          {!!profileData.domaine && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-20 flex-none">{t("profile.labelDomain")}</span>{str(profileData.domaine)}</div>}
                           {(profileData.expertises as string[] | undefined)?.length ? (
                             <div>
-                              <p className="text-[9px] font-bold text-slate-600 uppercase mb-1.5">Expertises</p>
+                              <p className="text-[9px] font-bold text-slate-600 uppercase mb-1.5">{t("profile.labelExpertises")}</p>
                               <div className="flex flex-wrap gap-1.5">
                                 {(profileData.expertises as string[]).map((e) => (
                                   <span key={e} className="px-2 py-0.5 rounded-full bg-blue-600/10 text-blue-400 border border-blue-900/30 text-[10px] font-medium">{e}</span>
@@ -482,27 +508,27 @@ export default function DashboardPage() {
                       )}
 
                       {/* Étudiant */}
-                      {user?.role === "etudiant" && profileData.estDoctorant && (
+                      {user?.role === "etudiant" && !!profileData.estDoctorant && (
                         <div className="space-y-2">
-                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Doctorat</p>
-                          {profileData.directeurThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Directeur</span>{profileData.directeurThese as string}</div>}
-                          {profileData.anneeThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Année</span>{profileData.anneeThese as number}e année</div>}
-                          {profileData.universiteInscription && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Université</span>{profileData.universiteInscription as string}</div>}
+                          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">{t("profile.labelPhD")}</p>
+                          {!!profileData.directeurThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelDirector")}</span>{str(profileData.directeurThese)}</div>}
+                          {!!profileData.anneeThese && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelYear")}</span>{str(profileData.anneeThese)}e année</div>}
+                          {!!profileData.universiteInscription && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelUniversity")}</span>{str(profileData.universiteInscription)}</div>}
                         </div>
                       )}
 
                       {/* Partenaire */}
                       {user?.role === "partenaire" && (
                         <div className="space-y-2">
-                          {profileData.organisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Organisation</span>{profileData.organisation as string}</div>}
-                          {profileData.typeOrganisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Type</span><span className="capitalize">{profileData.typeOrganisation as string}</span></div>}
-                          {profileData.pays && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Pays</span>{profileData.pays as string}</div>}
-                          {profileData.siteWeb && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">Site web</span><a href={profileData.siteWeb as string} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{profileData.siteWeb as string}</a></div>}
+                          {!!profileData.organisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelOrg")}</span>{str(profileData.organisation)}</div>}
+                          {!!profileData.typeOrganisation && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelType")}</span><span className="capitalize">{str(profileData.typeOrganisation)}</span></div>}
+                          {!!profileData.pays && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelCountry")}</span>{str(profileData.pays)}</div>}
+                          {!!profileData.siteWeb && <div className="flex items-center gap-2 text-xs text-slate-400"><span className="text-[9px] font-bold text-slate-600 uppercase w-24 flex-none">{t("profile.labelSite")}</span><a href={str(profileData.siteWeb)} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline truncate">{str(profileData.siteWeb)}</a></div>}
                         </div>
                       )}
 
                       {!profileData.biographie && !profileData.telephone && !profileData.orcid && (
-                        <p className="text-xs text-slate-500 italic">Aucune information renseignée. Cliquez sur "Modifier le profil".</p>
+                        <p className="text-xs text-slate-500 italic">{t("profile.noInfo")}</p>
                       )}
                     </div>
                   )}
@@ -543,99 +569,99 @@ export default function DashboardPage() {
                 {showPubForm && (
                   <form onSubmit={handleSubmitPublication} className="rounded-xl border border-slate-800 bg-slate-900/20 p-6 space-y-6">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-bold text-white">Soumettre une publication</h3>
-                      <span className="text-[9px] text-amber-400 border border-amber-900/30 bg-amber-500/10 px-2 py-0.5 rounded font-bold uppercase">En attente de validation</span>
+                      <h3 className="text-sm font-bold text-white">{t("pubForm.submitTitle")}</h3>
+                      <span className="text-[9px] text-amber-400 border border-amber-900/30 bg-amber-500/10 px-2 py-0.5 rounded font-bold uppercase">{t("pubForm.pendingBadge")}</span>
                     </div>
 
                     {/* Section 1 */}
                     <div className="space-y-3">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">1 — Informations essentielles</p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("pubForm.section1")}</p>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Titre <span className="text-red-400">*</span></label>
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.titleLabel")} <span className="text-red-400">*</span></label>
                         <input type="text" required value={pubForm.titre} onChange={(e) => setPub("titre", e.target.value)} placeholder="Titre complet de la publication" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Auteurs <span className="text-red-400">*</span> <span className="font-normal text-slate-600 normal-case">— séparés par virgules</span></label>
-                        <input type="text" required value={pubForm.auteurs} onChange={(e) => setPub("auteurs", e.target.value)} placeholder="Ex : Fatou Diop, Cheikh Diallo" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.authorsLabel")} <span className="text-red-400">*</span> <span className="font-normal text-slate-600 normal-case">— {t("pubForm.authorsNote")}</span></label>
+                        <input type="text" required value={pubForm.auteurs} onChange={(e) => setPub("auteurs", e.target.value)} placeholder={t("pubForm.authorPlaceholder")} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Résumé <span className="text-red-400">*</span></label>
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.abstractLabel")} <span className="text-red-400">*</span></label>
                         <textarea rows={5} required value={pubForm.resume} onChange={(e) => setPub("resume", e.target.value)} placeholder="Résumé complet (abstract)..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50 resize-y" />
                       </div>
                     </div>
 
                     {/* Section 2 */}
                     <div className="space-y-3">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">2 — Détails de publication</p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("pubForm.section2")}</p>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Revue / Conférence</label>
-                        <input type="text" value={pubForm.journal} onChange={(e) => setPub("journal", e.target.value)} placeholder="Journal de Modélisation des Systèmes Complexes" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.journalLabel")}</label>
+                        <input type="text" value={pubForm.journal} onChange={(e) => setPub("journal", e.target.value)} placeholder={t("pubForm.journalPlaceholder")} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                       </div>
                       <div className="grid grid-cols-4 gap-2">
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Année <span className="text-red-400">*</span></label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.yearLabel")} <span className="text-red-400">*</span></label>
                           <input type="number" required min={1990} max={2030} value={pubForm.annee} onChange={(e) => setPub("annee", e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Volume</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.volumeLabel")}</label>
                           <input type="text" value={pubForm.volume} onChange={(e) => setPub("volume", e.target.value)} placeholder="12" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Numéro</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.numberLabel")}</label>
                           <input type="text" value={pubForm.numero} onChange={(e) => setPub("numero", e.target.value)} placeholder="3" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Pages</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.pagesLabel")}</label>
                           <input type="text" value={pubForm.pages} onChange={(e) => setPub("pages", e.target.value)} placeholder="45-62" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
                         </div>
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">DOI</label>
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.doiLabel")}</label>
                         <input type="text" value={pubForm.doi} onChange={(e) => setPub("doi", e.target.value)} placeholder="10.1234/jmsc.2024.001" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 font-mono px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                       </div>
                     </div>
 
                     {/* Section 3 */}
                     <div className="space-y-3">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">3 — Classification</p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("pubForm.section3")}</p>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Axe thématique <span className="text-red-400">*</span></label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.axeLabel")} <span className="text-red-400">*</span></label>
                           <select value={pubForm.axe} onChange={(e) => setPub("axe", e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
                             {AXES.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
                           </select>
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Niveau d'accès</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.accessLabel")}</label>
                           <select value={pubForm.accessLevel} onChange={(e) => setPub("accessLevel", e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5 focus:outline-none">
-                            <option value="public">Public</option>
-                            <option value="protected">Protégé (membres UMMISCO)</option>
-                            <option value="private">Privé</option>
+                            <option value="public">{t("pubForm.accessPublic")}</option>
+                            <option value="protected">{t("pubForm.accessProtected")}</option>
+                            <option value="private">{t("pubForm.accessPrivate")}</option>
                           </select>
                         </div>
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Mots-clefs <span className="font-normal text-slate-600 normal-case">— virgules</span></label>
-                        <input type="text" value={pubForm.motsClefs} onChange={(e) => setPub("motsClefs", e.target.value)} placeholder="paludisme, multi-agents, Dakar" className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.keywordsLabel")} <span className="font-normal text-slate-600 normal-case">— {t("pubForm.keywordsNote")}</span></label>
+                        <input type="text" value={pubForm.motsClefs} onChange={(e) => setPub("motsClefs", e.target.value)} placeholder={t("pubForm.keywordsPlaceholder")} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                       </div>
                     </div>
 
                     {/* Section 4 */}
                     <div className="space-y-3">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">4 — Ressources & Liens</p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("pubForm.section4")}</p>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">URL PDF</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.pdfUrl")}</label>
                           <input type="url" value={pubForm.fichierPdf} onChange={(e) => setPub("fichierPdf", e.target.value)} placeholder="https://..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Google Scholar</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.scholarLabel")}</label>
                           <input type="url" value={pubForm.googleScholarUrl} onChange={(e) => setPub("googleScholarUrl", e.target.value)} placeholder="https://scholar.google.com/..." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50" />
                         </div>
                       </div>
                       {availableDatasets.length > 0 && (
                         <div>
-                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Datasets liés</label>
+                          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{t("pubForm.datasetsLabel")}</label>
                           <div className="space-y-1 max-h-32 overflow-y-auto pr-1">
                             {availableDatasets.map((ds) => (
                               <label key={ds.id} className="flex items-center gap-2.5 rounded-lg border border-slate-800 bg-slate-900/30 px-3 py-2 cursor-pointer hover:border-slate-700 transition-colors">
@@ -656,20 +682,20 @@ export default function DashboardPage() {
 
                     {/* Section 5 — Citations */}
                     <div className="space-y-3">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">5 — Citations <span className="font-normal text-slate-600 normal-case">(optionnel)</span></p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-1">{t("pubForm.section5")} <span className="font-normal text-slate-600 normal-case">({t("pubForm.citationsNote")})</span></p>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">APA</label>
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.apa")}</label>
                         <textarea rows={2} value={pubForm.citationApa} onChange={(e) => setPub("citationApa", e.target.value)} placeholder="Auteur, P. (2024). Titre. Revue, Vol(N°), p-p." className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2 focus:outline-none font-mono" />
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">BibTeX</label>
+                        <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">{t("pubForm.bibtex")}</label>
                         <textarea rows={4} value={pubForm.citationBibtex} onChange={(e) => setPub("citationBibtex", e.target.value)} placeholder={"@article{clé,\n  title={...},\n  author={...},\n  year={2024}\n}"} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2 focus:outline-none font-mono resize-y" />
                       </div>
                     </div>
 
                     <div className="flex gap-3 pt-2 border-t border-slate-800">
                       <button type="submit" disabled={pubSubmitting} className="flex-1 py-2.5 rounded-lg bg-ummisco-blue text-xs font-semibold uppercase tracking-wider text-white hover:bg-ummisco-blue/90 disabled:opacity-60 active:scale-95 transition-all flex items-center justify-center gap-2">
-                        {pubSubmitting ? <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Soumission...</> : t("publications.submit")}
+                        {pubSubmitting ? <><Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("pubForm.submitting")}</> : t("publications.submit")}
                       </button>
                       <button type="button" onClick={() => setShowPubForm(false)} className="px-5 py-2.5 rounded-lg border border-slate-800 text-xs text-slate-400 hover:text-slate-200">{t("common.cancel")}</button>
                     </div>
@@ -695,7 +721,7 @@ export default function DashboardPage() {
                         </div>
                       );
                     })}
-                    {publications.length === 0 && <div className="text-center py-10 text-slate-500 text-xs">Aucune publication pour le moment.</div>}
+                    {publications.length === 0 && <div className="text-center py-10 text-slate-500 text-xs">{t("pubForm.noPubs")}</div>}
                   </div>
                 )}
               </div>
@@ -718,13 +744,13 @@ export default function DashboardPage() {
 
                 {showDsForm && (
                   <form onSubmit={handleSubmitDataset} className="rounded-xl border border-slate-800 bg-slate-900/30 p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-slate-300">Déposer un dataset</h3>
-                    <input type="text" required placeholder="Titre" value={dsTitle} onChange={(e) => setDsTitle(e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
-                    <textarea rows={3} required placeholder="Description" value={dsDesc} onChange={(e) => setDsDesc(e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
+                    <h3 className="text-xs font-bold text-slate-300">{t("dsForm.submitTitle")}</h3>
+                    <input type="text" required placeholder={t("dsForm.titlePlaceholder")} value={dsTitle} onChange={(e) => setDsTitle(e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
+                    <textarea rows={3} required placeholder={t("dsForm.descPlaceholder")} value={dsDesc} onChange={(e) => setDsDesc(e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none" />
                     <select value={dsAccess} onChange={(e) => setDsAccess(e.target.value)} className="w-full rounded-lg border border-slate-800 bg-slate-950 text-xs text-slate-300 px-3 py-2.5">
-                      <option value="public">Public</option>
-                      <option value="protected">Protégé (membres UMMISCO)</option>
-                      <option value="private">Privé (accès restreint)</option>
+                      <option value="public">{t("dsForm.accessPublic")}</option>
+                      <option value="protected">{t("dsForm.accessProtected")}</option>
+                      <option value="private">{t("dsForm.accessPrivate")}</option>
                     </select>
                     <div className="flex gap-2">
                       <button type="submit" disabled={dsSubmitting} className="px-4 py-2 rounded-lg bg-ummisco-blue text-xs font-semibold text-white disabled:opacity-60">
@@ -743,14 +769,14 @@ export default function DashboardPage() {
                       <div key={d.id} className="rounded-xl border border-slate-900 bg-slate-900/10 p-4 flex items-start justify-between gap-3">
                         <div>
                           <h3 className="text-xs font-bold text-white line-clamp-1">{d.titre}</h3>
-                          <p className="text-[10px] text-slate-500 mt-1">{d.size} · {d.downloads} téléchargements · {d.dateDepot}</p>
+                          <p className="text-[10px] text-slate-500 mt-1">{d.size} · {d.downloads} {t("dsForm.downloads")} · {d.dateDepot}</p>
                         </div>
                         <span className={`text-[9px] font-bold uppercase tracking-wider flex-none ${d.acces === "public" ? "text-green-400" : d.acces === "protected" ? "text-blue-400" : "text-red-400"}`}>
                           {d.acces}
                         </span>
                       </div>
                     ))}
-                    {datasets.length === 0 && <div className="text-center py-10 text-slate-500 text-xs">Aucun dataset pour le moment.</div>}
+                    {datasets.length === 0 && <div className="text-center py-10 text-slate-500 text-xs">{t("dsForm.noDatasets")}</div>}
                   </div>
                 )}
               </div>
@@ -762,7 +788,7 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between">
                   <h2 className="text-sm font-bold text-white">{t("dashboard.simulations")}</h2>
                   <a href="/simulations" className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600/10 px-3 py-2 text-[10px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 transition-all">
-                    <Plus className="h-3.5 w-3.5" /> Nouvelle simulation
+                    <Plus className="h-3.5 w-3.5" /> {t("simulations.newSim")}
                   </a>
                 </div>
 
