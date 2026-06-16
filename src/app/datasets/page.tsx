@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useLang } from "@/context/LangContext";
 import { useNotification } from "@/context/NotificationContext";
 import type { DBDataset } from "@/lib/db";
+import { DATASETS, RESEARCHERS } from "@/data/ummiscoData";
 import SignatureModal from "@/components/signatures/SignatureModal";
 import SignatureBadge from "@/components/signatures/SignatureBadge";
 import type { SignPayload } from "@/hooks/useSignature";
@@ -25,13 +26,64 @@ const ACCESS_ICONS: Record<string, React.ElementType> = {
   private:   Shield,
 };
 
+// Unified display type for both static and DB datasets
+interface DisplayDataset {
+  id: string;
+  titre: string;
+  description: string;
+  type: string;
+  licence: string;
+  acces: "public" | "protected" | "private";
+  creatorId: string;
+  creatorName: string;
+  size: string;
+  downloads: number;
+  dateDepot: string;
+  isStatic: boolean;
+}
+
+function toDisplay(d: DBDataset): DisplayDataset {
+  return {
+    id: d.id,
+    titre: d.titre,
+    description: d.description,
+    type: d.type,
+    licence: d.licence,
+    acces: d.acces,
+    creatorId: d.creatorId,
+    creatorName: d.creatorName ?? d.creatorId,
+    size: d.size,
+    downloads: d.downloads,
+    dateDepot: d.dateDepot,
+    isStatic: false,
+  };
+}
+
+function staticToDisplay(d: typeof DATASETS[number]): DisplayDataset {
+  const researcher = RESEARCHERS.find((r) => r.id === d.creatorId);
+  return {
+    id: d.id,
+    titre: d.title,
+    description: d.description,
+    type: d.type ?? "CSV",
+    licence: d.licence ?? "CC BY 4.0",
+    acces: d.accessLevel,
+    creatorId: d.creatorId,
+    creatorName: researcher?.name ?? d.creatorId,
+    size: d.size,
+    downloads: d.downloads,
+    dateDepot: `${d.year}-01-01`,
+    isStatic: true,
+  };
+}
+
 function DatasetsContent() {
   const searchParams = useSearchParams();
   const { isAuthenticated, token, user } = useAuth();
   const { t } = useLang();
   const { notify } = useNotification();
 
-  const [datasets, setDatasets] = useState<DBDataset[]>([]);
+  const [dbDatasets, setDbDatasets] = useState<DBDataset[]>([]);
   const [filter, setFilter] = useState<string>(searchParams.get("acces") ?? "all");
   const [creatorFilter, setCreatorFilter] = useState<string>(searchParams.get("creator") ?? "all");
   const [yearFilter, setYearFilter] = useState<string>(searchParams.get("year") ?? "all");
@@ -39,7 +91,7 @@ function DatasetsContent() {
   const [downloading, setDownloading] = useState<string | null>(null);
 
   // ACL access request flow
-  const [requestModal, setRequestModal] = useState<DBDataset | null>(null);
+  const [requestModal, setRequestModal] = useState<DisplayDataset | null>(null);
   const [requestReason, setRequestReason] = useState("");
   const [requestSubmitting, setRequestSubmitting] = useState(false);
   const [requestedIds, setRequestedIds] = useState<string[]>([]);
@@ -47,6 +99,43 @@ function DatasetsContent() {
   // Signature flow
   const [sigModal, setSigModal] = useState<SignPayload | null>(null);
   const [freshSigs, setFreshSigs] = useState<Record<string, { id: string; signerName: string; timestamp: string }>>({});
+
+  useEffect(() => {
+    fetch("/api/datasets", {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+      .then((r) => r.ok ? r.json() : [])
+      .then((d: DBDataset[]) => setDbDatasets(d))
+      .catch(() => setDbDatasets([]))
+      .finally(() => setLoading(false));
+  }, [token]);
+
+  // Merge: DB datasets take priority; static ones shown only if not already in DB
+  const dbIds = new Set(dbDatasets.map((d) => d.id));
+  const staticDisplay = DATASETS
+    .filter((d) => !dbIds.has(d.id))
+    .map(staticToDisplay);
+  const dbDisplay = dbDatasets.map(toDisplay);
+  const allDatasets: DisplayDataset[] = [...staticDisplay, ...dbDisplay];
+
+  // Creator and year options
+  const creators = Array.from(
+    allDatasets.reduce((map, d) => {
+      if (!map.has(d.creatorId)) map.set(d.creatorId, d.creatorName);
+      return map;
+    }, new Map<string, string>())
+  );
+
+  const years = [...new Set(allDatasets.map((d) => d.dateDepot.substring(0, 4)))].sort(
+    (a, b) => b.localeCompare(a)
+  );
+
+  const filtered = allDatasets.filter((d) => {
+    if (filter !== "all" && d.acces !== filter) return false;
+    if (creatorFilter !== "all" && d.creatorId !== creatorFilter) return false;
+    if (yearFilter !== "all" && d.dateDepot.substring(0, 4) !== yearFilter) return false;
+    return true;
+  });
 
   const submitAccessRequest = async () => {
     if (!requestModal || !token || !requestReason.trim()) return;
@@ -74,36 +163,7 @@ function DatasetsContent() {
     }
   };
 
-  useEffect(() => {
-    fetch("/api/datasets", {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    })
-      .then((r) => r.json())
-      .then((d) => setDatasets(d))
-      .catch(() => setDatasets([]))
-      .finally(() => setLoading(false));
-  }, [token]);
-
-  // Derive creator and year options from loaded datasets
-  const creators = Array.from(
-    datasets.reduce((map, d) => {
-      if (!map.has(d.creatorId)) map.set(d.creatorId, d.creatorName ?? d.creatorId);
-      return map;
-    }, new Map<string, string>())
-  );
-
-  const years = [...new Set(datasets.map((d) => d.dateDepot.substring(0, 4)))].sort(
-    (a, b) => b.localeCompare(a)
-  );
-
-  const filtered = datasets.filter((d) => {
-    if (filter !== "all" && d.acces !== filter) return false;
-    if (creatorFilter !== "all" && d.creatorId !== creatorFilter) return false;
-    if (yearFilter !== "all" && d.dateDepot.substring(0, 4) !== yearFilter) return false;
-    return true;
-  });
-
-  const handleDownload = async (ds: DBDataset) => {
+  const handleDownload = async (ds: DisplayDataset) => {
     setDownloading(ds.id);
     try {
       const res = await fetch(`/api/datasets/${ds.id}/download`, {
@@ -131,9 +191,6 @@ function DatasetsContent() {
       URL.revokeObjectURL(url);
 
       notify("Téléchargement démarré.", "success");
-      setDatasets((prev) =>
-        prev.map((d) => d.id === ds.id ? { ...d, downloads: d.downloads + 1 } : d)
-      );
     } finally {
       setDownloading(null);
     }
@@ -223,9 +280,12 @@ function DatasetsContent() {
             {filtered.map((ds) => {
               const Icon = ACCESS_ICONS[ds.acces];
               const canDownload =
-                ds.acces === "public" ||
-                (isAuthenticated && ds.acces === "protected");
+                !ds.isStatic && (
+                  ds.acces === "public" ||
+                  (isAuthenticated && ds.acces === "protected")
+                );
               const isDownloading = downloading === ds.id;
+              const isOwner = !ds.isStatic && user?.id === ds.creatorId;
 
               return (
                 <div
@@ -237,7 +297,7 @@ function DatasetsContent() {
                       <div>
                         <h3 className="text-sm font-bold text-white leading-snug">{ds.titre}</h3>
                         <span className="text-[10px] text-slate-500 mt-0.5 block">
-                          {ds.creatorName ?? ds.creatorId} · {ds.dateDepot}
+                          {ds.creatorName} · {ds.dateDepot.substring(0, 4)}
                         </span>
                       </div>
                       <span
@@ -282,14 +342,14 @@ function DatasetsContent() {
                       <span className="text-[10px] text-green-400 font-semibold flex items-center gap-1">
                         <Check className="h-3 w-3" /> {t("datasets.accessRequested")}
                       </span>
-                    ) : isAuthenticated ? (
+                    ) : isAuthenticated && !ds.isStatic ? (
                       <button
                         onClick={() => { setRequestModal(ds); setRequestReason(""); }}
                         className="inline-flex items-center gap-1.5 rounded bg-amber-500/10 border border-amber-900/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 hover:bg-amber-500/20 transition-all"
                       >
                         <KeyRound className="h-3 w-3" /> Demander l&apos;accès
                       </button>
-                    ) : (
+                    ) : !isAuthenticated && !ds.isStatic ? (
                       <Link
                         href="/connexion"
                         className="inline-flex items-center gap-1.5 rounded bg-slate-900 border border-slate-800 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-slate-200 transition-all"
@@ -297,11 +357,11 @@ function DatasetsContent() {
                         <Lock className="h-3 w-3" />
                         {t("datasets.authRequired")}
                       </Link>
-                    )}
+                    ) : null}
                   </div>
 
-                  {/* Signature (créateur uniquement) */}
-                  {user?.id === ds.creatorId && (
+                  {/* Signature (créateur DB uniquement) */}
+                  {isOwner && (
                     <div className="mt-3 pt-3 border-t border-slate-900/50 flex items-center gap-2 flex-wrap">
                       <button
                         onClick={() => setSigModal({
@@ -321,16 +381,11 @@ function DatasetsContent() {
                       >
                         <ShieldCheck className="h-3 w-3" /> Signer ce dataset
                       </button>
-                      <SignatureBadge
-                        targetId={ds.id}
-                        freshSignature={freshSigs[ds.id]}
-                        compact
-                      />
+                      <SignatureBadge targetId={ds.id} freshSignature={freshSigs[ds.id]} compact />
                     </div>
                   )}
 
-                  {/* Badge de signature (public) */}
-                  {user?.id !== ds.creatorId && (
+                  {!isOwner && !ds.isStatic && (
                     <div className="mt-3">
                       <SignatureBadge targetId={ds.id} compact />
                     </div>
@@ -339,7 +394,7 @@ function DatasetsContent() {
               );
             })}
 
-            {filtered.length === 0 && !loading && (
+            {filtered.length === 0 && (
               <div className="col-span-2 rounded-xl border border-slate-900 border-dashed p-12 text-center text-slate-500 text-xs">
                 {t("common.noData")}
               </div>
@@ -408,7 +463,6 @@ function DatasetsContent() {
 
       <Footer />
 
-      {/* Modal de signature dataset */}
       {sigModal && (
         <SignatureModal
           payload={sigModal}

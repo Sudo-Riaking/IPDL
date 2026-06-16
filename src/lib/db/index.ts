@@ -440,71 +440,8 @@ function seed() {
 
   publications.forEach((p) => db.publications.set(p.id, p));
 
-  // Datasets
-  const datasets: DBDataset[] = [
-    {
-      id: "data-01",
-      titre: "Données épidémiologiques paludisme — Région de Dakar (2019-2024)",
-      description: "Série temporelle géoréférencée des cas hebdomadaires de paludisme enregistrés dans les districts sanitaires de Pikine, Guédiawaye et Yeumbeul.",
-      type: "csv",
-      licence: "CC BY 4.0",
-      acces: "protected",
-      fichiers: ["malaria_dakar_2019_2024.csv"],
-      metadonnees: { format: "CSV", crs: "WGS84", frequency: "weekly" },
-      creatorId: "u-chercheur",
-      creatorName: "Dr. Fatou Diop",
-      size: "148 MB",
-      downloads: 342,
-      dateDepot: "2024-01-10",
-    },
-    {
-      id: "data-02",
-      titre: "Qualité de l'air par capteurs IoT — Hann Bel-Air (2025)",
-      description: "Relevés horaires PM2.5, PM10, température et humidité par les micro-stations du réseau citoyen UMMISCO.",
-      type: "json",
-      licence: "Open Data Commons",
-      acces: "public",
-      fichiers: ["air_quality_hann_2025.json"],
-      metadonnees: { format: "JSON", sensors: "50", interval: "hourly" },
-      creatorId: "u-chercheur",
-      creatorName: "Dr. Fatou Diop",
-      size: "34 MB",
-      downloads: 812,
-      dateDepot: "2025-02-15",
-    },
-    {
-      id: "data-03",
-      titre: "Registres de morbidité clinique — Hôpital de Fann (2023)",
-      description: "Dossiers cliniques anonymisés des admissions pour infections respiratoires aiguës à Dakar.",
-      type: "xlsx",
-      licence: "Accès restreint",
-      acces: "private",
-      fichiers: [],
-      metadonnees: { records: "4200", anonymized: "true" },
-      creatorId: "u-chercheur",
-      creatorName: "Dr. Fatou Diop",
-      size: "1.2 GB",
-      downloads: 14,
-      dateDepot: "2023-11-05",
-    },
-    {
-      id: "data-04",
-      titre: "Capteurs pluviométriques Keur Massar (2024)",
-      description: "Enregistrements à haute fréquence (5 min) des niveaux d'eau des bassins de rétention lors de la saison des pluies 2024.",
-      type: "csv",
-      licence: "CC BY-SA 4.0",
-      acces: "public",
-      fichiers: ["hydro_keur_massar_2024.csv"],
-      metadonnees: { frequency: "5min", sensors: "12" },
-      creatorId: "u-respaxe",
-      creatorName: "Dr. Moussa Ndiaye",
-      size: "89 MB",
-      downloads: 504,
-      dateDepot: "2024-10-20",
-    },
-  ];
-
-  datasets.forEach((d) => db.datasets.set(d.id, d));
+  // No dataset seeds — static datasets are displayed from ummiscoData on the frontend.
+  // Real datasets are created by authenticated users via POST /api/datasets.
 
   // Events
   const events: DBEvent[] = [
