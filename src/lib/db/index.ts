@@ -10,10 +10,25 @@ export interface DBUser {
   role: UserRole;
   langue: "fr" | "en";
   biographie?: string;
-  expertises?: string[];
-  estDoctorant?: boolean;
+  expertises?: string[];        // chercheur, responsable_axe, directeur
+  // Tous rôles
+  telephone?: string;
+  orcid?: string;               // identifiant ORCID
+  lienExterne?: string;         // Google Scholar / ResearchGate / LinkedIn
+  // Chercheurs, responsables d'axe, directeur
+  affiliation?: string;         // université / établissement
+  centre?: string;              // Dakar, Bondy, Hanoï…
   organisation?: string;
   domaine?: string;
+  // Étudiants / doctorants
+  estDoctorant?: boolean;
+  directeurThese?: string;
+  anneeThese?: 1 | 2 | 3 | 4 | 5;
+  universiteInscription?: string;
+  // Partenaires
+  typeOrganisation?: "academique" | "institutionnel" | "industriel" | "bailleur";
+  pays?: string;
+  siteWeb?: string;
   /** Extra granular permissions granted individually (on top of the role). */
   permissions?: string[];
   active?: boolean;
