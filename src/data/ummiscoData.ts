@@ -1326,6 +1326,8 @@ export const PROJECTS: Project[] = [
     description:
       "The Maasai, the Gnu and the Metropolis. Réseaux de capteurs pour le suivi des grandes migrations animales en Afrique de l'Est.",
     url: "https://ummisco.fr/fr/projet-ummisco/anr-magnum/",
+    chefProjet: "François Mialhe, École de l'environnement et de la société, CNRS 5600 EVS, Université de Lyon",
+    partenaires: "University of Lyon 2 Lumière, Lyon, France ; IRD - UMMISCO, Bondy, France ; University Claude Bernard Lyon I, France ; IRD – PALOC, Kenya ; University of Namur, Belgium ; INED, France ; University of Colorado, USA ; ACC, Kenya ; UMR LETG, Rennes, France",
   },
   {
     id: "dom",
@@ -1346,6 +1348,10 @@ export const PROJECTS: Project[] = [
     description:
       "Réseau de capteurs citoyens pour la surveillance de la qualité de l'air et son impact sur l'asthme en Afrique. Science participative et acquisition de données.",
     url: "https://ummisco.fr/fr/projet-ummisco/airqaly-4-asmafri/",
+    chefProjet: "Nicolas Marilleau (porteur côté UMMISCO)",
+    duree: "48 mois",
+    financement: "890 K€",
+    partenaires: "MERIT/IRD, UCEIV/ULCO, UMMISCO",
   },
   {
     id: "aime",
@@ -1356,6 +1362,10 @@ export const PROJECTS: Project[] = [
     description:
       "Artificial Intelligence for Marine Ecosystems. Application de l'IA pour la modélisation et le suivi des écosystèmes marins méditerranéens.",
     url: "https://ummisco.fr/fr/projet-ummisco/aime/",
+    chefProjet: "Jihad Zahir, CAU / UMMISCO, Morocco",
+    duree: "48 mois",
+    dateDebut: "Janvier 2021",
+    budget: "649 K€",
   },
   {
     id: "rdt-smart-reader",
@@ -1549,11 +1559,11 @@ export const PROJECTS: Project[] = [
     centers: ["france", "afrique-ouest"],
     themes: ["agents"],
     domain: "Santé publique",
-    description: "Description à compléter.",
+    description: "Modélisation multi-agents des processus du sol et de la matière organique. Couplage de simulations à base d'agents avec des données expérimentales pour étudier la dynamique du carbone dans les sols.",
     url: "https://ummisco.fr/fr/projet-ummisco/anr-mepsom/",
     image: "/projets/MEPSOM.png",
     chefProjet: "Claire Chenu, AgroParisTech, France",
-    partenaires: "BIOEMCO, UMR UPMC-CNRS-IRD-ENS-UPEC-AgroParisTech-INRA, Paris ; Environnement et Grandes Cultures, UMR INRA-AgroParisTech, Grignon ; Laboratoire d'Écologie Microbienne, Université de Lyon 1 ; UMMISCO, IRD, Yaoundé, Cameroun ; SIMBIOS, Université d'Abertay, Dundee, Écosse",
+    partenaires: "BIOEMCO, UMR UPMC-CNRS-IRD-ENS-UPEC-AgroParisTech-INRA, Paris, France ; Environnement et Grandes Cultures, UMR INRA-AgroParisTech, Grignon, France ; Laboratoire d'Écologie Microbienne, Université de Lyon 1, Villeurbanne, France ; UMMISCO, IRD, Yaoundé, Cameroun ; SIMBIOS, Université d'Abertay, Dundee, Écosse",
   },
   {
     id: "panic",

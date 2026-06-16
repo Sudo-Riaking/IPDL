@@ -67,7 +67,7 @@
     "explorePartenaires": "Tutelles, partenaires académiques, financeurs et délivrables."
   },
   "axes": {
-    "sectionTag": "01 // Activités Scientifiques",
+    "sectionTag": "Activités Scientifiques",
     "title": "Axes Thématiques de Recherche",
     "description": "Les travaux d'UMMISCO UMI 209 se structurent autour de quatre axes complémentaires pour la science de la durabilité.",
     "publications": "Publications",
@@ -84,7 +84,7 @@
     "researchersByAxis": "Chercheurs par Axe"
   },
   "publications": {
-    "sectionTag": "02 // Valorisation scientifique",
+    "sectionTag": "Valorisation scientifique",
     "title": "Dernières Publications",
     "viewAll": "Toutes les publications",
     "cite": "Citer",
@@ -131,7 +131,7 @@
     "status_rejected": "Rejetée"
   },
   "datasets": {
-    "sectionTag": "03 // Données de Recherche Ouvertes",
+    "sectionTag": "Données de Recherche Ouvertes",
     "title": "Datasets Disponibles",
     "description": "Le laboratoire d'UMMISCO favorise la science ouverte tout en respectant scrupuleusement la confidentialité éthique à travers 3 niveaux de sécurité.",
     "download": "Télécharger",
@@ -155,7 +155,7 @@
     "submitRequest": "Soumettre la demande"
   },
   "researchers": {
-    "sectionTag": "04 // Annuaire Scientifique",
+    "sectionTag": "Annuaire Scientifique",
     "title": "Les Chercheurs Associés",
     "viewProfile": "Voir le profil",
     "publications": "publications",
@@ -169,7 +169,7 @@
     "contact": "Contact"
   },
   "events": {
-    "sectionTag": "05 // Vie de l'unité",
+    "sectionTag": "Vie de l'unité",
     "title": "Actualités & Séminaires",
     "speaker": "Intervenant :",
     "register": "S'inscrire",

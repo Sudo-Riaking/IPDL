@@ -8,15 +8,11 @@ import {
   Database,
   Users,
   ArrowRight,
-  Clipboard,
-  Check,
   ChevronRight,
-  ExternalLink,
   FlaskConical,
   Newspaper,
   Handshake,
   MessageSquare,
-  Quote,
   Globe2,
   Boxes,
 } from "lucide-react";
@@ -24,7 +20,6 @@ import {
   AXES,
   PUBLICATION,
   CENTERS,
-  Publication,
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
 import PartnersBanner from "@/components/PartnersBanner";
@@ -32,7 +27,6 @@ import StatsCounter from "@/components/StatsCounter";
 import { CENTRE_VISUALS } from "@/components/CentreGlobe";
 import GlobeCentres from "@/components/GlobeCentres";
 import { useLang } from "@/context/LangContext";
-import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
 
 export default function Home() {
   const { t } = useLang();
@@ -48,14 +42,6 @@ export default function Home() {
     { href: "/partenaires", titleKey: "nav.partenaires", descKey: "home.explorePartenaires", Icon: Handshake, accent: "text-cyan-400", bg: "bg-cyan-500/10" },
   ];
   const [selectedAxis, setSelectedAxis] = useState<string | null>(null);
-  const [copiedPubId, setCopiedPubId] = useState<string | null>(null);
-  const [citationModalPub, setCitationModalPub] = useState<Publication | null>(null);
-
-  const handleCopyCitation = (text: string, key: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedPubId(key);
-    setTimeout(() => setCopiedPubId(null), 2000);
-  };
 
   return (
     <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 font-sans">
@@ -200,44 +186,6 @@ export default function Home() {
         </div>
       </section>
 
-{/* ── FEATURED PUBLICATION ─────────────────────────────────────────── */}
-      <section id="publications" className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex flex-wrap gap-4 justify-between items-end">
-            <div>
-              <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">{t("publications.sectionTag")}</span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-white">{t("publications.title")}</h2>
-            </div>
-            <div className="flex items-center gap-4">
-              <a href={UMMISCO_SCHOLAR_SEARCH} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-400 hover:text-slate-200"><Quote className="h-3.5 w-3.5" /> Google Scholar <ExternalLink className="h-3 w-3" /></a>
-              <Link href="/publications" className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 hover:text-blue-300"><span>{t("publications.viewAll")}</span><ArrowRight className="h-3 w-3" /></Link>
-            </div>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {PUBLICATION.slice(0, 3).map((pub) => (
-              <div key={pub.id} className="rounded-xl border border-slate-900 bg-slate-950 p-6 flex flex-col justify-between shadow-md hover:border-slate-800/80 transition-all">
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="inline-flex items-center rounded-full bg-slate-900 px-2 py-0.5 text-[12px] font-semibold text-slate-400 border border-slate-800 uppercase tracking-wider">{AXES.find((a) => a.id === pub.axis)?.shortName}</span>
-                    <span className="text-[13px] text-slate-500">{pub.year}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-white leading-snug line-clamp-2">{pub.title}</h3>
-                  <p className="mt-3 text-sm text-slate-400 leading-relaxed line-clamp-3">{pub.abstract}</p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-slate-900/60">
-                  <span className="text-[13px] text-slate-500 italic block truncate mb-3">{pub.authors.join(", ")}</span>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <a href={scholarUrl(pub)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded bg-slate-900 px-2.5 py-1.5 text-[12px] font-bold text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white transition-all"><Quote className="h-3 w-3" /> Scholar</a>
-                    {doiUrl(pub.doi) && (<a href={doiUrl(pub.doi)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded bg-slate-900 px-2.5 py-1.5 text-[12px] font-bold text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white transition-all"><ExternalLink className="h-3 w-3" /> DOI</a>)}
-                    <button onClick={() => setCitationModalPub(pub)} className="inline-flex items-center gap-1.5 rounded bg-blue-600/10 px-2.5 py-1.5 text-[12px] font-bold text-blue-400 border border-blue-900/30 hover:bg-blue-600/20 active:scale-95 transition-all"><Clipboard className="h-3 w-3" /> {t("publications.cite")}</button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── EXPLORE THE PLATFORM ──────────────────────────────────────────── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10">
         <div className="mx-auto max-w-7xl">
@@ -267,40 +215,6 @@ export default function Home() {
           <div className="flex items-center gap-3"><MessageSquare className="h-5 w-5 text-blue-400" /><h3 className="text-lg font-bold text-white">{t("home.aiTitle")}</h3><span className="flex items-center gap-1.5 text-[13px] text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" /> {t("home.aiAvail")}</span></div>
         </div>
       </section>
-
-      {/* ── CITATION MODAL ────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {citationModalPub && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => setCitationModalPub(null)}>
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-2xl rounded-2xl border border-slate-800 bg-slate-900 p-6 md:p-8 shadow-2xl relative">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-6">
-                <h3 className="text-base font-bold text-white">{t("publications.citeTitle")}</h3>
-                <button onClick={() => setCitationModalPub(null)} className="text-sm text-slate-500 hover:text-slate-200">{t("common.close")}</button>
-              </div>
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center text-[13px] font-bold text-slate-500 uppercase tracking-wider">
-                    <span>{t("publications.citationApa")}</span>
-                    <button onClick={() => handleCopyCitation(citationModalPub.citationApa, "apa")} className="inline-flex items-center gap-1 hover:text-white">{copiedPubId === "apa" ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Clipboard className="h-3.5 w-3.5" />}<span>{t("publications.copyApa")}</span></button>
-                  </div>
-                  <div className="p-4 rounded-lg bg-slate-950 border border-slate-900 text-sm text-slate-300 leading-relaxed font-mono select-all">{citationModalPub.citationApa}</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center text-[13px] font-bold text-slate-500 uppercase tracking-wider">
-                    <span>{t("publications.citationBibtex")}</span>
-                    <button onClick={() => handleCopyCitation(citationModalPub.citationBibtex, "bibtex")} className="inline-flex items-center gap-1 hover:text-white">{copiedPubId === "bibtex" ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Clipboard className="h-3.5 w-3.5" />}<span>{t("publications.copyBibtex")}</span></button>
-                  </div>
-                  <pre className="p-4 rounded-lg bg-slate-950 border border-slate-900 text-[13px] text-slate-300 leading-relaxed font-mono overflow-x-auto select-all max-h-40">{citationModalPub.citationBibtex}</pre>
-                </div>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <a href={scholarUrl(citationModalPub)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><Quote className="h-3.5 w-3.5" /> {t("home.scholarLink")}</a>
-                  {doiUrl(citationModalPub.doi) && (<a href={doiUrl(citationModalPub.doi)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><ExternalLink className="h-3.5 w-3.5" /> {t("home.doiLink")}</a>)}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       <PartnersBanner />
       <Footer />
