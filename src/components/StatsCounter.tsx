@@ -9,7 +9,7 @@ interface StatsCounterProps {
   duration?: number;
 }
 
-export default function StatsCounter({ value, label, suffix = "+", duration = 1500 }: StatsCounterProps) {
+export default function StatsCounter({ value, label, suffix = "+", duration = 3000 }: StatsCounterProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const started = useRef(false);
@@ -19,18 +19,16 @@ export default function StatsCounter({ value, label, suffix = "+", duration = 15
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
-          const steps = 40;
-          const increment = value / steps;
-          let current = 0;
-          const interval = setInterval(() => {
-            current += increment;
-            if (current >= value) {
-              setCount(value);
-              clearInterval(interval);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
+          const startTime = performance.now();
+          const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+          const tick = (now: number) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            setCount(Math.floor(easeOutCubic(progress) * value));
+            if (progress < 1) requestAnimationFrame(tick);
+            else setCount(value);
+          };
+          requestAnimationFrame(tick);
         }
       },
       { threshold: 0.5 }
