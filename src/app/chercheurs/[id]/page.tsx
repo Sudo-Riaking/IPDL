@@ -51,7 +51,11 @@ export default function ResearcherProfilePage({ params }: PageProps) {
     notFound();
   }
 
-  const canSign = isAuthenticated && ["chercheur", "responsable_axe", "directeur"].includes(user?.role ?? "");
+  // Chercheur peut signer son propre profil, directeur peut signer tous les profils
+  const canSign = isAuthenticated && (
+    user?.role === "directeur" ||
+    (["chercheur", "responsable_axe"].includes(user?.role ?? "") && user?.id === researcher.id)
+  );
 
   const sigPayload = {
     type: "profile" as const,
