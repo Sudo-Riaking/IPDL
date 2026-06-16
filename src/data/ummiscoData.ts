@@ -1138,18 +1138,6 @@ export const RESEARCHERS: Researcher[] = [
     bio: "Doctorant au Centre Méditerranée. Travaux sur l'apprentissage automatique et la modélisation des systèmes dynamiques complexes.",
     avatarSeed: "ZB", photoUrl: "/photos/zakaria-belghali.png", publicationsCount: 1,
   },
-  {
-    id: "diane-tchuani-tchakonte", name: "Diane TCHUANI TCHAKONTE",
-    title: "Responsable de thème — Centre Afrique centrale et de l'est", role: "responsable_theme", center: "afrique-centrale",
-    axes: ["ia", "capteurs"],
-    bio: "Responsable de thème au Centre Afrique centrale et de l'est. Experte en intelligence artificielle et capteurs pour les applications en Afrique.",
-    email: "diane.tchuani@gmail.com",
-    avatarSeed: "DT", photoUrl: "/photos/diane-tchuani-tchakonte.png", publicationsCount: 1,
-    themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
-    publications: [
-      { title: "Adaptive healing procedure for lifetime improvement in Wireless Sensor Networks" },
-    ],
-  },
 ];
 
 // ─── Publications ─────────────────────────────────────────────────────────────
