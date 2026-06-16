@@ -28,7 +28,6 @@ export default function Navigation() {
     { label: t("nav.equipe"), href: "/equipe" },
     { label: t("nav.partenaires"), href: "/partenaires" },
     { label: t("nav.actualites"), href: "/actualites" },
-    { label: "Attestations", href: "/attestations" },
   ];
 
   const handleLogout = () => {
@@ -204,6 +203,16 @@ export default function Navigation() {
                   <LayoutDashboard className="h-4 w-4" />
                   <span>{t("dashboard.title")}</span>
                 </Link>
+                {["chercheur", "responsable_axe", "directeur"].includes(user.role) && (
+                  <Link
+                    href="/attestations"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-800 py-2.5 text-base font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200"
+                  >
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Attestations</span>
+                  </Link>
+                )}
                 <button
                   onClick={handleLogout}
                   className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-800 py-2.5 text-base font-semibold uppercase tracking-wider text-slate-400"
