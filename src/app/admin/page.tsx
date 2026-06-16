@@ -20,11 +20,11 @@ import { AXES } from "@/data/ummiscoData";
 type Tab = "publications" | "users" | "acl";
 
 const ROLE_OPTIONS = [
-  { value: "etudiant", label: "Étudiant" },
-  { value: "chercheur", label: "Chercheur" },
-  { value: "responsable_axe", label: "Responsable d'axe" },
-  { value: "partenaire", label: "Partenaire" },
-  { value: "directeur", label: "Directeur" },
+  { value: "etudiant",        labelKey: "admin.roleEtudiant" },
+  { value: "chercheur",       labelKey: "admin.roleChercheur" },
+  { value: "responsable_axe", labelKey: "admin.roleResponsableAxe" },
+  { value: "partenaire",      labelKey: "admin.rolePartenaire" },
+  { value: "directeur",       labelKey: "admin.roleDirecteur" },
 ];
 
 const STATUS_STYLES: Record<string, string> = {
@@ -171,7 +171,7 @@ function UserDetailPanel({
                 className="flex-1 rounded-lg border border-slate-700 bg-slate-950 text-xs text-slate-200 px-2 py-1.5 focus:outline-none"
               >
                 {ROLE_OPTIONS.map((r) => (
-                  <option key={r.value} value={r.value}>{r.label}</option>
+                  <option key={r.value} value={r.value}>{t(r.labelKey)}</option>
                 ))}
               </select>
               <button
@@ -636,7 +636,7 @@ export default function AdminPage() {
                   >
                     <option value="all">{t("admin.allRoles")}</option>
                     {ROLE_OPTIONS.map((r) => (
-                      <option key={r.value} value={r.value}>{r.label}</option>
+                      <option key={r.value} value={r.value}>{t(r.labelKey)}</option>
                     ))}
                   </select>
                   <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 text-slate-500 pointer-events-none" />
@@ -749,9 +749,9 @@ export default function AdminPage() {
                   .sort((a, b) => Number(a.status !== "en_attente") - Number(b.status !== "en_attente"))
                   .map((r) => {
                     const style = {
-                      en_attente: { c: "text-amber-400 border-amber-900/30 bg-amber-500/10", l: "En attente" },
-                      approuvee: { c: "text-green-400 border-green-900/30 bg-green-500/10", l: "Approuvée" },
-                      refusee: { c: "text-red-400 border-red-900/30 bg-red-500/10", l: "Refusée" },
+                      en_attente: { c: "text-amber-400 border-amber-900/30 bg-amber-500/10", lk: "admin.aclPending" },
+                      approuvee:  { c: "text-green-400 border-green-900/30 bg-green-500/10", lk: "admin.aclApproved" },
+                      refusee:    { c: "text-red-400 border-red-900/30 bg-red-500/10",       lk: "admin.aclRejected" },
                     }[r.status];
                     return (
                       <div key={r.id} className="rounded-xl border border-slate-900 bg-slate-900/10 p-4">
@@ -759,7 +759,7 @@ export default function AdminPage() {
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${style.c}`}>
-                                {style.l}
+                                {t(style.lk)}
                               </span>
                               <span className="text-[10px] text-slate-500">
                                 {new Date(r.createdAt).toLocaleDateString("fr-FR")}

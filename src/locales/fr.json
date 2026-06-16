@@ -121,7 +121,14 @@
     "prev": "Précédent",
     "next": "Suivant",
     "scholarLink": "Voir sur Google Scholar",
-    "doiLink": "Résoudre le DOI"
+    "doiLink": "Résoudre le DOI",
+    "backToList": "Retour aux publications",
+    "viewOnDoi": "Voir sur DOI",
+    "abstractLabel": "Résumé",
+    "authorsLabel": "Auteurs",
+    "status_pending": "En attente",
+    "status_validated": "Validée",
+    "status_rejected": "Rejetée"
   },
   "datasets": {
     "sectionTag": "03 // Données de Recherche Ouvertes",
@@ -260,7 +267,15 @@
     "resultsDesc": "Consultez les publications, datasets et simulations issus de ces projets de recherche.",
     "axes": "Axes",
     "centers": "Centres",
-    "viewDetails": "Voir détails"
+    "viewDetails": "Voir détails",
+    "learnMore": "En savoir plus",
+    "labelLead": "Chef de projet",
+    "labelDuration": "Durée",
+    "labelStart": "Date de début",
+    "labelBudget": "Budget",
+    "labelInstitution": "Institution porteuse",
+    "labelFunding": "Financement",
+    "labelPartners": "Partenaires"
   },
   "partenaires": {
     "title": "Partenaires & Bailleurs",
@@ -333,7 +348,14 @@
     "editProfile": "Modifier le profil",
     "save": "Enregistrer",
     "cancel": "Annuler",
-    "newSim": "Nouvelle simulation"
+    "newSim": "Nouvelle simulation",
+    "changePhoto": "Changer la photo",
+    "pubSubmitted": "Publication soumise — en attente de validation.",
+    "pubError": "Erreur lors de la soumission.",
+    "dsSubmitted": "Dataset déposé avec succès.",
+    "dsError": "Erreur lors du dépôt.",
+    "goodbye": "À bientôt !",
+    "learnMore": "En savoir plus"
   },
   "profile": {
     "updated": "Profil mis à jour.",
@@ -509,7 +531,15 @@
     "statPending": "En attente",
     "statUsers": "Utilisateurs",
     "statValidated": "Validées",
-    "noPubsFilter": "Aucune publication ne correspond aux filtres sélectionnés."
+    "noPubsFilter": "Aucune publication ne correspond aux filtres sélectionnés.",
+    "aclPending": "En attente",
+    "aclApproved": "Approuvée",
+    "aclRejected": "Refusée",
+    "roleEtudiant": "Étudiant",
+    "roleChercheur": "Chercheur",
+    "roleResponsableAxe": "Responsable d'axe",
+    "rolePartenaire": "Partenaire",
+    "roleDirecteur": "Directeur"
   },
   "contact": {
     "title": "Contacter UMMISCO",
