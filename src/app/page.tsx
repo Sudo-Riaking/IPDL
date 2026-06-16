@@ -1,24 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  BookOpen,
   Database,
   Users,
   ArrowRight,
-  ChevronRight,
   FlaskConical,
   Newspaper,
   Handshake,
   MessageSquare,
   Globe2,
   Boxes,
+  BookOpen,
 } from "lucide-react";
 import {
   AXES,
-  PUBLICATION,
   CENTERS,
 } from "@/data/ummiscoData";
 import Footer from "@/components/Footer";
@@ -41,7 +38,6 @@ export default function Home() {
     { href: "/actualites", titleKey: "nav.actualites", descKey: "home.exploreActualites", Icon: Newspaper, accent: "text-rose-400", bg: "bg-rose-500/10" },
     { href: "/partenaires", titleKey: "nav.partenaires", descKey: "home.explorePartenaires", Icon: Handshake, accent: "text-cyan-400", bg: "bg-cyan-500/10" },
   ];
-  const [selectedAxis, setSelectedAxis] = useState<string | null>(null);
 
   return (
     <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 font-sans">
@@ -149,39 +145,30 @@ export default function Home() {
       <section id="axes" className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8">
-           
             <h2 className="text-3xl font-extrabold tracking-tight text-white">{t("axes.title")}</h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {AXES.map((axis) => (
-              <button type="button" key={axis.id} onClick={() => setSelectedAxis(selectedAxis === axis.id ? null : axis.id)} className={`text-left cursor-pointer rounded-xl border p-6 transition-all duration-300 flex flex-col justify-between min-h-52 ${selectedAxis === axis.id ? "border-blue-500 bg-slate-900/60 shadow-lg shadow-blue-500/5 -translate-y-1" : "border-slate-800 bg-slate-900/10 hover:border-slate-700 hover:-translate-y-1"}`}>
+            {AXES.map((axis, i) => (
+              <Link
+                key={axis.id}
+                href={`/publications?axe=${axis.id}`}
+                className="group text-left rounded-xl border border-slate-800 bg-slate-900/10 p-6 hover:border-blue-500/50 hover:bg-slate-900/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-52"
+              >
                 <div>
                   <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${axis.color} flex items-center justify-center mb-4 shadow-lg`}>
-                    <span className="text-lg font-extrabold text-white">{AXES.indexOf(axis) + 1}</span>
+                    <span className="text-lg font-extrabold text-white">{i + 1}</span>
                   </div>
-                  <h3 className="text-base font-bold text-slate-100 leading-snug">{axis.name}</h3>
+                  <h3 className="text-base font-bold text-slate-100 leading-snug group-hover:text-white">{axis.name}</h3>
                   <p className="mt-2 text-[13px] text-slate-500 leading-relaxed line-clamp-3">{axis.description}</p>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-slate-500 font-semibold uppercase tracking-wider mt-4">
-                  <span>{axis.shortName}</span>
-                  <ChevronRight className={`h-3 w-3 transition-transform ${selectedAxis === axis.id ? "rotate-90 text-blue-500" : ""}`} />
+                <div className="flex items-center gap-1.5 text-[13px] text-slate-500 group-hover:text-blue-400 font-semibold uppercase tracking-wider mt-4 transition-colors">
+                  <BookOpen className="h-3 w-3" />
+                  <span>Voir les publications</span>
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
-          <AnimatePresence>
-            {selectedAxis && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-8 rounded-xl border border-slate-900 bg-slate-900/30 p-6 overflow-hidden">
-                <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-blue-500" /> {t("axes.allPublications")}</h4>
-                <div className="space-y-4">
-                  {PUBLICATION.filter((p) => p.axis === selectedAxis).map((p) => (
-                    <div key={p.id} className="border-b border-slate-900/60 pb-3 last:border-b-0 last:pb-0"><div className="text-sm font-bold text-slate-200">{p.title}</div><div className="text-[13px] text-slate-400 mt-1">{p.authors.join(", ")} — {p.year}</div></div>
-                  ))}
-                  {PUBLICATION.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">{t("axes.noPublications2")}</div>)}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 

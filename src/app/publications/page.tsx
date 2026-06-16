@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -32,8 +33,9 @@ import type { SignPayload } from "@/hooks/useSignature";
 export default function PublicationsPage() {
   const { t } = useLang();
   const { user, isAuthenticated } = useAuth();
+  const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedAxis, setSelectedAxis] = useState<string>("all");
+  const [selectedAxis, setSelectedAxis] = useState<string>(searchParams.get("axe") ?? "all");
   const [selectedResearcher, setSelectedResearcher] = useState<string>("all");
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [copiedPubId, setCopiedPubId] = useState<string | null>(null);
