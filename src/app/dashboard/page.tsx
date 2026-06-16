@@ -6,6 +6,7 @@ import { User, BookOpen, Database, Activity, FileText, Plus, Edit3, Loader2, Che
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useLang } from "@/context/LangContext";
+import { useNotification } from "@/context/NotificationContext";
 import type { DBPublication, DBDataset, DBSimulation } from "@/lib/db";
 import { AXES } from "@/data/ummiscoData";
 
@@ -24,6 +25,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const { user, token, isAuthenticated, authLoading, logout } = useAuth();
   const { t } = useLang();
+  const { notify } = useNotification();
   const [tab, setTab] = useState<Tab>("profile");
 
   // Data states
@@ -170,6 +172,9 @@ export default function DashboardPage() {
           motsClefs: "", fichierPdf: "", googleScholarUrl: "",
           datasetsLies: [], citationApa: "", citationBibtex: "",
         });
+        notify("Publication soumise — en attente de validation.", "success");
+      } else {
+        notify("Erreur lors de la soumission.", "error");
       }
     } finally {
       setPubSubmitting(false);
@@ -190,6 +195,9 @@ export default function DashboardPage() {
         setDatasets((prev) => [ds, ...prev]);
         setShowDsForm(false);
         setDsTitle(""); setDsDesc("");
+        notify("Dataset déposé avec succès.", "success");
+      } else {
+        notify("Erreur lors du dépôt.", "error");
       }
     } finally {
       setDsSubmitting(false);
@@ -220,7 +228,7 @@ export default function DashboardPage() {
             <p className="text-xs text-slate-500 mt-1">{user?.email} · <span className="text-blue-400 font-semibold capitalize">{user?.role}</span></p>
           </div>
           <button
-            onClick={() => { logout(); router.push("/"); }}
+            onClick={() => { notify("À bientôt !", "info"); logout(); router.push("/"); }}
             className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-3 py-2 text-xs text-slate-500 hover:text-red-400 hover:border-red-900/30 transition-all"
           >
             <LogOut className="h-3.5 w-3.5" /> {t("nav.logout")}
