@@ -134,6 +134,7 @@ export interface DBDataset {
   fichiers: string[];
   metadonnees: Record<string, string>;
   creatorId: string;
+  creatorName?: string;
   size: string;
   downloads: number;
   dateDepot: string;
@@ -451,6 +452,7 @@ function seed() {
       fichiers: ["malaria_dakar_2019_2024.csv"],
       metadonnees: { format: "CSV", crs: "WGS84", frequency: "weekly" },
       creatorId: "u-chercheur",
+      creatorName: "Dr. Fatou Diop",
       size: "148 MB",
       downloads: 342,
       dateDepot: "2024-01-10",
@@ -465,6 +467,7 @@ function seed() {
       fichiers: ["air_quality_hann_2025.json"],
       metadonnees: { format: "JSON", sensors: "50", interval: "hourly" },
       creatorId: "u-chercheur",
+      creatorName: "Dr. Fatou Diop",
       size: "34 MB",
       downloads: 812,
       dateDepot: "2025-02-15",
@@ -479,6 +482,7 @@ function seed() {
       fichiers: [],
       metadonnees: { records: "4200", anonymized: "true" },
       creatorId: "u-chercheur",
+      creatorName: "Dr. Fatou Diop",
       size: "1.2 GB",
       downloads: 14,
       dateDepot: "2023-11-05",
@@ -493,6 +497,7 @@ function seed() {
       fichiers: ["hydro_keur_massar_2024.csv"],
       metadonnees: { frequency: "5min", sensors: "12" },
       creatorId: "u-respaxe",
+      creatorName: "Dr. Moussa Ndiaye",
       size: "89 MB",
       downloads: 504,
       dateDepot: "2024-10-20",

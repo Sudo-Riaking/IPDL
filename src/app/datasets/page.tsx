@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Download, Lock, Eye, Shield, Filter, Database, Loader2, KeyRound, Send, X, Check, ShieldCheck } from "lucide-react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { Download, Lock, Eye, Shield, Filter, Database, Loader2, KeyRound, Send, X, Check, ShieldCheck, Users, Calendar } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
@@ -24,13 +25,16 @@ const ACCESS_ICONS: Record<string, React.ElementType> = {
   private:   Shield,
 };
 
-export default function DatasetsPage() {
+function DatasetsContent() {
+  const searchParams = useSearchParams();
   const { isAuthenticated, token, user } = useAuth();
   const { t } = useLang();
   const { notify } = useNotification();
 
   const [datasets, setDatasets] = useState<DBDataset[]>([]);
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState<string>(searchParams.get("acces") ?? "all");
+  const [creatorFilter, setCreatorFilter] = useState<string>(searchParams.get("creator") ?? "all");
+  const [yearFilter, setYearFilter] = useState<string>(searchParams.get("year") ?? "all");
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState<string | null>(null);
 
@@ -80,7 +84,24 @@ export default function DatasetsPage() {
       .finally(() => setLoading(false));
   }, [token]);
 
-  const filtered = filter === "all" ? datasets : datasets.filter((d) => d.acces === filter);
+  // Derive creator and year options from loaded datasets
+  const creators = Array.from(
+    datasets.reduce((map, d) => {
+      if (!map.has(d.creatorId)) map.set(d.creatorId, d.creatorName ?? d.creatorId);
+      return map;
+    }, new Map<string, string>())
+  );
+
+  const years = [...new Set(datasets.map((d) => d.dateDepot.substring(0, 4)))].sort(
+    (a, b) => b.localeCompare(a)
+  );
+
+  const filtered = datasets.filter((d) => {
+    if (filter !== "all" && d.acces !== filter) return false;
+    if (creatorFilter !== "all" && d.creatorId !== creatorFilter) return false;
+    if (yearFilter !== "all" && d.dateDepot.substring(0, 4) !== yearFilter) return false;
+    return true;
+  });
 
   const handleDownload = async (ds: DBDataset) => {
     setDownloading(ds.id);
@@ -95,7 +116,6 @@ export default function DatasetsPage() {
         return;
       }
 
-      // Extract filename from Content-Disposition header
       const disposition = res.headers.get("Content-Disposition") ?? "";
       const match = disposition.match(/filename="([^"]+)"/);
       const filename = match ? match[1] : `dataset_${ds.id}.csv`;
@@ -119,6 +139,9 @@ export default function DatasetsPage() {
     }
   };
 
+  const selectClass =
+    "rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 px-2 py-1.5 focus:outline-none focus:border-blue-500/50 cursor-pointer";
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -131,7 +154,39 @@ export default function DatasetsPage() {
           <div aria-hidden className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
         </div>
 
-        {/* Filter bar */}
+        {/* Member & year filters */}
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+            <Users className="h-3 w-3" /> Auteur :
+          </div>
+          <select value={creatorFilter} onChange={(e) => setCreatorFilter(e.target.value)} className={selectClass}>
+            <option value="all">Tous</option>
+            {creators.map(([id, name]) => (
+              <option key={id} value={id}>{name}</option>
+            ))}
+          </select>
+
+          <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider ml-3">
+            <Calendar className="h-3 w-3" /> Année :
+          </div>
+          <select value={yearFilter} onChange={(e) => setYearFilter(e.target.value)} className={selectClass}>
+            <option value="all">Toutes</option>
+            {years.map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+
+          {(creatorFilter !== "all" || yearFilter !== "all" || filter !== "all") && (
+            <button
+              onClick={() => { setCreatorFilter("all"); setYearFilter("all"); setFilter("all"); }}
+              className="ml-2 inline-flex items-center gap-1 text-[10px] text-slate-500 hover:text-red-400 transition-colors"
+            >
+              <X className="h-3 w-3" /> Réinitialiser
+            </button>
+          )}
+        </div>
+
+        {/* Access filter bar */}
         <div className="flex items-center gap-3 mb-8 flex-wrap">
           <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
             <Filter className="h-3 w-3" /> {t("datasets.filterAccess")} :
@@ -182,7 +237,7 @@ export default function DatasetsPage() {
                       <div>
                         <h3 className="text-sm font-bold text-white leading-snug">{ds.titre}</h3>
                         <span className="text-[10px] text-slate-500 mt-0.5 block">
-                          {t("datasets.createdBy")} · {ds.dateDepot}
+                          {ds.creatorName ?? ds.creatorId} · {ds.dateDepot}
                         </span>
                       </div>
                       <span
@@ -367,5 +422,13 @@ export default function DatasetsPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function DatasetsPage() {
+  return (
+    <Suspense>
+      <DatasetsContent />
+    </Suspense>
   );
 }
