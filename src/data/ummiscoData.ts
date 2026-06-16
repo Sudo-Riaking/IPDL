@@ -426,9 +426,14 @@ export const RESEARCHERS: Researcher[] = [
   {
     id: "diane-tchuani-tchakonte", name: "Diane TCHUANI TCHAKONTE",
     title: "Responsable de thème — Centre Afrique centrale et de l'est", role: "responsable_theme", center: "afrique-centrale",
-    axes: ["agents", "ia"],
-    bio: "Responsable de thème au Centre Cameroun. Spécialiste de la modélisation mathématique des épidémies et des maladies infectieuses tropicales.",
+    axes: ["agents", "ia", "capteurs"],
+    bio: "Responsable de thème au Centre Afrique centrale et de l'est. Spécialiste de la modélisation mathématique des épidémies et de l'intelligence artificielle appliquée aux capteurs.",
+    email: "diane.tchuani@gmail.com",
     avatarSeed: "DT", photoUrl: "/photos/diane-tchuani-tchakonte.png", publicationsCount: 16,
+    themesDescription: "Intelligence Artificielle et apprentissage profond / AI and deep learning",
+    publications: [
+      { title: "Adaptive healing procedure for lifetime improvement in Wireless Sensor Networks" },
+    ],
   },
   {
     id: "diaraf-seck", name: "Diaraf SECK",
