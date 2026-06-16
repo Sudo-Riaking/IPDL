@@ -47,7 +47,6 @@ export default function Home() {
     <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 font-sans">
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative flex flex-col justify-center min-h-[82vh] py-20 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-900">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
         <div className="absolute top-0 left-1/4 -z-10 h-72 w-72 rounded-full bg-blue-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 -z-10 h-72 w-72 rounded-full bg-green-600/15 blur-[110px] pointer-events-none" />
         <div className="absolute top-1/3 right-1/3 -z-10 h-56 w-56 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
