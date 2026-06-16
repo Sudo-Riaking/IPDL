@@ -14,8 +14,8 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useSignature } from "@/hooks/useSignature";
 import { useNotification } from "@/context/NotificationContext";
-import { PROJECTS, RESEARCHERS } from "@/data/ummiscoData";
-import type { DBSignature } from "@/lib/db";
+import { PROJECTS } from "@/data/ummiscoData";
+import type { DBSignature, DBPublication, DBDataset } from "@/lib/db";
 
 // ─── Types d'attestation disponibles ─────────────────────────────────────────
 
@@ -73,13 +73,16 @@ export default function AttestationsPage() {
   const [loadingSigs, setLoadingSigs] = useState(false);
   const [generating, setGenerating] = useState(false);
 
-  // Charger les attestations existantes
+  // Publications et datasets de l'utilisateur courant
+  const [myPubs, setMyPubs] = useState<DBPublication[]>([]);
+  const [myDatasets, setMyDatasets] = useState<DBDataset[]>([]);
+
+  // Charger les attestations + publications + datasets de l'utilisateur
   useEffect(() => {
     if (!token) return;
+
     setLoadingSigs(true);
-    fetch("/api/signatures", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch("/api/signatures", { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((data) =>
         setMySignatures(
@@ -90,14 +93,30 @@ export default function AttestationsPage() {
       )
       .catch(() => setMySignatures([]))
       .finally(() => setLoadingSigs(false));
-  }, [token]);
+
+    // Publications dont l'utilisateur est auteur
+    fetch("/api/publications/mine", { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.json())
+      .then((data) => setMyPubs(Array.isArray(data) ? data : []))
+      .catch(() => setMyPubs([]));
+
+    // Datasets déposés par l'utilisateur
+    fetch("/api/datasets", { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.json())
+      .then((data: DBDataset[]) =>
+        setMyDatasets(Array.isArray(data) ? data.filter((d) => d.creatorId === user?.id) : [])
+      )
+      .catch(() => setMyDatasets([]));
+  }, [token, user?.id]);
 
   const projectOptions = PROJECTS.map((p) => ({ id: p.id, label: p.name }));
-  const researcherOptions = RESEARCHERS.map((r) => ({ id: r.id, label: r.name }));
 
   const getSubjectOptions = (): { id: string; label: string }[] => {
     if (selectedType === "contribution_projet") return projectOptions;
-    if (selectedType === "auteur_publication") return researcherOptions;
+    if (selectedType === "auteur_publication")
+      return myPubs.map((p) => ({ id: p.id, label: p.titre }));
+    if (selectedType === "depot_dataset")
+      return myDatasets.map((d) => ({ id: d.id, label: d.titre }));
     return [];
   };
 
@@ -256,8 +275,11 @@ export default function AttestationsPage() {
             {selectedType !== "membre_unite" && (
               <div className="space-y-1.5">
                 <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                  {selectedType === "contribution_projet" ? "Projet" : "Sujet"}
+                  {selectedType === "contribution_projet" && "Projet"}
+                  {selectedType === "auteur_publication" && "Ma publication"}
+                  {selectedType === "depot_dataset" && "Mon dataset"}
                 </label>
+
                 {subjectOptions.length > 0 ? (
                   <select
                     value={subject}
@@ -271,12 +293,22 @@ export default function AttestationsPage() {
                       </option>
                     ))}
                   </select>
+                ) : selectedType === "auteur_publication" ? (
+                  <p className="text-xs text-slate-500 italic border border-slate-800 rounded-lg px-3 py-2.5 bg-slate-900/30">
+                    Vous n&apos;avez pas encore de publications enregistrées sur le portail.
+                    Déposez-en une depuis votre tableau de bord.
+                  </p>
+                ) : selectedType === "depot_dataset" ? (
+                  <p className="text-xs text-slate-500 italic border border-slate-800 rounded-lg px-3 py-2.5 bg-slate-900/30">
+                    Vous n&apos;avez pas encore de datasets déposés sur le portail.
+                    Déposez-en un depuis votre tableau de bord.
+                  </p>
                 ) : (
                   <input
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    placeholder="Titre de la publication ou du dataset…"
+                    placeholder="Intitulé du projet…"
                     className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
                 )}

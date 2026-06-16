@@ -28,6 +28,7 @@ export default function Navigation() {
     { label: t("nav.equipe"), href: "/equipe" },
     { label: t("nav.partenaires"), href: "/partenaires" },
     { label: t("nav.actualites"), href: "/actualites" },
+    { label: "Attestations", href: "/attestations" },
   ];
 
   const handleLogout = () => {
