@@ -43,14 +43,18 @@ export default function ResearcherProfilePage({ params }: PageProps) {
   const [showSigModal, setShowSigModal] = useState(false);
   const [freshSig, setFreshSig] = useState<{ id: string; signerName: string; timestamp: string } | null>(null);
 
-  // DB datasets for this researcher
+  // DB datasets: keep all for deduplication, filter by researcher for display
   const [dbDatasets, setDbDatasets] = useState<DBDataset[]>([]);
+  const [allDbIds, setAllDbIds] = useState<Set<string>>(new Set());
   useEffect(() => {
     fetch("/api/datasets", {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((r) => r.ok ? r.json() : [])
-      .then((all: DBDataset[]) => setDbDatasets(all.filter((d) => d.creatorId === id)))
+      .then((all: DBDataset[]) => {
+        setAllDbIds(new Set(all.map((d) => d.id)));
+        setDbDatasets(all.filter((d) => d.creatorId === id));
+      })
       .catch(() => {});
   }, [id, token]);
 
@@ -284,9 +288,8 @@ export default function ResearcherProfilePage({ params }: PageProps) {
 
           {/* Datasets */}
           {(() => {
-            // Merge static and DB datasets (DB takes priority if same id)
-            const dbIds = new Set(dbDatasets.map((d) => d.id));
-            const mergedStatic = staticDatasets.filter((d) => !dbIds.has(d.id)).map((d) => ({
+            // Exclude static datasets whose ID already exists anywhere in the DB
+            const mergedStatic = staticDatasets.filter((d) => !allDbIds.has(d.id)).map((d) => ({
               id: d.id,
               titre: d.title,
               description: d.description,
