@@ -343,13 +343,7 @@ export default function ResearcherProfilePage({ params }: PageProps) {
                         <div className="pt-2 border-t border-slate-900">
                           {viewable ? (
                             <Link
-                              href={(() => {
-                                const dateDepot = (dataset as { dateDepot?: string }).dateDepot;
-                                const year = dateDepot?.substring(0, 4) ?? "";
-                                const params = new URLSearchParams({ creator: dataset.creatorId, acces: dataset.acces });
-                                if (year) params.set("year", year);
-                                return `/datasets?${params.toString()}`;
-                              })()}
+                              href="/datasets"
                               className="inline-flex items-center gap-1 text-[13px] text-blue-400 hover:text-blue-300 font-semibold"
                             >
                               <span>{t("researcher.consult")}</span>
