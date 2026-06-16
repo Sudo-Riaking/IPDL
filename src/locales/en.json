@@ -121,7 +121,14 @@
     "prev": "Previous",
     "next": "Next",
     "scholarLink": "View on Google Scholar",
-    "doiLink": "Resolve DOI"
+    "doiLink": "Resolve DOI",
+    "backToList": "Back to publications",
+    "viewOnDoi": "View on DOI",
+    "abstractLabel": "Abstract",
+    "authorsLabel": "Authors",
+    "status_pending": "Pending",
+    "status_validated": "Validated",
+    "status_rejected": "Rejected"
   },
   "datasets": {
     "sectionTag": "03 // Open Research Data",
@@ -260,7 +267,15 @@
     "resultsDesc": "Browse the publications, datasets and simulations produced by these research projects.",
     "axes": "Areas",
     "centers": "Centres",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "learnMore": "Learn more",
+    "labelLead": "Project lead",
+    "labelDuration": "Duration",
+    "labelStart": "Start date",
+    "labelBudget": "Budget",
+    "labelInstitution": "Lead institution",
+    "labelFunding": "Funding",
+    "labelPartners": "Partners"
   },
   "partenaires": {
     "title": "Partners & Funders",
@@ -333,7 +348,14 @@
     "editProfile": "Edit profile",
     "save": "Save",
     "cancel": "Cancel",
-    "newSim": "New simulation"
+    "newSim": "New simulation",
+    "changePhoto": "Change photo",
+    "pubSubmitted": "Publication submitted — pending validation.",
+    "pubError": "Submission error.",
+    "dsSubmitted": "Dataset deposited successfully.",
+    "dsError": "Deposit error.",
+    "goodbye": "See you soon!",
+    "learnMore": "Learn more"
   },
   "profile": {
     "updated": "Profile updated.",
@@ -509,7 +531,15 @@
     "statPending": "Pending",
     "statUsers": "Users",
     "statValidated": "Validated",
-    "noPubsFilter": "No publications match the selected filters."
+    "noPubsFilter": "No publications match the selected filters.",
+    "aclPending": "Pending",
+    "aclApproved": "Approved",
+    "aclRejected": "Rejected",
+    "roleEtudiant": "Student",
+    "roleChercheur": "Researcher",
+    "roleResponsableAxe": "Axis Lead",
+    "rolePartenaire": "Partner",
+    "roleDirecteur": "Director"
   },
   "contact": {
     "title": "Contact UMMISCO",

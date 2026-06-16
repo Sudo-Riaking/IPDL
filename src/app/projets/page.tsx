@@ -98,6 +98,7 @@ function getDistinctDomains(projects: Project[]): string[] {
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [imgFailed, setImgFailed] = useState(false);
+  const { t } = useLang();
   const dc = getDomainConfig(project.domain);
   const gradient = getDomainGradient(project.domain);
 
@@ -114,13 +115,13 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   }, [onClose]);
 
   const details = [
-    { label: "Chef de projet",       value: project.chefProjet },
-    { label: "Durée",                value: project.duree },
-    { label: "Date de début",        value: project.dateDebut },
-    { label: "Budget",               value: project.budget },
-    { label: "Institution porteuse", value: project.institutionPorteuse },
-    { label: "Financement",          value: project.financement },
-    { label: "Partenaires",          value: project.partenaires },
+    { label: t("projets.labelLead"),        value: project.chefProjet },
+    { label: t("projets.labelDuration"),    value: project.duree },
+    { label: t("projets.labelStart"),       value: project.dateDebut },
+    { label: t("projets.labelBudget"),      value: project.budget },
+    { label: t("projets.labelInstitution"), value: project.institutionPorteuse },
+    { label: t("projets.labelFunding"),     value: project.financement },
+    { label: t("projets.labelPartners"),    value: project.partenaires },
   ].filter((d): d is { label: string; value: string } => !!d.value);
 
   return (
@@ -212,7 +213,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-gray-100 hover:bg-blue-500 active:scale-[0.98] transition"
             >
-              SAVOIR PLUS <ExternalLink className="h-4 w-4" />
+              {t("projets.learnMore").toUpperCase()} <ExternalLink className="h-4 w-4" />
             </a>
           )}
         </div>

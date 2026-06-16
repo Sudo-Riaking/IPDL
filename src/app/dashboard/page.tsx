@@ -14,12 +14,12 @@ import { AXES } from "@/data/ummiscoData";
 type Tab = "profile" | "publications" | "datasets" | "simulations";
 
 const STATUS_CONFIG = {
-  validee: { label: "Validée", color: "text-green-400", icon: CheckCircle2 },
-  en_attente: { label: "En attente", color: "text-amber-400", icon: Clock },
-  rejetee: { label: "Rejetée", color: "text-red-400", icon: XCircle },
-  terminee: { label: "Terminée", color: "text-green-400", icon: CheckCircle2 },
-  en_cours: { label: "En cours", color: "text-blue-400", icon: Loader2 },
-  erreur: { label: "Erreur", color: "text-red-400", icon: XCircle },
+  validee:    { labelKey: "publications.status_validated", color: "text-green-400", icon: CheckCircle2 },
+  en_attente: { labelKey: "publications.status_pending",   color: "text-amber-400", icon: Clock },
+  rejetee:    { labelKey: "publications.status_rejected",  color: "text-red-400",   icon: XCircle },
+  terminee:   { labelKey: "common.done",                   color: "text-green-400", icon: CheckCircle2 },
+  en_cours:   { labelKey: "common.running",                color: "text-blue-400",  icon: Loader2 },
+  erreur:     { labelKey: "common.error",                  color: "text-red-400",   icon: XCircle },
 };
 
 export default function DashboardPage() {
@@ -184,9 +184,9 @@ export default function DashboardPage() {
           motsClefs: "", fichierPdf: "", googleScholarUrl: "",
           datasetsLies: [], citationApa: "", citationBibtex: "",
         });
-        notify("Publication soumise — en attente de validation.", "success");
+        notify(t("dashboard.pubSubmitted"), "success");
       } else {
-        notify("Erreur lors de la soumission.", "error");
+        notify(t("dashboard.pubError"), "error");
       }
     } finally {
       setPubSubmitting(false);
@@ -207,9 +207,9 @@ export default function DashboardPage() {
         setDatasets((prev) => [ds, ...prev]);
         setShowDsForm(false);
         setDsTitle(""); setDsDesc("");
-        notify("Dataset déposé avec succès.", "success");
+        notify(t("dashboard.dsSubmitted"), "success");
       } else {
-        notify("Erreur lors du dépôt.", "error");
+        notify(t("dashboard.dsError"), "error");
       }
     } finally {
       setDsSubmitting(false);
@@ -240,7 +240,7 @@ export default function DashboardPage() {
             <p className="text-xs text-slate-500 mt-1">{user?.email} · <span className="text-blue-400 font-semibold capitalize">{user?.role}</span></p>
           </div>
           <button
-            onClick={() => { notify("À bientôt !", "info"); logout(); router.push("/"); }}
+            onClick={() => { notify(t("dashboard.goodbye"), "info"); logout(); router.push("/"); }}
             className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-3 py-2 text-xs text-slate-500 hover:text-red-400 hover:border-red-900/30 transition-all"
           >
             <LogOut className="h-3.5 w-3.5" /> {t("nav.logout")}
@@ -287,7 +287,7 @@ export default function DashboardPage() {
                         <button
                           onClick={() => avatarInputRef.current?.click()}
                           className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                          title="Changer la photo"
+                          title={t("dashboard.changePhoto")}
                         >
                           <Camera className="h-5 w-5 text-white" />
                         </button>
@@ -537,9 +537,9 @@ export default function DashboardPage() {
                 {/* Quick stats */}
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { label: "Publications", value: publications.length, icon: BookOpen },
-                    { label: "Datasets", value: datasets.length, icon: Database },
-                    { label: "Simulations", value: simulations.length, icon: Activity },
+                    { label: t("nav.publications"), value: publications.length, icon: BookOpen },
+                    { label: t("nav.datasets"),     value: datasets.length,     icon: Database },
+                    { label: t("nav.simulations"),  value: simulations.length,  icon: Activity },
                   ].map(({ label, value, icon: Icon }) => (
                     <div key={label} className="rounded-xl border border-slate-900 bg-slate-900/10 p-4 text-center">
                       <Icon className="h-5 w-5 text-blue-400 mx-auto mb-2" />
@@ -716,7 +716,7 @@ export default function DashboardPage() {
                             <p className="text-[10px] text-slate-500 mt-1">{p.axe} · {p.datePublication}</p>
                           </div>
                           <span className={`flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider flex-none ${st.color}`}>
-                            <StatusIcon className="h-3 w-3" /> {st.label}
+                            <StatusIcon className="h-3 w-3" /> {t(st.labelKey)}
                           </span>
                         </div>
                       );
@@ -806,7 +806,7 @@ export default function DashboardPage() {
                             <p className="text-[10px] text-slate-500 mt-0.5">{new Date(s.dateLancement).toLocaleDateString("fr-FR")}</p>
                           </div>
                           <span className={`flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider flex-none ${st?.color}`}>
-                            <StatusIcon className="h-3 w-3" /> {st?.label}
+                            <StatusIcon className="h-3 w-3" /> {st ? t(st.labelKey) : ""}
                           </span>
                         </div>
                       );
