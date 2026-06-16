@@ -6,6 +6,7 @@ import { ChevronRight, BookOpen, Users, FlaskConical, Cpu, Globe, TreePine } fro
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { PUBLICATION, RESEARCHERS } from "@/data/ummiscoData";
+import { useLang } from "@/context/LangContext";
 
 const AXES_DATA = [
   {
@@ -63,6 +64,7 @@ const iconColorMap: Record<string, string> = {
 };
 
 export default function AxesPage() {
+  const { t } = useLang();
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
@@ -70,11 +72,11 @@ export default function AxesPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="border-b border-slate-900 pb-8 mb-12">
           <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
-            Activités Scientifiques
+            {t("axes.pageTag")}
           </span>
-          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">Axes Thématiques de Recherche</h1>
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("axes.pageTitle")}</h1>
           <p className="mt-3 text-slate-400 text-sm max-w-2xl leading-relaxed">
-            Les travaux d'UMMISCO s'organisent autour de quatre piliers alliant modélisation fondamentale et applications concrètes dans les pays du Sud.
+            {t("axes.pageDesc")}
           </p>
         </div>
 
@@ -120,12 +122,12 @@ export default function AxesPage() {
                         <p className="text-xs text-slate-300 leading-relaxed mb-4">{axis.description}</p>
 
                         <div className="mb-4">
-                          <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Responsable :</span>
+                          <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">{t("axes.responsible")}</span>
                           <span className="text-[10px] text-slate-300 ml-1.5">{axis.lead}</span>
                         </div>
 
                         <div className="mb-4">
-                          <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold block mb-2">Mots-clefs :</span>
+                          <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold block mb-2">{t("axes.keywords")}</span>
                           <div className="flex flex-wrap gap-1">
                             {axis.keywords.map((k) => (
                               <span key={k} className="text-[9px] bg-slate-800 border border-slate-700 text-slate-300 px-2 py-0.5 rounded">
@@ -147,13 +149,13 @@ export default function AxesPage() {
                               </div>
                             ))}
                             {PUBLICATION.filter((p) => p.axis === axis.id).length === 0 && (
-                              <p className="text-xs text-slate-500 italic">Aucune publication indexée sur cet axe.</p>
+                              <p className="text-xs text-slate-500 italic">{t("axes.noPublications2")}</p>
                             )}
                           </div>
                         </div>
 
                         <Link href="/publications" className="inline-flex items-center gap-1 mt-4 text-[10px] text-blue-400 hover:text-blue-300 font-semibold">
-                          <span>Toutes les publications</span>
+                          <span>{t("axes.allPublications")}</span>
                           <ChevronRight className="h-3 w-3" />
                         </Link>
                       </div>
@@ -168,7 +170,7 @@ export default function AxesPage() {
         {/* Researchers by axis */}
         <div className="mt-16">
           <h2 className="text-xl font-extrabold text-white mb-6 border-b border-slate-900 pb-4">
-            Chercheurs par Axe
+            {t("axes.researchersByAxis")}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {RESEARCHERS.map((r) => (

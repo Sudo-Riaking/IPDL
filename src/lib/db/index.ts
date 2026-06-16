@@ -9,6 +9,7 @@ export interface DBUser {
   password: string; // plain text in dev mock — use bcrypt in production
   role: UserRole;
   langue: "fr" | "en";
+  avatar?: string;              // data URL base64 ou URL externe
   biographie?: string;
   expertises?: string[];        // chercheur, responsable_axe, directeur
   // Tous rôles

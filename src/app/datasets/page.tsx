@@ -79,7 +79,7 @@ export default function DatasetsPage() {
 
       if (!res.ok) {
         const text = await res.text();
-        alert(text || "Téléchargement refusé.");
+        alert(text || t("datasets.downloadDenied"));
         return;
       }
 
@@ -185,11 +185,11 @@ export default function DatasetsPage() {
 
                     <div className="flex flex-wrap gap-2 text-[9px] text-slate-500">
                       <span>
-                        Type : <strong className="text-slate-400">{ds.type.toUpperCase()}</strong>
+                        {t("common.type")} : <strong className="text-slate-400">{ds.type.toUpperCase()}</strong>
                       </span>
                       <span>·</span>
                       <span>
-                        Licence : <strong className="text-slate-400">{ds.licence}</strong>
+                        {t("common.licence")} : <strong className="text-slate-400">{ds.licence}</strong>
                       </span>
                     </div>
                   </div>
@@ -206,14 +206,14 @@ export default function DatasetsPage() {
                         className="inline-flex items-center gap-1.5 rounded bg-green-600 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white hover:bg-green-700 active:scale-95 disabled:opacity-70 transition-all"
                       >
                         {isDownloading ? (
-                          <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Préparation...</>
+                          <><Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("datasets.preparing")}</>
                         ) : (
                           <><Download className="h-3.5 w-3.5" /> {t("datasets.download")}</>
                         )}
                       </button>
                     ) : requestedIds.includes(ds.id) ? (
                       <span className="text-[10px] text-green-400 font-semibold flex items-center gap-1">
-                        <Check className="h-3 w-3" /> Demande envoyée
+                        <Check className="h-3 w-3" /> {t("datasets.accessRequested")}
                       </span>
                     ) : isAuthenticated ? (
                       <button
@@ -261,8 +261,8 @@ export default function DatasetsPage() {
                   <KeyRound className="h-4 w-4" />
                 </span>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Demander l&apos;accès</h3>
-                  <p className="text-[10px] text-slate-500">Soumis au directeur (modèle ACL)</p>
+                  <h3 className="text-sm font-bold text-white">{t("datasets.requestAccess")}</h3>
+                  <p className="text-[10px] text-slate-500">{t("datasets.aclNote")}</p>
                 </div>
               </div>
               <button onClick={() => setRequestModal(null)} className="text-slate-500 hover:text-slate-200">
@@ -273,18 +273,18 @@ export default function DatasetsPage() {
             <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3 mb-4">
               <p className="text-xs font-semibold text-slate-200 leading-snug">{requestModal.titre}</p>
               <p className="text-[10px] text-slate-500 mt-0.5 uppercase tracking-wider">
-                Niveau : {t(`datasets.${requestModal.acces}`)}
+                {t("common.level")} : {t(`datasets.${requestModal.acces}`)}
               </p>
             </div>
 
             <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">
-              Motif de la demande
+              {t("datasets.requestReason")}
             </label>
             <textarea
               rows={4}
               value={requestReason}
               onChange={(e) => setRequestReason(e.target.value)}
-              placeholder="Décrivez votre projet de recherche et pourquoi cet accès vous est nécessaire…"
+              placeholder={t("datasets.reasonPlaceholder")}
               className="w-full rounded-lg border border-slate-800 bg-slate-950/60 text-xs text-slate-200 px-3 py-2.5 focus:outline-none focus:border-blue-500/50 resize-none"
             />
 
@@ -294,9 +294,9 @@ export default function DatasetsPage() {
               className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-blue-700 disabled:opacity-50 active:scale-95 transition-all"
             >
               {requestSubmitting ? (
-                <><Loader2 className="h-4 w-4 animate-spin" /> Envoi…</>
+                <><Loader2 className="h-4 w-4 animate-spin" /> {t("common.sending")}</>
               ) : (
-                <><Send className="h-3.5 w-3.5" /> Soumettre la demande</>
+                <><Send className="h-3.5 w-3.5" /> {t("datasets.submitRequest")}</>
               )}
             </button>
           </div>

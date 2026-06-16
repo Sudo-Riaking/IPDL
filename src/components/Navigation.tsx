@@ -20,7 +20,7 @@ export default function Navigation() {
   const navLinks = [
     { label: t("nav.home"), href: "/" },
     { label: t("nav.axes"), href: "/axes" },
-    { label: "Projets", href: "/projets" },
+    { label: t("nav.projets"), href: "/projets" },
     { label: t("nav.publications"), href: "/publications" },
     { label: t("nav.datasets"), href: "/datasets" },
     { label: t("nav.simulations"), href: "/simulations" },
@@ -46,7 +46,7 @@ export default function Navigation() {
           <BrandLogo height={60} animated />
           <div className="hidden lg:flex flex-col border-l border-slate-800 pl-2.5">
             <span className="text-[13px] font-bold tracking-wide text-slate-100 leading-tight">
-              Systèmes Complexes
+              {t("hero.titleHighlight")}
             </span>
             <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest leading-none">
               UMI 209 · IRD–Sorbonne
@@ -83,7 +83,7 @@ export default function Navigation() {
           <button
             onClick={() => setLang(lang === "fr" ? "en" : "fr")}
             className="px-2.5 py-1.5 rounded-md border border-slate-800 bg-slate-950 text-[13px] font-bold text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 tracking-widest uppercase transition-all"
-            aria-label="Changer la langue"
+            aria-label={t("nav.langSwitch")}
           >
             {lang === "fr" ? "EN" : "FR"}
           </button>
@@ -92,7 +92,7 @@ export default function Navigation() {
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg border border-slate-900 bg-slate-950 text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 active:scale-95 transition-all"
-            aria-label="Basculer le thème"
+            aria-label={t("nav.themeSwitch")}
           >
             {theme === "dark" ? (
               <Sun className="h-4 w-4 text-amber-500" />
@@ -110,7 +110,7 @@ export default function Navigation() {
                   className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-3 py-2 text-[13px] font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 transition-all"
                 >
                   <Shield className="h-3 w-3" />
-                  <span>Admin</span>
+                  <span>{t("nav.admin")}</span>
                 </Link>
               )}
               <Link
@@ -123,7 +123,7 @@ export default function Navigation() {
               <button
                 onClick={handleLogout}
                 className="p-2 rounded-lg border border-slate-900 text-slate-500 hover:text-red-400 hover:bg-red-900/10 transition-all"
-                aria-label="Se déconnecter"
+                aria-label={t("nav.logout")}
               >
                 <LogOut className="h-4 w-4" />
               </button>

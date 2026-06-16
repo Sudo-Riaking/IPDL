@@ -20,6 +20,7 @@ import {
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { PROJECTS, CENTERS, AXES, Project } from "@/data/ummiscoData";
+import { useLang } from "@/context/LangContext";
 
 // ─── Couleurs domaine ──────────────────────────────────────────────────────────
 
@@ -232,6 +233,7 @@ function ProjectCard({
   onOpen: () => void;
 }) {
   const [imgFailed, setImgFailed] = useState(false);
+  const { t } = useLang();
   const dc = getDomainConfig(project.domain);
 
   return (
@@ -294,7 +296,7 @@ function ProjectCard({
 
         {/* Axes / thèmes */}
         <div className="mb-4">
-          <span className="text-[9px] uppercase tracking-widest text-slate-600 font-bold mb-1.5 block">Axes</span>
+          <span className="text-[9px] uppercase tracking-widest text-slate-600 font-bold mb-1.5 block">{t("nav.axes")}</span>
           <div className="flex flex-wrap gap-1">
             {project.themes.map((themeId) => {
               const ThemeIcon = THEME_ICON[themeId] || Tag;
@@ -351,6 +353,7 @@ function ProjectCard({
 // ─── Page principale ───────────────────────────────────────────────────────────
 
 export default function ProjetsPage() {
+  const { t } = useLang();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTheme, setActiveTheme] = useState<string | null>(null);
   const [activeDomain, setActiveDomain] = useState<string | null>(null);
@@ -411,7 +414,7 @@ export default function ProjetsPage() {
 
           {/* Logos financeurs */}
           <div className="mt-6 flex items-center gap-3 flex-wrap">
-            <span className="text-[9px] uppercase tracking-widest text-slate-600 font-bold">Financé par :</span>
+            <span className="text-[9px] uppercase tracking-widest text-slate-600 font-bold">{t("projets.fundedBy")}</span>
             {[
               { src: "/logos/logo_anr.png", alt: "ANR" },
               { src: "/logos/logo_ird.webp", alt: "IRD" },
@@ -557,7 +560,7 @@ export default function ProjetsPage() {
               className="py-20 text-center"
             >
               <Filter className="h-10 w-10 text-slate-700 mx-auto mb-4" />
-              <p className="text-slate-500 text-sm">Aucun projet ne correspond aux filtres sélectionnés.</p>
+              <p className="text-slate-500 text-sm">{t("projets.noResults")}</p>
               <button onClick={resetFilters} className="mt-4 text-blue-400 hover:text-blue-300 text-xs underline">
                 Réinitialiser les filtres
               </button>

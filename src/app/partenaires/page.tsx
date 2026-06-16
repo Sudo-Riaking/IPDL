@@ -97,7 +97,7 @@ export default function PartenairesPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="border-b border-slate-900 pb-8 mb-10">
           <span className="text-[10px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">
-            Réseau International
+            {t("partenaires.networkTitle")}
           </span>
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">{t("partners.title")}</h1>
           <p className="mt-2 text-slate-400 text-sm max-w-2xl">{t("partners.description")}</p>
@@ -138,9 +138,9 @@ export default function PartenairesPage() {
               <Coins className="h-5 w-5" />
             </span>
             <div>
-              <h2 className="text-lg font-extrabold text-white">Délivrables &amp; Bailleurs</h2>
+              <h2 className="text-lg font-extrabold text-white">{t("partenaires.deliverables")}</h2>
               <p className="text-[11px] text-slate-500 max-w-2xl">
-                Productions livrées dans le cadre des projets financés (rapports, logiciels, jeux de données) — accès selon le niveau de confidentialité.
+                {t("partenaires.deliverablesDesc")}
               </p>
             </div>
           </div>
@@ -156,18 +156,18 @@ export default function PartenairesPage() {
                       <Icon className="h-4 w-4" />
                     </span>
                     <span className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[9px] font-bold border uppercase tracking-wider ${isPublic ? "bg-green-500/10 text-green-400 border-green-900/30" : "bg-blue-500/10 text-blue-400 border-blue-900/30"}`}>
-                      {isPublic ? <><Eye className="h-2.5 w-2.5" /> Public</> : <><Lock className="h-2.5 w-2.5" /> Protégé</>}
+                      {isPublic ? <><Eye className="h-2.5 w-2.5" /> {t("common.public")}</> : <><Lock className="h-2.5 w-2.5" /> {t("common.protected")}</>}
                     </span>
                   </div>
                   <h3 className="text-sm font-bold text-white leading-snug">{d.titre}</h3>
                   <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500">
-                    <span>Projet : <strong className="text-slate-400">{d.projet}</strong></span>
-                    <span>Type : <strong className="text-slate-400">{d.type}</strong></span>
+                    <span>{t("partenaires.projectLabel")} : <strong className="text-slate-400">{d.projet}</strong></span>
+                    <span>{t("partenaires.typeLabel")} : <strong className="text-slate-400">{d.type}</strong></span>
                     <span>{d.annee}</span>
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-900/60">
                     <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-400">
-                      <Coins className="h-3 w-3" /> Financé par {d.bailleur}
+                      <Coins className="h-3 w-3" /> {t("partenaires.fundedBy")} {d.bailleur}
                     </span>
                   </div>
                 </div>
@@ -177,15 +177,15 @@ export default function PartenairesPage() {
         </section>
 
         <div className="border-b border-slate-900 pb-4 mb-8">
-          <h2 className="text-lg font-extrabold text-white">Partenaires &amp; tutelles</h2>
+          <h2 className="text-lg font-extrabold text-white">{t("partenaires.partnersTitle")}</h2>
         </div>
 
         {/* Filter */}
         <div className="flex items-center gap-3 mb-8 flex-wrap">
           <div className="flex items-center gap-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-            <Filter className="h-3 w-3" /> Type :
+            <Filter className="h-3 w-3" /> {t("partners.filterType")} :
           </div>
-          {["all", "academique", "institutionnel", "bailleur", "industriel"].map((f) => (
+          {(["all", "academique", "institutionnel", "bailleur", "industriel"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -195,7 +195,7 @@ export default function PartenairesPage() {
                   : "border-slate-800 text-slate-500 hover:text-slate-300"
               }`}
             >
-              {f === "all" ? "Tous" : TYPE_LABELS[f]}
+              {f === "all" ? t("partenaires.all") : {academique: t("partners.typeAcademic"), institutionnel: t("partners.typeInstitutional"), bailleur: t("partners.typeFunder"), industriel: t("partners.typeIndustrial")}[f]}
             </button>
           ))}
         </div>
@@ -216,7 +216,7 @@ export default function PartenairesPage() {
                     })()}
                   </div>
                   <span className={`inline-flex items-center rounded px-2 py-0.5 text-[9px] font-bold border uppercase tracking-wider ${TYPE_COLORS[p.type]}`}>
-                    {TYPE_LABELS[p.type]}
+                    {{academique: t("partners.typeAcademic"), institutionnel: t("partners.typeInstitutional"), bailleur: t("partners.typeFunder"), industriel: t("partners.typeIndustrial")}[p.type] ?? p.type}
                   </span>
                 </div>
 

@@ -21,7 +21,7 @@ export default function TopBar() {
       <button
         onClick={() => setLang(lang === "fr" ? "en" : "fr")}
         className="px-2.5 py-1 rounded-md border border-slate-800 text-[11px] font-bold text-slate-400 hover:text-slate-200 uppercase tracking-widest transition-all"
-        title="Changer la langue"
+        title={t("nav.langSwitch")}
       >
         {lang === "fr" ? "EN" : "FR"}
       </button>
@@ -29,7 +29,7 @@ export default function TopBar() {
       <button
         onClick={toggleTheme}
         className="p-2 rounded-lg border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 transition-all"
-        aria-label="Basculer le thème"
+        aria-label={t("nav.themeSwitch")}
       >
         {theme === "dark"
           ? <Sun  className="h-3.5 w-3.5 text-amber-500" />
@@ -43,7 +43,7 @@ export default function TopBar() {
               className="flex items-center gap-1.5 rounded-lg border border-slate-800 px-2.5 py-1 text-[11px] font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 transition-all"
             >
               <Shield className="h-3.5 w-3.5" />
-              <span>Admin</span>
+              <span>{t("nav.admin")}</span>
             </Link>
           )}
           <Link href="/dashboard"
@@ -54,7 +54,7 @@ export default function TopBar() {
           </Link>
           <button onClick={handleLogout}
             className="p-2 rounded-lg border border-slate-800 text-slate-500 hover:text-red-400 hover:bg-red-900/10 transition-all"
-            title="Se déconnecter"
+            title={t("nav.logout")}
           >
             <LogOut className="h-3.5 w-3.5" />
           </button>

@@ -37,19 +37,19 @@ import GlobeCentres from "@/components/GlobeCentres";
 import { useLang } from "@/context/LangContext";
 import { scholarUrl, doiUrl, UMMISCO_SCHOLAR_SEARCH } from "@/lib/scholar";
 
-const EXPLORE_LINKS = [
-  { href: "/publications", title: "Publications", desc: "Recherche multicritère, citations APA/BibTeX, liens Google Scholar & DOI.", Icon: BookOpen, accent: "text-blue-400", bg: "bg-blue-500/10" },
-  { href: "/projets", title: "Projets de recherche", desc: "10 projets actifs filtrables par axe, domaine et centre international.", Icon: Boxes, accent: "text-indigo-400", bg: "bg-indigo-500/10" },
-  { href: "/datasets", title: "Datasets ouverts", desc: "Catalogue à 3 niveaux d'accès (public, protégé, privé) avec licences.", Icon: Database, accent: "text-green-400", bg: "bg-green-500/10" },
-  { href: "/equipe", title: "Équipe & chercheurs", desc: "94 membres, 5 centres internationaux, vitrines personnelles.", Icon: Users, accent: "text-violet-400", bg: "bg-violet-500/10" },
-  { href: "/simulations", title: "Simulations", desc: "Modèles intégrés (GAMA, NetLogo) exécutables sans quitter le portail.", Icon: FlaskConical, accent: "text-amber-400", bg: "bg-amber-500/10" },
-  { href: "/logiciels", title: "Logiciels open source", desc: "Plateformes de modélisation reconnues internationalement (GAMA, Kendrick, etc.).", Icon: Boxes, accent: "text-violet-400", bg: "bg-violet-500/10" },
-  { href: "/actualites", title: "Actualités & séminaires", desc: "Agenda scientifique, inscriptions en ligne, contrats de doctorat.", Icon: Newspaper, accent: "text-rose-400", bg: "bg-rose-500/10" },
-  { href: "/partenaires", title: "Partenaires & bailleurs", desc: "Tutelles, partenaires académiques, financeurs et délivrables.", Icon: Handshake, accent: "text-cyan-400", bg: "bg-cyan-500/10" },
-];
-
 export default function Home() {
   const { t } = useLang();
+
+  const EXPLORE_LINKS = [
+    { href: "/publications", titleKey: "nav.publications", descKey: "home.explorePublications", Icon: BookOpen, accent: "text-blue-400", bg: "bg-blue-500/10" },
+    { href: "/projets", titleKey: "nav.projets", descKey: "home.exploreProjets", Icon: Boxes, accent: "text-indigo-400", bg: "bg-indigo-500/10" },
+    { href: "/datasets", titleKey: "nav.datasets", descKey: "home.exploreDatasets", Icon: Database, accent: "text-green-400", bg: "bg-green-500/10" },
+    { href: "/equipe", titleKey: "nav.equipe", descKey: "home.exploreEquipe", Icon: Users, accent: "text-violet-400", bg: "bg-violet-500/10" },
+    { href: "/simulations", titleKey: "nav.simulations", descKey: "home.exploreSimulations", Icon: FlaskConical, accent: "text-amber-400", bg: "bg-amber-500/10" },
+    { href: "/logiciels", titleKey: "nav.logiciels", descKey: "home.exploreLogiciels", Icon: Boxes, accent: "text-violet-400", bg: "bg-violet-500/10" },
+    { href: "/actualites", titleKey: "nav.actualites", descKey: "home.exploreActualites", Icon: Newspaper, accent: "text-rose-400", bg: "bg-rose-500/10" },
+    { href: "/partenaires", titleKey: "nav.partenaires", descKey: "home.explorePartenaires", Icon: Handshake, accent: "text-cyan-400", bg: "bg-cyan-500/10" },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedAxis, setSelectedAxis] = useState<string | null>(null);
   const [copiedPubId, setCopiedPubId] = useState<string | null>(null);
@@ -83,7 +83,7 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/60 px-3.5 py-1 text-sm text-slate-400">
             <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-            UMMISCO UMI 209 · Au cœur des sciences de la complexité
+            {t("hero.badge")}
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl mt-6">
@@ -137,18 +137,17 @@ export default function Home() {
         <div className="mx-auto max-w-6xl grid gap-12 lg:grid-cols-2 items-center">
           <div>
             <h2 className="text-3xl font-extrabold tracking-tight text-white leading-tight">
-              Une unité mixte internationale au service de la{" "}
-              <span className="text-green-400">science de la durabilité</span>
+              {t("home.aboutTitle")}
             </h2>
             <p className="mt-6 text-slate-400 text-base leading-relaxed">
-              Fondée en <strong className="text-slate-200">2009</strong>, l&apos;UMI UMMISCO réunit des chercheurs de disciplines variées pour développer des approches de <strong className="text-slate-200">modélisation, simulation et aide à la décision</strong> appliquées aux systèmes complexes — sous la tutelle de l&apos;<strong className="text-slate-200">IRD</strong> et de <strong className="text-slate-200">Sorbonne Université</strong>.
+              {t("home.aboutDesc")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/equipe" style={{ color: "#ffffff" }} className="inline-flex items-center gap-2 rounded-lg bg-ummisco-blue px-5 py-2.5 text-sm font-semibold text-white hover:bg-ummisco-blue/90 active:scale-95 transition-all">
-                <Users className="h-4 w-4" /> Découvrir l&apos;équipe
+                <Users className="h-4 w-4" /> {t("home.teamLink")}
               </Link>
               <Link href="/axes" className="inline-flex items-center gap-2 rounded-lg border border-slate-800 px-5 py-2.5 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all">
-                Nos axes de recherche <ArrowRight className="h-4 w-4" />
+                {t("home.axesLink")} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -163,11 +162,11 @@ export default function Home() {
             </div>
             <div className="mt-6 pt-6 border-t border-slate-800 flex items-center gap-3 text-[13px] text-slate-500">
               <Globe2 className="h-4 w-4 text-blue-400 flex-none" />
-              <span>Présente en France, au Vietnam, au Sénégal, au Cameroun et au Maroc.</span>
+              <span>{t("home.presence")}</span>
             </div>
             {/* Logos tutelles */}
             <div className="mt-5 pt-5 border-t border-slate-800">
-              <p className="text-[9px] uppercase tracking-widest text-slate-600 font-bold mb-3">Tutelles</p>
+              <p className="text-[9px] uppercase tracking-widest text-slate-600 font-bold mb-3">{t("home.tutelles")}</p>
               <div className="flex items-center gap-4 flex-wrap">
                 {[
                   { src: "/logos/logo_ird.webp", alt: "IRD" },
@@ -191,8 +190,8 @@ export default function Home() {
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[28rem] w-[28rem] rounded-full bg-blue-600/5 blur-[120px]" />
         <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-2 items-center">
           <div>
-            <span className="text-[13px] mono-text uppercase tracking-widest text-green-400 font-bold mb-3 flex items-center gap-2"><Globe2 className="h-4 w-4" /> Réseau international</span>
-            <h2 className="text-3xl font-extrabold tracking-tight text-white">Nos 5 centres dans le monde</h2>
+            <span className="text-[13px] mono-text uppercase tracking-widest text-green-400 font-bold mb-3 flex items-center gap-2"><Globe2 className="h-4 w-4" /> {t("home.networkTitle")}</span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white">{t("home.centersTitle")}</h2>
             <div className="mt-6 flex flex-wrap gap-2">
               {CENTERS.map((c) => (
                 <Link key={c.id} href={`/centres/${c.id}`} className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/40 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all">
@@ -235,12 +234,12 @@ export default function Home() {
           <AnimatePresence>
             {selectedAxis && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-8 rounded-xl border border-slate-900 bg-slate-900/30 p-6 overflow-hidden">
-                <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-blue-500" /> Publications liées à l&apos;axe sélectionné</h4>
+                <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-blue-500" /> {t("axes.allPublications")}</h4>
                 <div className="space-y-4">
                   {PUBLICATION.filter((p) => p.axis === selectedAxis).map((p) => (
                     <div key={p.id} className="border-b border-slate-900/60 pb-3 last:border-b-0 last:pb-0"><div className="text-sm font-bold text-slate-200">{p.title}</div><div className="text-[13px] text-slate-400 mt-1">{p.authors.join(", ")} — {p.year}</div></div>
                   ))}
-                  {PUBLICATION.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">Aucune publication indexée sur cet axe pour le moment.</div>)}
+                  {PUBLICATION.filter((p) => p.axis === selectedAxis).length === 0 && (<div className="text-sm text-slate-500">{t("axes.noPublications2")}</div>)}
                 </div>
               </motion.div>
             )}
@@ -290,8 +289,8 @@ export default function Home() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900 bg-slate-900/10">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8">
-            <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">Explorer la plateforme</span>
-            <h2 className="text-3xl font-extrabold tracking-tight text-white">Tout l&apos;écosystème UMMISCO, en un endroit</h2>
+            <span className="text-[13px] mono-text uppercase tracking-widest text-slate-500 font-bold block mb-2">{t("home.platformTitle")}</span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white">{t("home.platformSubtitle")}</h2>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {EXPLORE_LINKS.map((item) => {
@@ -299,9 +298,9 @@ export default function Home() {
               return (
                 <Link key={item.href} href={item.href} className="group rounded-xl border border-slate-800 bg-slate-900/10 p-6 hover:border-slate-700 hover:bg-slate-900/30 transition-all flex flex-col">
                   <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${item.bg} ${item.accent} mb-4`}><Icon className="h-5 w-5" /></span>
-                  <h3 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors">{item.title}</h3>
-                  <p className="mt-2 text-sm text-slate-500 leading-relaxed flex-1">{item.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-slate-400 group-hover:text-slate-200">Découvrir <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" /></span>
+                  <h3 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors">{t(item.titleKey)}</h3>
+                  <p className="mt-2 text-sm text-slate-500 leading-relaxed flex-1">{t(item.descKey)}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-slate-400 group-hover:text-slate-200">{t("home.discover")} <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" /></span>
                 </Link>
               );
             })}
@@ -312,7 +311,7 @@ export default function Home() {
       {/* ── AI ASSISTANT CALLOUT ──────────────────────────────────────────── */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-900">
         <div className="mx-auto max-w-5xl rounded-2xl border border-slate-900 bg-gradient-to-br from-blue-950/40 to-slate-900/20 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
-          <div className="flex items-center gap-3"><MessageSquare className="h-5 w-5 text-blue-400" /><h3 className="text-lg font-bold text-white">Assistant IA UMMISCO</h3><span className="flex items-center gap-1.5 text-[13px] text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" /> disponible 24h/24</span></div>
+          <div className="flex items-center gap-3"><MessageSquare className="h-5 w-5 text-blue-400" /><h3 className="text-lg font-bold text-white">{t("home.aiTitle")}</h3><span className="flex items-center gap-1.5 text-[13px] text-slate-500"><span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" /> {t("home.aiAvail")}</span></div>
         </div>
       </section>
 
@@ -341,8 +340,8 @@ export default function Home() {
                   <pre className="p-4 rounded-lg bg-slate-950 border border-slate-900 text-[13px] text-slate-300 leading-relaxed font-mono overflow-x-auto select-all max-h-40">{citationModalPub.citationBibtex}</pre>
                 </div>
                 <div className="flex flex-wrap gap-3 pt-2">
-                  <a href={scholarUrl(citationModalPub)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><Quote className="h-3.5 w-3.5" /> Ouvrir dans Google Scholar</a>
-                  {doiUrl(citationModalPub.doi) && (<a href={doiUrl(citationModalPub.doi)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><ExternalLink className="h-3.5 w-3.5" /> Page de l&apos;éditeur (DOI)</a>)}
+                  <a href={scholarUrl(citationModalPub)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><Quote className="h-3.5 w-3.5" /> {t("home.scholarLink")}</a>
+                  {doiUrl(citationModalPub.doi) && (<a href={doiUrl(citationModalPub.doi)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-[13px] font-bold text-slate-300 border border-slate-800 hover:text-white"><ExternalLink className="h-3.5 w-3.5" /> {t("home.doiLink")}</a>)}
                 </div>
               </div>
             </motion.div>
